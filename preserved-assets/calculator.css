@@ -1,0 +1,179 @@
+/* ==========================================================================
+   Calculator Styles
+   ========================================================================== */
+
+/* Color system variables based on template */
+:root {
+  --color-primary: #0f3f7d;
+  /* Deep corporate Navy blue */
+  --color-gold: #c5a880;
+  /* Premium Accent Gold */
+  --color-gold-dark: #a68452;
+  --color-navy-light: #162447;
+  --color-light-gray: #f8f9fa;
+  --color-success: #198754;
+  --color-success-bg: #e8f5e9;
+  --color-gold-bg: #fdfaf6;
+}
+
+/* Page Structure styling */
+.calculator-section {
+  background-color: #f4f6f9 !important;
+  font-family: 'Poppins', sans-serif;
+}
+
+.text-navy {
+  color: var(--color-primary) !important;
+}
+
+.text-gold {
+  color: var(--color-gold-dark) !important;
+}
+
+.text-green {
+  color: var(--color-success) !important;
+}
+
+.italic {
+  font-style: italic;
+}
+
+/* Banner Headers */
+.calculator-header-banner {
+  background: var(--color-primary);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.calculator-title-banner {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-navy-light) 100%);
+  border-bottom: 3px solid var(--color-gold);
+}
+
+/* Input Card */
+.calculator-card {
+  border: 1px solid rgba(197, 168, 128, 0.3) !important;
+  border-top: 4px solid var(--color-gold) !important;
+  transition: all 0.3s ease;
+}
+
+.calculator-card:hover {
+  box-shadow: 0 10px 30px rgba(15, 28, 63, 0.08) !important;
+}
+
+/* Input Fields styling */
+.calculator-card .form-control {
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-primary);
+  transition: all 0.25s ease;
+}
+
+.calculator-card .form-control:focus {
+  background-color: #fff !important;
+  box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.25) !important;
+  border: 1px solid var(--color-gold) !important;
+}
+
+/* Toggle Tabs */
+.btn-tab {
+  background-color: var(--color-light-gray);
+  border: 1px solid #e9ecef;
+  color: var(--color-primary);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+.btn-tab:hover {
+  background-color: #e9ecef;
+  color: var(--color-primary);
+}
+
+.btn-tab.active {
+  background-color: var(--color-primary) !important;
+  color: #fff !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 4px 10px rgba(15, 28, 63, 0.15);
+}
+
+/* Custom Switch Toggle styling */
+.custom-switch {
+  width: 3.2em !important;
+  height: 1.6em !important;
+  background-color: #e9ecef;
+  border-color: #ced4da;
+  cursor: pointer;
+}
+
+.custom-switch:checked {
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+}
+
+/* Calculate Button */
+.btn-calculate {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-navy-light) 100%);
+  border: none;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-calculate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(15, 28, 63, 0.2) !important;
+  opacity: 0.95;
+}
+
+#clearFieldsBtn:hover {
+  color: var(--color-gold-dark) !important;
+}
+
+/* Results Card styling */
+.results-card {
+  border: 2px dashed var(--color-gold) !important;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.reckoned-badge {
+  border-color: var(--color-gold) !important;
+  color: var(--color-gold-dark);
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* Output Subcards */
+.output-subcard {
+  background-color: var(--color-gold-bg);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+  min-height: 140px;
+  transition: all 0.3s ease;
+}
+
+.output-subcard.green {
+  background-color: var(--color-success-bg);
+  border: 1px solid rgba(25, 135, 84, 0.1);
+}
+
+.output-subcard h2 {
+  font-size: 32px;
+}
+
+/* Responsive adjustment */
+@media (max-width: 767.98px) {
+  .calculator-card {
+    padding: 20px !important;
+  }
+
+  .results-card {
+    padding: 20px !important;
+  }
+
+  .output-subcard h2 {
+    font-size: 26px;
+  }
+}

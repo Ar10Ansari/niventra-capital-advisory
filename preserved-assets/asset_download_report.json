@@ -1,0 +1,90 @@
+[
+  {
+    "rel": "/assets/images/logo.png",
+    "url": "https://niventracapitaladvisory.com/assets/images/logo.png",
+    "status": "OK",
+    "size": 687686,
+    "ctype": "image/png",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\logo.png"
+  },
+  {
+    "rel": "/assets/images/bond-plant.png",
+    "url": "https://niventracapitaladvisory.com/assets/images/bond-plant.png",
+    "status": "OK",
+    "size": 769162,
+    "ctype": "image/png",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\bond-plant.png"
+  },
+  {
+    "rel": "/assets/images/premium_corporate_real_estate.png",
+    "url": "https://niventracapitaladvisory.com/assets/images/premium_corporate_real_estate.png",
+    "status": "OK",
+    "size": 844813,
+    "ctype": "image/png",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\premium_corporate_real_estate.png"
+  },
+  {
+    "rel": "/assets/images/privacy_lock.png",
+    "url": "https://niventracapitaladvisory.com/assets/images/privacy_lock.png",
+    "status": "OK",
+    "size": 869303,
+    "ctype": "image/png",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\privacy_lock.png"
+  },
+  {
+    "rel": "/assets/images/terms_agreement.png",
+    "url": "https://niventracapitaladvisory.com/assets/images/terms_agreement.png",
+    "status": "OK",
+    "size": 758975,
+    "ctype": "image/png",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\terms_agreement.png"
+  },
+  {
+    "rel": "/assets/css/style.css",
+    "url": "https://niventracapitaladvisory.com/assets/css/style.css",
+    "status": "OK",
+    "size": 28336,
+    "ctype": "text/css",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\style.css"
+  },
+  {
+    "rel": "/assets/css/responsive.css",
+    "url": "https://niventracapitaladvisory.com/assets/css/responsive.css",
+    "status": "OK",
+    "size": 7713,
+    "ctype": "text/css",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\responsive.css"
+  },
+  {
+    "rel": "/assets/js/script.js",
+    "url": "https://niventracapitaladvisory.com/assets/js/script.js",
+    "status": "OK",
+    "size": 4813,
+    "ctype": "application/x-javascript",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\script.js"
+  },
+  {
+    "rel": "/calculator/calculator.css",
+    "url": "https://niventracapitaladvisory.com/calculator/calculator.css",
+    "status": "OK",
+    "size": 3895,
+    "ctype": "text/css",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\calculator.css"
+  },
+  {
+    "rel": "/calculator/calculator.js",
+    "url": "https://niventracapitaladvisory.com/calculator/calculator.js",
+    "status": "OK",
+    "size": 9541,
+    "ctype": "application/x-javascript",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\calculator.js"
+  },
+  {
+    "rel": "/favicon.ico",
+    "url": "https://niventracapitaladvisory.com/favicon.ico",
+    "status": "OK",
+    "size": 15406,
+    "ctype": "image/x-icon",
+    "local_path": "C:\\Users\\Lenovo\\.gemini\\antigravity-ide\\brain\\ad5f1f55-98e1-46c6-849c-379b840f18a5\\scratch\\downloaded_assets\\favicon.ico"
+  }
+]

@@ -1,0 +1,575 @@
+/* Large Screen */
+
+@media (max-width: 1200px) {}
+
+/* Laptop */
+
+@media (max-width: 992px) {}
+
+/* Tablet */
+
+@media (max-width: 768px) {}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+  section {
+    padding: 60px 0;
+  }
+}
+
+/* Navbar */
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: #fff;
+
+    margin-top: 20px;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .navbar-nav .nav-link {
+    margin: 12px 0;
+  }
+
+  .navbar .btn {
+    width: 100%;
+    margin-top: 15px;
+  }
+}
+
+/* Hero */
+
+@media (min-width: 300px) and (max-width: 1700px) {
+
+  .hero-section,
+  .investment-hero,
+  .about-hero {
+    background-size: cover;
+  }
+
+  .logo-title {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .hero-section {
+    text-align: center;
+    padding: 0;
+  }
+
+  .hero-slide {
+    padding-top: 2rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  .hero-title {
+    font-size: 32px !important;
+    line-height: 1.25 !important;
+  }
+
+  .hero-text {
+    font-size: 15px !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 12px 20px !important;
+    font-size: 15px !important;
+  }
+
+  .hero-buttons .btn:last-child {
+    margin-left: 0 !important;
+  }
+
+  .hero-glass-card {
+    padding: 1.5rem !important;
+    margin-top: 1rem;
+    text-align: left;
+  }
+
+  .hero-pagination {
+    bottom: 12px !important;
+  }
+
+  .hero-pagination .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+  }
+
+  .hero-pagination .swiper-pagination-bullet-active {
+    width: 28px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 26px !important;
+  }
+
+  .hero-glass-card h5 {
+    font-size: 16px;
+  }
+
+  .hero-glass-card h3 {
+    font-size: 22px !important;
+  }
+
+  .hero-glass-card small {
+    font-size: 11px;
+  }
+}
+
+
+/* Why Choose Us */
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 32px;
+  }
+
+  .feature-card {
+    padding: 30px 20px;
+  }
+
+  .feature-icon {
+    width: 70px;
+
+    height: 70px;
+  }
+}
+
+/* Services */
+
+@media (max-width: 768px) {
+  .service-card {
+    padding: 30px 20px;
+  }
+
+  .service-icon {
+    width: 65px;
+
+    height: 65px;
+  }
+
+  .service-icon i {
+    font-size: 28px;
+  }
+}
+
+/* Journey */
+
+@media (max-width: 992px) {
+  .journey-card {
+    margin-bottom: 20px;
+  }
+
+  .step-number {
+    font-size: 32px;
+  }
+}
+
+/* Statistics */
+
+@media (max-width: 991px) {
+  .stats-section {
+    text-align: center;
+  }
+
+  .stats-title {
+    font-size: 38px;
+  }
+
+  .counter-card {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-title {
+    font-size: 30px;
+  }
+
+  .counter-card h2 {
+    font-size: 36px;
+  }
+}
+
+/* News */
+
+@media (max-width: 768px) {
+  .news-content {
+    padding: 22px;
+  }
+
+  .news-content h4 {
+    font-size: 20px;
+
+    line-height: 30px;
+  }
+
+  .news-image img {
+    height: 220px;
+  }
+}
+
+/* Testimonials */
+
+@media (max-width: 768px) {
+  .testimonial-card {
+    padding: 30px 20px;
+  }
+
+  .testimonial-card p {
+    font-size: 16px;
+
+    line-height: 28px;
+  }
+
+  .client-image {
+    width: 80px;
+
+    height: 80px;
+  }
+}
+
+/* CTA */
+
+@media (max-width: 992px) {
+  .cta-section {
+    text-align: center;
+  }
+
+  .cta-buttons {
+    justify-content: center;
+  }
+
+  .cta-section h2 {
+    font-size: 38px;
+  }
+
+  .cta-card {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .cta-section h2 {
+    font-size: 30px;
+  }
+
+  .cta-section p {
+    font-size: 16px;
+
+    line-height: 28px;
+  }
+
+  .cta-buttons .btn {
+    width: 100%;
+  }
+}
+
+/* Footer */
+
+@media (max-width: 992px) {
+  .footer-bottom {
+    flex-direction: column;
+
+    text-align: center;
+
+    gap: 10px;
+  }
+
+  .newsletter-form {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .newsletter-form {
+    flex-direction: column;
+
+    border-radius: 15px;
+  }
+
+  .newsletter-form button {
+    padding: 15px;
+  }
+
+  #topBtn {
+    right: 20px;
+
+    bottom: 20px;
+  }
+}
+
+/* Investment Hero */
+
+@media (max-width: 992px) {
+  .floating-growth {
+    display: none;
+  }
+
+  .investment-hero {
+    text-align: center;
+  }
+
+  .hero-stat {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .icon-box {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 992px) {
+  .category-menu {
+    margin-bottom: 30px;
+  }
+}
+
+/* Timeline */
+
+@media (max-width: 991px) {
+  .timeline {
+    flex-direction: column;
+  }
+
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-item {
+    width: 100%;
+
+    margin-bottom: 40px;
+  }
+}
+
+/* CTA */
+
+@media (max-width: 992px) {
+  .investment-cta {
+    padding: 45px 30px;
+
+    text-align: center;
+  }
+
+  .floating-card {
+    position: static;
+
+    margin-top: 25px;
+  }
+}
+
+/* Quick Contact */
+
+@media (max-width: 768px) {
+  .contact-banner {
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 30px 25px;
+  }
+
+  .contact-banner .btn {
+    width: 100%;
+  }
+}
+
+/* About Hero */
+
+@media (max-width: 992px) {
+  .about-hero {
+    text-align: center;
+  }
+
+  .floating-about {
+    position: static;
+
+    margin-top: 25px;
+  }
+
+  .mini-card {
+    justify-content: center;
+  }
+}
+
+/* Our Story */
+
+@media (max-width: 992px) {
+  .story-floating-card {
+    position: static;
+
+    margin-top: 20px;
+
+    display: inline-block;
+  }
+}
+
+/* Mission */
+
+@media (max-width: 768px) {
+  .purpose-icon {
+    width: 65px;
+
+    height: 65px;
+
+    min-width: 65px;
+
+    font-size: 28px;
+  }
+}
+
+/* Core Values */
+
+@media (max-width: 768px) {
+  .value-icon {
+    width: 70px;
+
+    height: 70px;
+
+    font-size: 30px;
+  }
+}
+
+/* Why Choose */
+
+@media (max-width: 992px) {
+  .experience-card {
+    position: static;
+
+    margin-top: 20px;
+
+    display: inline-block;
+  }
+}
+
+/* Achievement */
+
+@media (max-width: 768px) {
+  .counter-box {
+    padding: 25px;
+  }
+
+  .award-card {
+    padding: 25px;
+  }
+}
+
+/* Testimonials */
+
+@media (max-width: 768px) {
+  .testimonial-card {
+    padding: 30px 20px;
+  }
+
+  .testimonial-text {
+    font-size: 16px;
+  }
+}
+
+/* Promise */
+
+@media (max-width: 992px) {
+  .promise-banner {
+    padding: 45px 30px;
+
+    text-align: center;
+  }
+
+  .promise-floating {
+    position: static;
+
+    margin-top: 25px;
+  }
+
+  .promise-item {
+    justify-content: center;
+  }
+}
+
+/* Timeline */
+
+@media (max-width: 992px) {
+  .company-timeline {
+    flex-direction: column;
+  }
+
+  .timeline-progress {
+    display: none;
+  }
+
+  .timeline-block {
+    width: 100%;
+
+    margin-bottom: 35px;
+  }
+}
+
+/* Contact CTA */
+
+@media (max-width: 992px) {
+  .contact-cta {
+    text-align: center;
+
+    padding: 45px 30px;
+  }
+
+  .cta-feature {
+    justify-content: center;
+  }
+
+  .cta-floating-card {
+    position: static;
+
+    margin-top: 25px;
+  }
+}
+
+/* Contact Hero */
+
+@media (max-width: 992px) {
+  .contact-hero {
+    text-align: center;
+  }
+
+  .contact-floating-card {
+    position: static;
+
+    margin-top: 25px;
+  }
+}
+
+/* Office */
+
+@media (max-width: 992px) {
+  .office-image {
+    min-height: 250px;
+  }
+
+  .office-feature .card-body {
+    padding: 30px !important;
+  }
+}
