@@ -39,3 +39,24 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local database and uploaded private storage
+/data/
+/storage/
+
+# Local dependencies and build output
+node_modules/
+.next/
+out/
+dist/
+coverage/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and local OS files
+*.log
+.DS_Store
+Thumbs.db

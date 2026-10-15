@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { InstitutionalChatbot } from "@/components/chat/InstitutionalChatbot";
 
 /* Editorial Serif: Cormorant Garamond — institutional, authoritative, refined */
 const cormorant = Cormorant_Garamond({
@@ -64,6 +65,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <InstitutionalChatbot />
       </body>
     </html>
   );

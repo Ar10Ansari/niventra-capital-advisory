@@ -54,14 +54,44 @@ export const ConsultationForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const [referenceId, setReferenceId] = useState<string>("");
+  const [submitError, setSubmitError] = useState<string>("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError("");
     if (!validate()) return;
     setIsSubmitting(true);
-    // Simulated submission — no production endpoint connected
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+
+    try {
+      const res = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          phoneNumber: formData.phoneNumber,
+          category: formData.category,
+          capitalRange: formData.capitalRange,
+          message: formData.message,
+          consent: formData.consent,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setSubmitError(data.error || "Failed to submit enquiry. Please verify details.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      setReferenceId(data.referenceId || "ENQ-2026-CONFIRMED");
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    } catch {
+      setSubmitError("Network connectivity issue. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -74,17 +104,21 @@ export const ConsultationForm: React.FC = () => {
         <div className="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-6 h-6 text-emerald-600" aria-hidden="true" />
         </div>
+        <div className="inline-block px-3 py-1 rounded bg-[#FAFAF7] border border-[rgba(26,26,26,0.1)] text-xs font-mono font-bold text-[#1A1A1A]">
+          Reference ID: {referenceId}
+        </div>
         <h3 className="font-heading text-[1.375rem] font-[600] text-[#1A1A1A]">
-          Enquiry received
+          Advisory Consultation Logged
         </h3>
         <p className="text-[0.9rem] text-[#5C5C5C] max-w-sm mx-auto leading-relaxed">
           Thank you, <strong className="text-[#1A1A1A]">{formData.fullName}</strong>.
-          Our advisory team will review your enquiry and contact you within
-          one business day.
+          Your consultation request has been securely recorded under ref <strong className="font-mono text-[#1A1A1A]">{referenceId}</strong>.
+          Our advisory desk will review suitability and reach out within one business day.
         </p>
         <button
           onClick={() => {
             setIsSubmitted(false);
+            setReferenceId("");
             setFormData({
               fullName: "",
               email: "",
@@ -119,6 +153,13 @@ export const ConsultationForm: React.FC = () => {
           Confidential. For accredited capital providers and real estate developers.
         </p>
       </div>
+
+      {submitError && (
+        <div className="p-3 rounded bg-red-50 border border-red-200 text-xs text-red-800 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
+          <span>{submitError}</span>
+        </div>
+      )}
 
       {/* Full Name */}
       <div>
