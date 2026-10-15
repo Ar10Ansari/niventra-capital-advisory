@@ -1,606 +1,507 @@
 import React from "react";
-import {
-  Shield,
-  Building2,
-  FileCheck2,
-  TrendingUp,
-  BarChart3,
-  ArrowRight,
-  CheckCircle2,
-  Award,
-  Clock,
-  Compass,
-  Briefcase,
-  HelpCircle,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { ConsultationForm } from "@/components/forms/ConsultationForm";
+
+/* ============================================================================
+   HOMEPAGE — Niventra Capital Advisory India
+   Modern Institutional · Editorial Light Design · Real Financial Services
+   ============================================================================ */
 
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header activePath="/" />
 
-      <main className="flex-1">
-        {/* =========================================================================
-            HERO SECTION: Institutional Depth, Subtle Gold Ambient Lighting
-        ========================================================================= */}
-        <section className="relative bg-navy-gradient text-white py-20 lg:py-28 overflow-hidden border-b border-[#D4AF37]/20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-3xl space-y-6">
-              <Badge
-                variant="navy"
-                size="md"
-                className="mb-2"
-                icon={<Award className="w-3.5 h-3.5 text-[#D4AF37]" />}
-              >
-                Structured Capital & Corporate Debenture Advisory
-              </Badge>
+      <main id="main-content" className="flex-1">
 
-              <h1 className="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.18]">
-                Connecting eligible capital with professionally evaluated{" "}
-                <span className="text-[#D4AF37] italic">real-estate opportunities.</span>
-              </h1>
+        {/* ==================================================================
+            HERO: Asymmetric editorial split
+            Left: Strong typographic statement
+            Right: Brass-ruled credential panel
+            ================================================================== */}
+        <section className="bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.08)]" aria-label="Introduction">
+          <div className="container-editorial">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[580px] lg:min-h-[640px]">
 
-              <p className="text-base sm:text-lg text-gray-300 font-sans-body leading-relaxed max-w-2xl">
-                NIVENTRA facilitates and structures institutional capital solutions
-                through compliant debt and debenture channels, connecting discerning
-                capital providers with thoroughly audited real estate developments.
-              </p>
+              {/* Left: Editorial copy block */}
+              <div className="lg:col-span-7 flex flex-col justify-center pt-16 pb-12 lg:pb-16 lg:pr-16">
+                {/* Eyebrow */}
+                <p className="text-eyebrow mb-6">
+                  Structured Capital &amp; Real Estate Advisory
+                </p>
 
-              <div className="flex flex-wrap items-center gap-4 pt-4">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  href="/debt-debenture/"
-                  icon={<ArrowRight className="w-4 h-4" />}
-                >
-                  Explore Debt & Debentures
-                </Button>
+                {/* Display headline: confident, editorial, no fluff */}
+                <h1 className="font-heading text-[clamp(2.25rem,5vw,4rem)] font-[500] leading-[1.08] tracking-[-0.025em] text-[#1A1A1A] mb-6">
+                  Connecting eligible capital with evaluated{" "}
+                  <em className="not-italic" style={{ color: "var(--color-brass)" }}>
+                    real estate opportunities.
+                  </em>
+                </h1>
 
-                <Button
-                  variant="outline"
-                  size="lg"
-                  href="#consultation"
-                >
-                  Schedule Capital Consultation
-                </Button>
-              </div>
+                {/* Sub-copy: measured, factual, no superlatives */}
+                <p className="text-[1.0625rem] text-[#5C5C5C] leading-[1.7] max-w-[500px] mb-10">
+                  Niventra facilitates and structures institutional capital solutions
+                  through compliant debt and debenture channels — connecting
+                  discerning capital providers with thoroughly evaluated real
+                  estate developments across India.
+                </p>
 
-              {/* 4 Hero Strategic Trust Highlights */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-10 border-t border-white/10 mt-8">
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold block mb-1">
-                    Instrument Type
-                  </span>
-                  <span className="text-sm font-bold text-white block">
-                    Secured Debentures
-                  </span>
+                {/* CTA pair — primary then secondary */}
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button variant="primary" size="lg" href="/debt-debenture/" icon={<ArrowRight className="w-4 h-4" />}>
+                    Explore Debentures
+                  </Button>
+                  <Button variant="primary-outline" size="lg" href="#consultation">
+                    Schedule Consultation
+                  </Button>
                 </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold block mb-1">
-                    Target Yield Guidance
-                  </span>
-                  <span className="text-sm font-bold text-white block">
-                    12% – 16% p.a.*
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold block mb-1">
-                    Due Diligence
-                  </span>
-                  <span className="text-sm font-bold text-white block">
-                    5-Point Framework
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold block mb-1">
-                    Grievance SLA
-                  </span>
-                  <span className="text-sm font-bold text-white block">
-                    48h Acknowledgment
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Decorative Subtle Geometric Element */}
-          <div
-            className="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-[#D4AF37]/5 blur-3xl pointer-events-none"
-            aria-hidden="true"
-          />
-        </section>
-
-        {/* =========================================================================
-            SECTION 1: 4 STRATEGIC ADVISORY PILLARS
-        ========================================================================= */}
-        <section className="py-20 bg-[#F8F9FA] border-b border-gray-200/60">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-              <Badge variant="gold" size="sm">
-                Strategic Competence
-              </Badge>
-              <h2 className="font-serif-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0B192C]">
-                Institutional Advisory Pillars
-              </h2>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Our operations rest on rigorous corporate diligence, structured fiduciary
-                governance, and transparent real estate underwriting.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Pillar 1 */}
-              <div className="card-luxury p-7 rounded-xl space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-[#0B192C] text-[#D4AF37] flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6" />
-                </div>
-                <h3 className="font-serif-heading text-lg font-bold text-[#0B192C]">
-                  Structured Capital Solutions
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  Structuring compliant capital channels via non-convertible debentures
-                  (NCDs) and private credit instruments with defined tenures and priority
-                  repayment.
+                {/* Yield guidance note — qualified, below fold, honest */}
+                <p className="mt-8 text-xs text-[#8A8A8A] leading-relaxed max-w-[440px]">
+                  <span style={{ color: "var(--color-brass)", fontWeight: 600 }}>*</span>{" "}
+                  Indicative debenture yield guidance of 12%–16% p.a. is subject to
+                  formal product approval and applicable statutory conditions.
+                  Past returns do not guarantee future performance.
                 </p>
               </div>
 
-              {/* Pillar 2 */}
-              <div className="card-luxury p-7 rounded-xl space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-[#0B192C] text-[#D4AF37] flex items-center justify-center">
-                  <Building2 className="w-6 h-6" />
+              {/* Right: Credential panel with brass rules */}
+              <div className="lg:col-span-5 hidden lg:flex flex-col justify-center border-l border-[rgba(26,26,26,0.08)] pl-12">
+                <div className="space-y-8">
+                  {/* Credential item */}
+                  {[
+                    {
+                      label: "Instrument Type",
+                      value: "Secured Non-Convertible Debentures",
+                      note: "Structured under Companies Act, 2013",
+                    },
+                    {
+                      label: "Indicative Yield Guidance",
+                      value: "12% – 16% p.a.*",
+                      note: "Subject to product approval and conditions",
+                    },
+                    {
+                      label: "Due Diligence Framework",
+                      value: "5-Point Independent Audit",
+                      note: "Title, legal, financial, construction, exit",
+                    },
+                    {
+                      label: "Grievance Acknowledgment",
+                      value: "48-Hour SLA",
+                      note: "Designated Grievance Redressal Officer",
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className="group">
+                      <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#8A8A8A] mb-1.5">
+                        {item.label}
+                      </p>
+                      <p className="font-heading text-[1.3125rem] font-[600] text-[#1A1A1A] leading-none mb-1">
+                        {item.value}
+                      </p>
+                      <p className="text-xs text-[#8A8A8A]">{item.note}</p>
+                      {i < 3 && (
+                        <div className="mt-5 h-px bg-[rgba(26,26,26,0.08)]" />
+                      )}
+                    </div>
+                  ))}
                 </div>
-                <h3 className="font-serif-heading text-lg font-bold text-[#0B192C]">
-                  Real Estate Project Evaluation
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  Rigorous screening of prime residential, commercial, and mixed-use
-                  developments, assessing location desirability and developer track records.
-                </p>
-              </div>
-
-              {/* Pillar 3 */}
-              <div className="card-luxury p-7 rounded-xl space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-[#0B192C] text-[#D4AF37] flex items-center justify-center">
-                  <FileCheck2 className="w-6 h-6" />
-                </div>
-                <h3 className="font-serif-heading text-lg font-bold text-[#0B192C]">
-                  Legal & Financial Due Diligence
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  Comprehensive 5-point audits covering title verification, RERA
-                  approvals, litigation scrutiny, project cash-flow viability, and security charges.
-                </p>
-              </div>
-
-              {/* Pillar 4 */}
-              <div className="card-luxury p-7 rounded-xl space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-[#0B192C] text-[#D4AF37] flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6" />
-                </div>
-                <h3 className="font-serif-heading text-lg font-bold text-[#0B192C]">
-                  Project Monitoring & Reporting
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  Continuous oversight of development progress, milestone-controlled fund
-                  deployments, escrow account monitoring, and transparent investor updates.
-                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* =========================================================================
-            SECTION 2: 6-STAGE VALUE CREATION LIFECYCLE
-        ========================================================================= */}
-        <section className="py-20 bg-white border-b border-gray-200/60">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-              <Badge variant="gold" size="sm">
-                Execution Methodology
-              </Badge>
-              <h2 className="font-serif-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0B192C]">
-                How Niventra Creates Value
-              </h2>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                An end-to-end disciplined lifecycle engineered to protect capital, ensure
-                transparent monitoring, and deliver predictable financial milestones.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Mobile credential strip — visible only below lg breakpoint */}
+        <section className="lg:hidden bg-[#F4F3EF] border-b border-[rgba(26,26,26,0.08)]" aria-label="Key credentials">
+          <div className="container-editorial py-10">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-7">
               {[
-                {
-                  step: "01",
-                  title: "Opportunity Identification",
-                  desc: "Systematic screening of real estate developers, property locations, regulatory feasibility, and market demand.",
-                },
-                {
-                  step: "02",
-                  title: "Multi-Tier Due Diligence",
-                  desc: "Independent legal title search, RERA registration audit, construction cost verification, and stress-tested financial models.",
-                },
-                {
-                  step: "03",
-                  title: "Structured Capital Architecture",
-                  desc: "Structuring debenture terms, coupon schedules, collateral security coverage, and ROC charge filings (CHG-9).",
-                },
-                {
-                  step: "04",
-                  title: "Controlled Capital Deployment",
-                  desc: "Funds are released in tranches strictly aligned with verified physical construction milestones and architect certifications.",
-                },
-                {
-                  step: "05",
-                  title: "Independent Project Monitoring",
-                  desc: "Regular site inspections, sales velocity reviews, escrow account supervision, and quarterly compliance certificates.",
-                },
-                {
-                  step: "06",
-                  title: "Repayment & Capital Redemption",
-                  desc: "Periodic coupon distribution followed by full principal redemption upon asset maturity or project exit.",
-                },
-              ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 rounded-xl border border-gray-200 hover:border-[#D4AF37]/50 bg-[#F8F9FA] transition-all hover:shadow-lg space-y-3 relative group"
-                >
-                  <span className="font-serif-heading text-3xl font-bold text-[#D4AF37]/80 block">
-                    {item.step}
-                  </span>
-                  <h3 className="font-serif-heading text-lg font-bold text-[#0B192C]">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                    {item.desc}
+                { label: "Instrument", value: "Secured NCDs" },
+                { label: "Yield Guidance", value: "12%–16% p.a.*" },
+                { label: "Diligence Points", value: "5-Stage Audit" },
+                { label: "Grievance SLA", value: "48 Hours" },
+              ].map((item, i) => (
+                <div key={i}>
+                  <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#8A8A8A] mb-1">
+                    {item.label}
+                  </p>
+                  <p className="font-heading text-[1.125rem] font-[600] text-[#1A1A1A]">
+                    {item.value}
                   </p>
                 </div>
               ))}
             </div>
+            <p className="mt-6 text-[0.6875rem] text-[#8A8A8A] leading-relaxed">
+              * Indicative guidance. Subject to product approval and statutory conditions.
+            </p>
           </div>
         </section>
 
-        {/* =========================================================================
-            SECTION 3: 9-NODE OPERATIONAL FLOW
-        ========================================================================= */}
-        <section className="py-20 bg-[#0B192C] text-white border-b border-[#D4AF37]/20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-              <Badge variant="navy" size="sm">
-                System Architecture
-              </Badge>
-              <h2 className="font-serif-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
-                Our Operational Workflow
-              </h2>
-              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
-                The structured transactional flow governing capital mobilization, project
-                execution, and investor redemption.
-              </p>
+        {/* ==================================================================
+            SERVICES: Editorial asymmetric layout with brass numbering
+            Varied compositions — not a repeated card grid
+            ================================================================== */}
+        <section className="section-spacing bg-[#FAFAF7]" aria-labelledby="services-heading">
+          <div className="container-editorial">
+            {/* Section header — left-aligned, editorial */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+              <div className="lg:col-span-5">
+                <p className="text-eyebrow mb-4">Advisory Services</p>
+                <h2
+                  id="services-heading"
+                  className="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-[500] leading-[1.15] tracking-[-0.02em] text-[#1A1A1A]"
+                >
+                  Where we apply our expertise
+                </h2>
+              </div>
+              <div className="lg:col-span-6 lg:col-start-7 flex items-end">
+                <p className="text-[1rem] text-[#5C5C5C] leading-[1.7]">
+                  Niventra works across four distinct practice areas, each
+                  supported by independent research, structured documentation,
+                  and direct advisory engagement.
+                </p>
+              </div>
             </div>
 
-            {/* 9-Node Flow Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-9 gap-3 text-center">
+            {/* Service 1: Debt & Debenture — wide editorial row */}
+            <div className="border-t border-[rgba(26,26,26,0.08)]">
               {[
-                "1. Capital Sourcing",
-                "2. Debt Structure",
-                "3. Issuer Entity",
-                "4. Due Diligence",
-                "5. Board Approval",
-                "6. Deployment",
-                "7. Development",
-                "8. Monitoring",
-                "9. Redemption",
-              ].map((node, i) => (
+                {
+                  num: "01",
+                  href: "/debt-debenture/",
+                  title: "Debt & Debenture",
+                  description:
+                    "We structure secured non-convertible debentures (NCDs) as compliant fixed-income instruments connecting capital providers to evaluated real estate projects. Our structuring includes defined tenure schedules, priority repayment architecture, and collateral charge registration under the Companies Act, 2013 framework.",
+                  detail: "12%–16% p.a. indicative yield guidance · NCDs · CHG-9 Charge Registration",
+                },
+                {
+                  num: "02",
+                  href: "/real-estate/",
+                  title: "Real Estate Capital",
+                  description:
+                    "We evaluate and structure capital deployment into residential, commercial, and mixed-use real estate projects. All projects undergo independent site assessment, construction feasibility review, RERA compliance verification, and developer track record analysis before any capital structuring begins.",
+                  detail: "7-Stage Evaluation Framework · Residential, Commercial & Mixed-Use",
+                },
+                {
+                  num: "03",
+                  href: "/capital-providers/",
+                  title: "Capital Providers",
+                  description:
+                    "We provide a detailed reference framework for eligible capital providers — covering bond classification types, NCD versus listed debenture distinctions, instrument risk profiles, and a structured checklist for evaluating any private debt offering. This material is informational only and does not constitute a regulated offer.",
+                  detail: "Reference Framework · 10 Instrument Types · Not a Regulated Offering",
+                },
+                {
+                  num: "04",
+                  href: "/due-diligence/",
+                  title: "Due Diligence",
+                  description:
+                    "Our due diligence process covers five independent areas: property title verification, RERA and regulatory approval status, litigation and encumbrance checks, project financial model stress-testing, and security charge filing. Reports are produced per project and made available to capital providers in our documentation package.",
+                  detail: "5-Point Framework · Title · Legal · Financial · Construction · Exit",
+                },
+              ].map((service, i) => (
                 <div
                   key={i}
-                  className="card-dark-luxury p-3 rounded-lg flex flex-col items-center justify-center min-h-[90px]"
+                  className="grid grid-cols-1 sm:grid-cols-12 gap-6 py-10 border-b border-[rgba(26,26,26,0.08)] group"
                 >
-                  <span className="w-5 h-5 rounded-full bg-[#D4AF37] text-[#0B192C] text-[10px] font-bold flex items-center justify-center mb-1.5">
-                    {i + 1}
-                  </span>
-                  <span className="text-[11px] font-semibold text-gray-200 leading-tight">
-                    {node.replace(/^\d+\.\s*/, "")}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================================
-            SECTION 4: CORE SOLUTIONS OVERVIEW & DEFERRED CALCULATOR NOTICE
-        ========================================================================= */}
-        <section id="solutions" className="py-20 bg-[#F8F9FA] border-b border-gray-200/60">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-              <Badge variant="gold" size="sm">
-                Investment Pillars
-              </Badge>
-              <h2 className="font-serif-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0B192C]">
-                Structured Investment Channels
-              </h2>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Professional fixed-income instruments and capital structuring programs
-                tailored for accredited investors and developers.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-              {/* Solution 1: Debt & Debenture */}
-              <div className="card-luxury p-8 rounded-xl flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#0B192C] text-[#D4AF37] flex items-center justify-center">
-                    <Briefcase className="w-6 h-6" />
+                  {/* Number */}
+                  <div className="sm:col-span-1 hidden sm:flex items-start pt-1">
+                    <span
+                      className="font-heading text-[2.5rem] font-[300] leading-none tracking-[-0.04em] select-none"
+                      style={{ color: "var(--color-canvas-dim)" }}
+                      aria-hidden="true"
+                    >
+                      {service.num}
+                    </span>
                   </div>
-                  <h3 className="font-serif-heading text-xl font-bold text-[#0B192C]">
-                    Debt & Debentures
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Secured non-convertible debentures (NCDs) offering defined tenures,
-                    priority repayment, and structured collateral charges under Companies Act
-                    frameworks.
-                  </p>
-                  <div className="bg-[#F8F9FA] p-3.5 rounded-lg border border-gray-200 space-y-1.5 text-xs text-gray-700">
-                    <div className="flex justify-between font-medium">
-                      <span>Guidance Range:</span>
-                      <strong className="text-[#0B192C]">12% – 16% p.a.*</strong>
-                    </div>
-                    <div className="flex justify-between font-medium">
-                      <span>Target Tenures:</span>
-                      <strong className="text-[#0B192C]">12 to 36 Months</strong>
-                    </div>
-                  </div>
-                </div>
-                <div className="pt-6">
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    href="/debt-debenture/"
-                    className="w-full justify-center text-xs"
-                  >
-                    View Debenture Guidelines
-                  </Button>
-                </div>
-              </div>
 
-              {/* Solution 2: Real Estate Capital */}
-              <div className="card-luxury p-8 rounded-xl flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#0B192C] text-[#D4AF37] flex items-center justify-center">
-                    <Building2 className="w-6 h-6" />
-                  </div>
-                  <h3 className="font-serif-heading text-xl font-bold text-[#0B192C]">
-                    Real Estate Capital
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Structured funding solutions for Tier-1 and emerging real estate
-                    developers. Covering seed capital, project finance, and working capital
-                    tranches.
-                  </p>
-                  <div className="bg-[#F8F9FA] p-3.5 rounded-lg border border-gray-200 space-y-1.5 text-xs text-gray-700">
-                    <div className="flex justify-between font-medium">
-                      <span>Asset Classes:</span>
-                      <strong className="text-[#0B192C]">Residential / Commercial</strong>
-                    </div>
-                    <div className="flex justify-between font-medium">
-                      <span>Evaluation Process:</span>
-                      <strong className="text-[#0B192C]">7-Stage Framework</strong>
-                    </div>
-                  </div>
-                </div>
-                <div className="pt-6">
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    href="/real-estate/"
-                    className="w-full justify-center text-xs"
-                  >
-                    Explore Real Estate Process
-                  </Button>
-                </div>
-              </div>
-
-              {/* Solution 3: Capital Providers Guide */}
-              <div className="card-luxury p-8 rounded-xl flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#0B192C] text-[#D4AF37] flex items-center justify-center">
-                    <Compass className="w-6 h-6" />
-                  </div>
-                  <h3 className="font-serif-heading text-xl font-bold text-[#0B192C]">
-                    Capital Providers Guide
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Comprehensive instrument highlights, bond classifications, risk
-                    profiles, and illustrative financial examples for eligible corporate and
-                    HNW capital partners.
-                  </p>
-                  <div className="bg-[#F8F9FA] p-3.5 rounded-lg border border-gray-200 space-y-1.5 text-xs text-gray-700">
-                    <div className="flex justify-between font-medium">
-                      <span>Bond Classifications:</span>
-                      <strong className="text-[#0B192C]">10 Types Cataloged</strong>
-                    </div>
-                    <div className="flex justify-between font-medium">
-                      <span>Investor Checklist:</span>
-                      <strong className="text-[#0B192C]">7 Verification Points</strong>
-                    </div>
-                  </div>
-                </div>
-                <div className="pt-6">
-                  <Button
-                    variant="outline-dark"
-                    size="sm"
-                    href="/capital-providers/"
-                    className="w-full justify-center text-xs"
-                  >
-                    Read Capital Providers Guide
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Formal Calculator Deferral Advisory Notice */}
-            <div className="bg-white border border-[#D4AF37]/40 rounded-xl p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-[#0B192C] text-[#D4AF37] flex items-center justify-center shrink-0 mt-0.5">
-                  <HelpCircle className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-serif-heading text-base font-bold text-[#0B192C]">
-                    Institutional Financial Calculator Notice
-                  </h4>
-                  <p className="text-xs text-gray-600 leading-relaxed max-w-2xl mt-0.5">
-                    In alignment with our fiduciary standards and verified mathematical
-                    governance, our interactive yield estimation engine is currently
-                    undergoing formal certification by our structuring controllers. Please
-                    contact our advisory desk for customized repayment schedules.
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="outline-dark"
-                size="sm"
-                href="#consultation"
-                className="shrink-0 text-xs"
-              >
-                Request Custom Schedule
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================================
-            SECTION 5: INSTITUTIONAL TRUST & GOVERNANCE MATRIX
-        ========================================================================= */}
-        <section className="py-20 bg-white border-b border-gray-200/60">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-              <Badge variant="gold" size="sm">
-                Fiduciary Integrity
-              </Badge>
-              <h2 className="font-serif-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0B192C]">
-                Institutional Trust & Governance
-              </h2>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Operating strictly within the statutory provisions of the Companies Act,
-                2013, Indian data protection laws, and institutional compliance standards.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  title: "Legal & Financial DD",
-                  desc: "Exhaustive title searches, litigation audits, and stress-tested financial cash flows.",
-                },
-                {
-                  title: "Clear Documentation",
-                  desc: "Comprehensive Information Memoranda, explicit debenture term sheets, and formal agreements.",
-                },
-                {
-                  title: "Transparent Risk Disclosure",
-                  desc: "Zero hidden caveats. Unambiguous disclosures regarding credit, market, and liquidity factors.",
-                },
-                {
-                  title: "Defined Terms & Tenure",
-                  desc: "Contractually documented coupon schedules, repayment frequency, and redemption timelines.",
-                },
-                {
-                  title: "Independent Monitoring",
-                  desc: "Continuous site inspections and architect certifications before releasing project tranches.",
-                },
-                {
-                  title: "Statutory Grievance Redressal",
-                  desc: "Designated Grievance Redressal Officer with a published 48h acknowledgment and 30d resolution SLA.",
-                },
-                {
-                  title: "DPDP Act 2023 Compliance",
-                  desc: "Encrypted data custody, purposeful data collection, and verified deletion protocols.",
-                },
-                {
-                  title: "Fiduciary Entity Governance",
-                  desc: "Direct corporate issuer architecture with Debenture Trustee and ROC charge registration.",
-                },
-              ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-5 rounded-lg bg-[#F8F9FA] border border-gray-200 flex items-start gap-3"
-                >
-                  <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-serif-heading text-sm font-bold text-[#0B192C] mb-1">
-                      {item.title}
+                  {/* Title */}
+                  <div className="sm:col-span-3 flex items-start pt-1">
+                    <h3 className="font-heading text-[1.375rem] font-[600] text-[#1A1A1A] leading-tight tracking-[-0.01em]">
+                      {service.title}
                     </h3>
-                    <p className="text-xs text-gray-600 leading-relaxed">
-                      {item.desc}
+                  </div>
+
+                  {/* Description + Detail */}
+                  <div className="sm:col-span-6 space-y-3">
+                    <p className="text-[0.9375rem] text-[#5C5C5C] leading-[1.75]">
+                      {service.description}
+                    </p>
+                    <p className="text-[0.75rem] text-[#8A8A8A] font-medium tracking-wide">
+                      {service.detail}
                     </p>
                   </div>
+
+                  {/* Link arrow */}
+                  <div className="sm:col-span-2 flex sm:justify-end items-start pt-1">
+                    <a
+                      href={service.href}
+                      className="inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold text-[#9A7B2C] hover:text-[#B8922F] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] rounded group-hover:gap-2.5"
+                      aria-label={`Learn more about ${service.title}`}
+                    >
+                      Learn more <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* =========================================================================
-            SECTION 6: CONSULTATION INTAKE & DIRECT CORPORATE DESK
-        ========================================================================= */}
+        {/* ==================================================================
+            PROCESS: Clean numbered timeline — editorial, not a grid of boxes
+            ================================================================== */}
+        <section className="section-spacing surface-tonal border-y border-[rgba(26,26,26,0.08)]" aria-labelledby="process-heading">
+          <div className="container-editorial">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+              {/* Left: Section label + intro */}
+              <div className="lg:col-span-4 lg:sticky lg:top-24">
+                <p className="text-eyebrow mb-4">Execution Methodology</p>
+                <h2
+                  id="process-heading"
+                  className="font-heading text-[clamp(1.625rem,3vw,2.5rem)] font-[500] leading-[1.18] tracking-[-0.02em] text-[#1A1A1A] mb-5"
+                >
+                  How we structure and deploy capital
+                </h2>
+                <p className="text-[0.9375rem] text-[#5C5C5C] leading-[1.75] mb-8">
+                  A disciplined lifecycle designed to protect capital,
+                  ensure transparent project monitoring, and deliver
+                  defined financial milestones at each stage.
+                </p>
+                <Button variant="primary-outline" size="md" href="/due-diligence/">
+                  View Diligence Framework
+                </Button>
+              </div>
+
+              {/* Right: Numbered stages */}
+              <div className="lg:col-span-7 lg:col-start-6">
+                <ol className="space-y-0">
+                  {[
+                    {
+                      step: "01",
+                      title: "Opportunity Identification",
+                      desc: "Systematic screening of real estate developers, property locations, regulatory feasibility, and market demand fundamentals before initiating any formal advisory engagement.",
+                    },
+                    {
+                      step: "02",
+                      title: "Multi-Tier Due Diligence",
+                      desc: "Independent legal title search, RERA registration verification, construction cost assessment, stress-tested financial projections, and encumbrance checks.",
+                    },
+                    {
+                      step: "03",
+                      title: "Structured Capital Architecture",
+                      desc: "Defining debenture terms, coupon schedules, collateral security coverage ratios, and formal ROC charge registration (CHG-9) to establish priority claims.",
+                    },
+                    {
+                      step: "04",
+                      title: "Controlled Capital Deployment",
+                      desc: "Funds are released in tranches strictly aligned with verified physical construction milestones, independently certified by a qualified architect or project monitor.",
+                    },
+                    {
+                      step: "05",
+                      title: "Independent Project Monitoring",
+                      desc: "Ongoing site inspections, sales velocity tracking, escrow account supervision, and periodic compliance reporting throughout the investment tenure.",
+                    },
+                    {
+                      step: "06",
+                      title: "Repayment & Capital Redemption",
+                      desc: "Scheduled coupon distribution at defined intervals, followed by full principal redemption upon project maturity or agreed exit event, per documented term sheet.",
+                    },
+                  ].map((item, i) => (
+                    <li
+                      key={i}
+                      className="grid grid-cols-12 gap-4 py-8 border-b border-[rgba(26,26,26,0.08)] first:border-t first:border-[rgba(26,26,26,0.08)]"
+                    >
+                      <div className="col-span-2 sm:col-span-1 pt-0.5">
+                        <span
+                          className="font-heading text-[0.75rem] font-[600] tracking-[0.06em]"
+                          style={{ color: "var(--color-brass)" }}
+                          aria-label={`Step ${item.step}`}
+                        >
+                          {item.step}
+                        </span>
+                      </div>
+                      <div className="col-span-10 sm:col-span-11 space-y-1.5">
+                        <h3 className="font-heading text-[1.125rem] font-[600] text-[#1A1A1A] leading-snug">
+                          {item.title}
+                        </h3>
+                        <p className="text-[0.9rem] text-[#5C5C5C] leading-[1.7]">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ==================================================================
+            TRANSPARENCY STATEMENT: Single-column editorial, no cards
+            Financial disclosures presented calmly and honestly
+            ================================================================== */}
+        <section className="section-spacing bg-[#FAFAF7]" aria-labelledby="transparency-heading">
+          <div className="container-editorial">
+            <div className="max-w-3xl">
+              <p className="text-eyebrow mb-5">Financial Transparency</p>
+              <h2
+                id="transparency-heading"
+                className="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-[500] leading-[1.18] tracking-[-0.02em] text-[#1A1A1A] mb-8"
+              >
+                What we disclose, and why it matters
+              </h2>
+
+              {/* Honest structured paragraphs — not a card grid */}
+              <div className="space-y-8">
+                <div className="border-l-2 pl-6" style={{ borderColor: "var(--color-brass-rule)" }}>
+                  <h3 className="font-heading text-[1.125rem] font-[600] text-[#1A1A1A] mb-2">
+                    Debenture Yield Guidance
+                  </h3>
+                  <p className="text-[0.9375rem] text-[#5C5C5C] leading-[1.75]">
+                    The indicative yield range of 12%–16% p.a. represents internal
+                    business guidance for the debenture product under development. It is
+                    not a guaranteed return, a confirmed offer, or a regulated financial
+                    promise. Final terms — including exact coupon rates, tenor, payment
+                    frequency, collateral details, eligibility criteria, and redemption
+                    conditions — will be documented in a formal Information Memorandum or
+                    term sheet upon product finalisation and applicable legal clearance.
+                  </p>
+                </div>
+
+                <div className="border-l-2 pl-6" style={{ borderColor: "var(--color-canvas-dim)", borderLeftColor: "rgba(26,26,26,0.15)" }}>
+                  <h3 className="font-heading text-[1.125rem] font-[600] text-[#1A1A1A] mb-2">
+                    Issuer Entity
+                  </h3>
+                  <p className="text-[0.9375rem] text-[#5C5C5C] leading-[1.75]">
+                    The intended issuing entity is Niventra Capital Advisory India Pvt. Ltd.
+                    This has been confirmed as a business objective. Formal legal and
+                    compliance verification — including applicable provisions of the
+                    Companies Act, 2013 (Sections 71 and 42) and current SEBI regulations —
+                    is ongoing and not yet independently confirmed.
+                  </p>
+                </div>
+
+                <div className="border-l-2 pl-6" style={{ borderColor: "rgba(26,26,26,0.15)" }}>
+                  <h3 className="font-heading text-[1.125rem] font-[600] text-[#1A1A1A] mb-2">
+                    Return Calculator — Deferred
+                  </h3>
+                  <p className="text-[0.9375rem] text-[#5C5C5C] leading-[1.75]">
+                    An interactive yield estimation tool has been intentionally withheld
+                    pending formal mathematical review and CFO certification. The legacy
+                    website&rsquo;s calculator contained an unverified compounding formula
+                    that was inconsistent with the stated fixed-income product structure.
+                    A verified calculator will be published when certified figures are
+                    available. Please contact our advisory desk for indicative schedules.
+                  </p>
+                </div>
+
+                <div className="border-l-2 pl-6" style={{ borderColor: "rgba(26,26,26,0.15)" }}>
+                  <h3 className="font-heading text-[1.125rem] font-[600] text-[#1A1A1A] mb-2">
+                    Governance &amp; Legal Compliance
+                  </h3>
+                  <p className="text-[0.9375rem] text-[#5C5C5C] leading-[1.75]">
+                    Niventra operates in accordance with the Companies Act, 2013, the
+                    Indian Stamp Act, and the Digital Personal Data Protection (DPDP) Act,
+                    2023. We maintain a designated Grievance Redressal Officer with a
+                    48-hour acknowledgment commitment. Full regulatory registration details
+                    are subject to ongoing independent verification and will be published
+                    upon confirmation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ==================================================================
+            CONSULTATION: Horizontal layout — intro left, form right
+            Clean, professional, no decorative excess
+            ================================================================== */}
         <section
           id="consultation"
-          className="py-20 bg-[#F8F9FA] border-b border-gray-200/60"
+          className="section-spacing surface-tonal border-t border-[rgba(26,26,26,0.08)]"
+          aria-labelledby="consultation-heading"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              {/* Left Column: Direct Advisory Coordinates */}
-              <div className="lg:col-span-5 space-y-6">
-                <Badge variant="gold" size="sm">
-                  Client Engagement
-                </Badge>
-                <h2 className="font-serif-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0B192C]">
-                  Consult with Our Capital Structuring Team
+          <div className="container-editorial">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+
+              {/* Left: Approach description */}
+              <div className="lg:col-span-4">
+                <p className="text-eyebrow mb-4">Advisory Enquiries</p>
+                <h2
+                  id="consultation-heading"
+                  className="font-heading text-[clamp(1.625rem,3vw,2.25rem)] font-[500] leading-[1.2] tracking-[-0.02em] text-[#1A1A1A] mb-5"
+                >
+                  Speak with our advisory team
                 </h2>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Whether you are an eligible capital provider seeking secured debenture
-                  opportunities or a real estate developer evaluating project finance, our
-                  advisory team provides confidential evaluation.
+                <p className="text-[0.9375rem] text-[#5C5C5C] leading-[1.75] mb-8">
+                  Whether you are an eligible capital provider evaluating structured
+                  debt opportunities, or a real estate developer seeking project
+                  finance, we offer confidential preliminary consultation with
+                  no obligation.
                 </p>
 
-                <div className="space-y-4 pt-4 border-t border-gray-200">
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-9 h-9 rounded-full bg-[#0B192C] text-[#D4AF37] flex items-center justify-center shrink-0">
-                      <Clock className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <strong className="text-sm text-[#0B192C] block">
-                        Direct Advisory Hours
-                      </strong>
-                      <span className="text-xs text-gray-500">
-                        Monday – Friday, 9:30 AM – 6:30 PM IST
-                      </span>
-                    </div>
+                {/* Direct contact details — from verified audit records */}
+                <div className="space-y-5">
+                  <div>
+                    <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#8A8A8A] mb-1">
+                      Office Address
+                    </p>
+                    <p className="text-[0.875rem] text-[#2D2D2D] leading-snug">
+                      Patel Nagar City Centre<br />
+                      Gwalior, Madhya Pradesh — 474001
+                    </p>
                   </div>
+                  <div className="h-px bg-[rgba(26,26,26,0.07)]" />
+                  <div>
+                    <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#8A8A8A] mb-1">
+                      Toll-Free
+                    </p>
+                    <a
+                      href="tel:18008900818"
+                      className="text-[0.9375rem] font-medium text-[#1A1A1A] hover:text-[#9A7B2C] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] rounded"
+                    >
+                      1800 890 0818
+                    </a>
+                  </div>
+                  <div className="h-px bg-[rgba(26,26,26,0.07)]" />
+                  <div>
+                    <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#8A8A8A] mb-1">
+                      Advisory Hours
+                    </p>
+                    <p className="text-[0.875rem] text-[#2D2D2D]">
+                      Monday – Friday, 9:30 AM – 6:30 PM IST
+                    </p>
+                  </div>
+                  <div className="h-px bg-[rgba(26,26,26,0.07)]" />
+                  <div>
+                    <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#8A8A8A] mb-1">
+                      Grievance Contact
+                    </p>
+                    <a
+                      href="mailto:compliance@niventracapitaladvisory.com"
+                      className="text-[0.875rem] text-[#1A1A1A] hover:text-[#9A7B2C] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] rounded"
+                    >
+                      compliance@niventracapitaladvisory.com
+                    </a>
+                  </div>
+                </div>
 
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-9 h-9 rounded-full bg-[#0B192C] text-[#D4AF37] flex items-center justify-center shrink-0">
-                      <Shield className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <strong className="text-sm text-[#0B192C] block">
-                        Confidentiality Guarantee
-                      </strong>
-                      <span className="text-xs text-gray-500">
-                        All investor coordinates and project models remain strictly
-                        confidential under non-disclosure governance.
-                      </span>
-                    </div>
-                  </div>
+                {/* Confidentiality notice */}
+                <div className="mt-8 pt-6 border-t border-[rgba(26,26,26,0.08)]">
+                  <p className="text-[0.8125rem] text-[#8A8A8A] leading-relaxed">
+                    All enquiries are treated as confidential. Information provided
+                    is used solely for consultation purposes, in compliance with the
+                    DPDP Act, 2023.
+                  </p>
                 </div>
               </div>
 
-              {/* Right Column: Accessible Consultation Intake Form */}
-              <div className="lg:col-span-7">
+              {/* Right: Form */}
+              <div className="lg:col-span-7 lg:col-start-6">
                 <ConsultationForm />
               </div>
             </div>

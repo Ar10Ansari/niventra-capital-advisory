@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+/* Editorial Serif: Cormorant Garamond — institutional, authoritative, refined */
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-cormorant",
   display: "swap",
-  weight: ["500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
+/* Geometric Sans: Plus Jakarta Sans — clear, modern, excellent at small sizes */
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
@@ -18,17 +20,17 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://niventracapitaladvisory.com"),
-  title: "Niventra Capital Advisory India | Professional Structured Capital & Real Estate Advisory",
+  title: "Niventra Capital Advisory India | Structured Capital & Real Estate Advisory",
   description:
-    "Connecting eligible capital with professionally evaluated real-estate opportunities. Specializing in secured debt debentures, rigorous due diligence, and capital structuring.",
+    "Connecting eligible capital with professionally evaluated real-estate opportunities. Specializing in secured debt debentures, rigorous due diligence, and institutional capital structuring.",
   icons: {
     icon: "/favicon.ico",
     apple: "/assets/images/logo.png",
   },
   openGraph: {
-    title: "Niventra Capital Advisory India | Professional Structured Capital",
+    title: "Niventra Capital Advisory India | Structured Capital & Real Estate Advisory",
     description:
-      "Connecting eligible capital with professionally evaluated real-estate opportunities.",
+      "Connecting eligible capital with professionally evaluated real-estate opportunities through structured debt and debenture channels.",
     url: "https://niventracapitaladvisory.com",
     siteName: "Niventra Capital Advisory",
     images: [
@@ -52,9 +54,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${plusJakarta.variable} scroll-smooth`}
+      className={`${cormorant.variable} ${plusJakarta.variable}`}
     >
-      <body className="min-h-screen flex flex-col font-sans-body antialiased bg-[#F8F9FA] text-[#1F2937]">
+      <body className="min-h-screen flex flex-col antialiased bg-[#FAFAF7] text-[#1A1A1A]">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#1A1A1A] focus:text-white focus:text-sm focus:rounded focus:shadow-lg"
+        >
+          Skip to main content
+        </a>
         {children}
       </body>
     </html>

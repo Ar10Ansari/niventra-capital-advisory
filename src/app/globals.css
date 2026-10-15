@@ -1,101 +1,260 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   NIVENTRA CAPITAL ADVISORY — DESIGN SYSTEM v2
+   Modern Institutional · Light Canonical · Editorial Typographic Identity
+   
+   Design Direction:
+   - Warm ivory canvas with deliberate whitespace
+   - Deep ink headings for editorial authority
+   - Muted slate supporting text for hierarchy
+   - Brass accent used sparingly, only where earned
+   - Hairline rules and subtle tonal surfaces instead of heavy shadows
+   ========================================================================== */
+
 @layer base {
   :root {
-    --color-navy: #0B192C;
-    --color-navy-dark: #07101D;
-    --color-navy-light: #132742;
-    --color-slate: #1E3E62;
-    --color-slate-light: #2B527E;
-    --color-gold: #D4AF37;
-    --color-gold-hover: #E5C358;
-    --color-gold-deep: #997300;
-    --color-gold-subtle: rgba(212, 175, 55, 0.12);
-    --color-gold-border: rgba(212, 175, 55, 0.25);
-    --color-pearl: #F8F9FA;
-    --color-white: #FFFFFF;
-    --color-charcoal: #1F2937;
-    --color-muted: #64748B;
-    --color-border-light: rgba(15, 23, 42, 0.08);
+    /* === CORE PALETTE === */
+    /* Canvas — warm ivory, not stark white */
+    --color-canvas:     #FAFAF7;
+    --color-canvas-alt: #F4F3EF;
+    --color-canvas-dim: #EDECE7;
+    --color-surface:    #FFFFFF;
 
-    --font-heading: var(--font-playfair), Georgia, serif;
-    --font-body: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* Typography */
+    --color-ink:        #1A1A1A;   /* headings — deep, authoritative */
+    --color-ink-soft:   #2D2D2D;   /* subheadings */
+    --color-slate:      #5C5C5C;   /* body supporting text */
+    --color-slate-dim:  #8A8A8A;   /* captions, metadata */
+
+    /* Accent — muted brass, sparingly used */
+    --color-brass:      #9A7B2C;   /* primary brand accent (text, lines) */
+    --color-brass-mid:  #B8922F;   /* hover state */
+    --color-brass-pale: #C9A84C;   /* icons on dark surfaces */
+    --color-brass-wash: rgba(154, 123, 44, 0.08);
+    --color-brass-rule: rgba(154, 123, 44, 0.25);
+
+    /* Structural */
+    --color-rule:       rgba(26, 26, 26, 0.10);   /* hairline borders */
+    --color-rule-dim:   rgba(26, 26, 26, 0.06);   /* very subtle dividers */
+
+    /* Anchor / Navy — reserved for footer and critical dark sections only */
+    --color-anchor:     #0E1C2E;
+    --color-anchor-alt: #172840;
+
+    /* Typography System */
+    --font-heading: var(--font-cormorant), "Georgia", serif;
+    --font-body:    var(--font-jakarta), -apple-system, "Segoe UI", sans-serif;
+
+    /* Spacing Scale */
+    --space-section: clamp(4rem, 8vw, 7rem);
+    --space-section-sm: clamp(3rem, 5vw, 5rem);
+
+    /* Type Scale */
+    --text-display:   clamp(2.5rem, 5vw, 4.25rem);
+    --text-headline:  clamp(1.75rem, 3.5vw, 3rem);
+    --text-title:     clamp(1.25rem, 2vw, 1.75rem);
+    --text-body-lg:   1.125rem;
+    --text-body:      1rem;
+    --text-body-sm:   0.9375rem;
+    --text-caption:   0.8125rem;
+    --text-label:     0.75rem;
   }
 
   html {
     scroll-behavior: smooth;
-    color-scheme: light dark;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background-color: var(--color-pearl);
-    color: var(--color-charcoal);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
     font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
+  /* === TYPOGRAPHIC ELEMENTS === */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-ink);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    color: var(--color-slate);
+    line-height: 1.75;
+  }
+
   ::selection {
-    background-color: var(--color-gold);
-    color: var(--color-navy);
+    background-color: var(--color-brass-wash);
+    color: var(--color-ink);
+  }
+
+  /* Smooth focus ring for all interactive elements */
+  *:focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
-/* Custom Institutional Utility Classes */
-.font-serif-heading {
+/* ==========================================================================
+   LAYOUT PRIMITIVES
+   ========================================================================== */
+
+.container-editorial {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+}
+
+.section-spacing {
+  padding-block: var(--space-section);
+}
+
+.section-spacing-sm {
+  padding-block: var(--space-section-sm);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY UTILITIES
+   ========================================================================== */
+
+.font-heading {
   font-family: var(--font-heading);
 }
 
-.font-sans-body {
+.font-body {
   font-family: var(--font-body);
 }
 
-.bg-navy-gradient {
-  background: radial-gradient(ellipse at 80% 20%, rgba(212, 175, 55, 0.09), transparent 60%),
-              radial-gradient(ellipse at 15% 85%, rgba(30, 62, 98, 0.25), transparent 50%),
-              #0B192C;
+.text-display {
+  font-family: var(--font-heading);
+  font-size: var(--text-display);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  font-weight: 500;
 }
 
-.glass-header {
-  background: rgba(11, 25, 44, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+.text-headline {
+  font-family: var(--font-heading);
+  font-size: var(--text-headline);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
-.gold-glow {
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+.text-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brass);
 }
 
-.card-luxury {
-  background: #FFFFFF;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 4px 20px -2px rgba(11, 25, 44, 0.05);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* ==========================================================================
+   STRUCTURAL COMPONENTS
+   ========================================================================== */
+
+/* Refined hairline rule with brass tint */
+.rule-brass {
+  height: 1px;
+  background: var(--color-brass-rule);
 }
 
-.card-luxury:hover {
-  transform: translateY(-3px);
-  border-color: rgba(212, 175, 55, 0.4);
-  box-shadow: 0 12px 30px -4px rgba(11, 25, 44, 0.1);
+.rule-neutral {
+  height: 1px;
+  background: var(--color-rule);
 }
 
-.card-dark-luxury {
-  background: linear-gradient(145deg, rgba(19, 39, 66, 0.8), rgba(11, 25, 44, 0.95));
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* Tonal surface — barely-there background shift */
+.surface-tonal {
+  background-color: var(--color-canvas-alt);
 }
 
-.card-dark-luxury:hover {
-  transform: translateY(-3px);
-  border-color: rgba(212, 175, 55, 0.55);
-  box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.15);
+.surface-dim {
+  background-color: var(--color-canvas-dim);
 }
 
-/* Reduced Motion Safety Override */
+/* Card — minimal. No heavy shadows, just a refined border. */
+.card-editorial {
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-editorial:hover {
+  border-color: var(--color-brass-rule);
+  box-shadow: 0 2px 16px rgba(26, 26, 26, 0.06);
+}
+
+/* Minimal number accent used for process steps */
+.step-number {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--color-canvas-dim);
+  line-height: 1;
+  user-select: none;
+}
+
+/* Refined header — light glass */
+.header-light {
+  background: rgba(250, 250, 247, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+/* Dark anchor sections (footer + CTA strip) */
+.bg-anchor {
+  background-color: var(--color-anchor);
+}
+
+/* Brass text link */
+.link-brass {
+  color: var(--color-brass);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.link-brass:hover {
+  color: var(--color-brass-mid);
+}
+
+/* ==========================================================================
+   INTERACTION & ANIMATION
+   ========================================================================== */
+
+/* Subtle lift — used only for interactive elements, not static cards */
+.lift {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Disclosure / detail fade */
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   REDUCED MOTION SAFETY
+   ========================================================================== */
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
