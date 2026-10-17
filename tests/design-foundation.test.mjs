@@ -170,3 +170,36 @@ test("Design Foundation v2 — Homepage Editorial Redesign", () => {
   assert.ok(!page.includes("Generic"), "Page must not contain generic filler copy");
   assert.ok(page.includes("5-Point"), "Due diligence framework must be mentioned");
 });
+
+test("Sprint 3A — Authentication & Settings Frontend Integrity", () => {
+  // 1. Login Page Integrity
+  const loginPath = path.join(rootDir, "src", "app", "login", "page.tsx");
+  assert.ok(fs.existsSync(loginPath), "login/page.tsx must exist");
+  const loginContent = fs.readFileSync(loginPath, "utf-8");
+  assert.ok(loginContent.includes("showPassword"), "Login must include password visibility toggle");
+  assert.ok(loginContent.includes("Password Recovery"), "Login must include password recovery preview");
+  assert.ok(loginContent.includes("Notice: Self-Service Reset in Compliance Preview"), "Password reset must be explicitly labeled as preview");
+
+  // 2. Register Page Integrity
+  const regPath = path.join(rootDir, "src", "app", "register", "page.tsx");
+  assert.ok(fs.existsSync(regPath), "register/page.tsx must exist");
+  const regContent = fs.readFileSync(regPath, "utf-8");
+  assert.ok(regContent.includes("showPassword"), "Register must include password visibility toggle");
+  assert.ok(regContent.includes("showConfirmPassword"), "Register must include confirm password visibility toggle");
+  assert.ok(regContent.includes("Password Strength Guidance"), "Register must include password criteria helper");
+  assert.ok(regContent.includes("Password criteria shown are client-side input guidance"), "Must disclaim criteria as client aid, not server security");
+  assert.ok(regContent.includes("Investor Category"), "Register must include investor category selector");
+  assert.ok(regContent.includes("Optional — subject to advisory qualification"), "Investor category must be marked optional");
+
+  // 3. Settings Page Integrity
+  const settingsPath = path.join(rootDir, "src", "app", "dashboard", "settings", "page.tsx");
+  assert.ok(fs.existsSync(settingsPath), "dashboard/settings/page.tsx must exist");
+  const settingsContent = fs.readFileSync(settingsPath, "utf-8");
+  assert.ok(settingsContent.includes("Personal &amp; Entity Profile"), "Settings must include profile section");
+  assert.ok(settingsContent.includes("Change Password"), "Settings must include security section");
+  assert.ok(settingsContent.includes("Two-Factor Authentication (2FA)"), "Settings must include 2FA status");
+  assert.ok(settingsContent.includes("Pending Telecom DLT Registration"), "2FA must clearly label pending backend integration");
+  assert.ok(settingsContent.includes("Communication Preferences"), "Settings must include notifications section");
+  assert.ok(settingsContent.includes("Privacy &amp; Data Protection Compliance"), "Settings must include privacy section");
+  assert.ok(settingsContent.includes("/delete-account/"), "Settings must link to DPDP deletion workflow");
+});

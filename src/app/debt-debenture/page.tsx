@@ -63,8 +63,8 @@ export default function DebtDebenturePage() {
                     <p className="font-heading text-2xl font-[600] text-[#1A1A1A]">
                       12% – 16% <span className="text-xs font-normal text-[#5C5C5C]">p.a.*</span>
                     </p>
-                    <p className="text-[0.6875rem] text-[#8A8A8A] mt-1">
-                      Business target, not guaranteed
+                    <p className="text-[0.6875rem] text-[#8A8A8A] mt-1 font-body">
+                      Indicative target, yields never assured
                     </p>
                   </div>
 
@@ -75,7 +75,7 @@ export default function DebtDebenturePage() {
                     <p className="font-heading text-base font-semibold text-[#1A1A1A]">
                       ROC Form CHG-9
                     </p>
-                    <p className="text-[0.6875rem] text-[#8A8A8A] mt-1">
+                    <p className="text-[0.6875rem] text-[#8A8A8A] mt-1 font-body">
                       Registered mortgage charge
                     </p>
                   </div>
@@ -87,7 +87,7 @@ export default function DebtDebenturePage() {
                     <p className="font-heading text-base font-semibold text-[#1A1A1A]">
                       Independent Trustee
                     </p>
-                    <p className="text-[0.6875rem] text-[#8A8A8A] mt-1">
+                    <p className="text-[0.6875rem] text-[#8A8A8A] mt-1 font-body">
                       Fiduciary collective custody
                     </p>
                   </div>
@@ -160,7 +160,7 @@ export default function DebtDebenturePage() {
                     <p className="text-xs font-semibold uppercase tracking-wider text-[#9A7B2C] mb-1">
                       Fixed Income
                     </p>
-                    <p className="text-xs text-[#5C5C5C] leading-relaxed">
+                    <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
                       Predetermined coupon schedule distributed monthly, quarterly, or annually.
                     </p>
                   </div>
@@ -168,7 +168,7 @@ export default function DebtDebenturePage() {
                     <p className="text-xs font-semibold uppercase tracking-wider text-[#9A7B2C] mb-1">
                       Defined Tenor
                     </p>
-                    <p className="text-xs text-[#5C5C5C] leading-relaxed">
+                    <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
                       Contractual maturity date ranging typically from 12 to 60 months.
                     </p>
                   </div>
@@ -176,7 +176,7 @@ export default function DebtDebenturePage() {
                     <p className="text-xs font-semibold uppercase tracking-wider text-[#9A7B2C] mb-1">
                       Priority Repayment
                     </p>
-                    <p className="text-xs text-[#5C5C5C] leading-relaxed">
+                    <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
                       Higher claim on corporate cash flows and liquidation proceeds than equity.
                     </p>
                   </div>
@@ -372,7 +372,7 @@ export default function DebtDebenturePage() {
                     },
                     {
                       title: "Inflation Hedging Potential",
-                      desc: "Target return guidance of 12%–16% p.a. offers substantial real yield spread above traditional retail bank fixed deposits and sovereign gilts.",
+                      desc: "Target return guidance of 12%–16% p.a. offers substantial spread above traditional retail bank fixed deposits and sovereign gilts.",
                     },
                     {
                       title: "Defined Exit Milestones",
@@ -441,7 +441,8 @@ export default function DebtDebenturePage() {
         </section>
 
         {/* ==================================================================
-            SECTION 4: DUE DILIGENCE CHECKLIST & RED FLAGS
+            SECTION 4: 8-POINT DUE DILIGENCE CHECKLIST & 6 RED FLAGS
+            Refined balanced institutional presentation with crisp scannability
             ================================================================== */}
         <section className="py-20 bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="due-diligence-checklist">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -458,56 +459,136 @@ export default function DebtDebenturePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              {/* 8-Point Checklist */}
-              <div className="lg:col-span-7 bg-white p-7 rounded-xl border border-[rgba(26,26,26,0.08)] shadow-2xs">
-                <h3 className="font-heading text-lg font-semibold text-[#1A1A1A] mb-4 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-[#9A7B2C]" aria-hidden="true" />
-                  8-Point Investor Due Diligence Checklist
-                </h3>
-                <ol className="space-y-3.5 text-xs sm:text-sm text-[#5C5C5C] list-decimal pl-4 leading-relaxed font-body">
-                  <li><strong>Issuer Legal Standing:</strong> Verify corporate entity incorporation, CIN, and authorized capital on MCA portal.</li>
-                  <li><strong>Security &amp; Charge Creation:</strong> Confirm Form CHG-9 charge registration with ROC establishing first or pari-passu charge on identified assets.</li>
-                  <li><strong>Debenture Trustee Appointment:</strong> Confirm appointment of an independent SEBI-registered Debenture Trustee for collective security enforcement.</li>
-                  <li><strong>Project RERA Registration:</strong> Ensure the underlying real estate development possesses valid, active RERA registration.</li>
-                  <li><strong>Escrow Account Ring-Fencing:</strong> Verify that capital disbursements and receivables are routed through a designated escrow bank account.</li>
-                  <li><strong>Cash-Flow Coverage Ratio:</strong> Review projected project revenues against debt service requirements (target DSCR &gt; 1.5x).</li>
-                  <li><strong>Promoter Track Record &amp; Litigation:</strong> Check for pending disputes, civil suits, or regulatory sanctions on promoters.</li>
-                  <li><strong>Repayment &amp; Exit Mechanism:</strong> Scrutinize specific repayment triggers, lock-in terms, and early redemption conditions.</li>
-                </ol>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* 8-Point Investor Due Diligence Checklist */}
+              <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-xl border border-[rgba(26,26,26,0.08)] shadow-2xs">
+                <div className="flex items-center gap-2.5 pb-5 border-b border-[rgba(26,26,26,0.08)] mb-6">
+                  <div className="w-8 h-8 rounded-md bg-[rgba(154,123,44,0.1)] flex items-center justify-center text-[#9A7B2C]">
+                    <FileText className="w-4 h-4" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-heading text-lg font-semibold text-[#1A1A1A]">
+                    8-Point Investor Due Diligence Checklist
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    {
+                      num: "01",
+                      title: "Issuer Legal Standing",
+                      desc: "Verify corporate incorporation, CIN, and authorized capital on MCA portal.",
+                    },
+                    {
+                      num: "02",
+                      title: "Security & Charge Creation",
+                      desc: "Confirm Form CHG-9 charge registration with ROC establishing first or pari-passu charge on identified assets.",
+                    },
+                    {
+                      num: "03",
+                      title: "Debenture Trustee Appointment",
+                      desc: "Confirm appointment of an independent SEBI-registered Debenture Trustee for collective security enforcement.",
+                    },
+                    {
+                      num: "04",
+                      title: "Project RERA Registration",
+                      desc: "Ensure the underlying real estate development possesses valid, active RERA registration.",
+                    },
+                    {
+                      num: "05",
+                      title: "Escrow Account Ring-Fencing",
+                      desc: "Verify that capital disbursements and receivables are routed through a designated escrow bank account.",
+                    },
+                    {
+                      num: "06",
+                      title: "Cash-Flow Coverage Ratio",
+                      desc: "Review projected project revenues against debt service requirements (target DSCR > 1.5x).",
+                    },
+                    {
+                      num: "07",
+                      title: "Promoter Track Record & Litigation",
+                      desc: "Check for pending disputes, civil suits, or regulatory sanctions on promoters.",
+                    },
+                    {
+                      num: "08",
+                      title: "Repayment & Exit Mechanism",
+                      desc: "Scrutinize specific repayment triggers, lock-in terms, and early redemption conditions.",
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.num}
+                      className="p-3.5 rounded-lg bg-[#FAFAF7] border border-[rgba(26,26,26,0.06)] flex flex-col justify-between"
+                    >
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="font-mono text-[0.6875rem] font-bold text-[#9A7B2C]">
+                          {item.num}
+                        </span>
+                        <h4 className="text-xs font-semibold text-[#1A1A1A]">
+                          {item.title}
+                        </h4>
+                      </div>
+                      <p className="text-[0.6875rem] text-[#5C5C5C] leading-normal font-body">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              {/* 6 Red Flags */}
-              <div className="lg:col-span-5 bg-[#FFF9F2] p-7 rounded-xl border border-[#F2C99D] shadow-2xs">
-                <h3 className="font-heading text-lg font-semibold text-[#9A3412] mb-4 flex items-center gap-2">
-                  <ShieldAlert className="w-5 h-5 text-[#D97706]" aria-hidden="true" />
-                  6 Red Flags — Be Cautious
-                </h3>
-                <ul className="space-y-3 text-xs sm:text-sm text-[#6E4822] leading-relaxed font-body">
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold text-[#D97706]">✕</span>
-                    <span><strong>Guaranteed Return Claims:</strong> Promising &ldquo;100% risk-free&rdquo; returns on high-yield debt is illegal and misleading.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold text-[#D97706]">✕</span>
-                    <span><strong>Unregistered Charges:</strong> Failure to provide ROC Form CHG-9 certificate of charge registration.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold text-[#D97706]">✕</span>
-                    <span><strong>Vague Project Backing:</strong> No identified physical real estate project or land parcel backing the issuance.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold text-[#D97706]">✕</span>
-                    <span><strong>Absence of Trustee:</strong> Lack of an independent debenture trustee to protect investor rights.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold text-[#D97706]">✕</span>
-                    <span><strong>Cash Transactions:</strong> Any request for cash payments or bypassing registered banking channels.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold text-[#D97706]">✕</span>
-                    <span><strong>Missing Documentation:</strong> Reluctance to provide a complete Private Placement Offer Letter (PAS-4).</span>
-                  </li>
+              {/* 6 Red Flags — Be Cautious */}
+              <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-xl border border-[rgba(180,60,40,0.18)] shadow-2xs">
+                <div className="flex items-center gap-2.5 pb-5 border-b border-[rgba(180,60,40,0.12)] mb-6">
+                  <div className="w-8 h-8 rounded-md bg-[rgba(180,60,40,0.08)] flex items-center justify-center text-[#B43C28]">
+                    <ShieldAlert className="w-4 h-4" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-lg font-semibold text-[#1A1A1A]">
+                      6 Red Flags — Be Cautious
+                    </h3>
+                  </div>
+                </div>
+
+                <ul className="space-y-3 font-body">
+                  {[
+                    {
+                      title: "Guaranteed Payout Promises",
+                      desc: "Promising risk-free high-yield debt is illegal and misleading under statutory regulations.",
+                    },
+                    {
+                      title: "Unregistered Charges",
+                      desc: "Failure to provide ROC Form CHG-9 certificate of charge registration.",
+                    },
+                    {
+                      title: "Vague Project Backing",
+                      desc: "No identified physical real estate project or land parcel backing the issuance.",
+                    },
+                    {
+                      title: "Absence of Trustee",
+                      desc: "Lack of an independent debenture trustee to protect investor rights.",
+                    },
+                    {
+                      title: "Cash Transactions",
+                      desc: "Any request for cash payments or bypassing registered banking channels.",
+                    },
+                    {
+                      title: "Missing Documentation",
+                      desc: "Reluctance to provide a complete Private Placement Offer Letter (PAS-4).",
+                    },
+                  ].map((flag, idx) => (
+                    <li
+                      key={idx}
+                      className="p-3 rounded-lg bg-[rgba(180,60,40,0.03)] border border-[rgba(180,60,40,0.08)] flex items-start gap-2.5"
+                    >
+                      <span className="font-bold text-[#B43C28] text-xs mt-0.5 shrink-0">✕</span>
+                      <div>
+                        <strong className="text-xs font-semibold text-[#1A1A1A] block">
+                          {flag.title}
+                        </strong>
+                        <span className="text-[0.6875rem] text-[#5C5C5C] leading-snug block mt-0.5">
+                          {flag.desc}
+                        </span>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

@@ -11,22 +11,21 @@ interface DropdownItem {
   description?: string;
 }
 
-
 const ADVISORY_ITEMS: DropdownItem[] = [
   {
     label: "Debt & Debenture Advisory",
     href: "/debt-debenture/",
-    description: "Senior secured private placement debentures (12%–16% p.a.* guidance)",
+    description: "Senior secured private debentures",
   },
   {
     label: "Real Estate Capital",
     href: "/real-estate/",
-    description: "Structured project debt & mezzanine finance for vetted developer assets",
+    description: "Structured debt & mezzanine finance",
   },
   {
     label: "Capital Providers",
     href: "/capital-providers/",
-    description: "Institutional co-investment facilitation for family offices & HNIs",
+    description: "Co-investment for family offices & HNIs",
   },
 ];
 
@@ -34,27 +33,27 @@ const GOVERNANCE_ITEMS: DropdownItem[] = [
   {
     label: "Investor Information",
     href: "/investor-information/",
-    description: "Statutory rights, debenture trustee safeguards & ROC compliance",
+    description: "Trustee safeguards & ROC compliance",
   },
   {
     label: "Regulatory Disclosures",
     href: "/regulatory-disclosures/",
-    description: "Private placement framework under Section 42 of Companies Act, 2013",
+    description: "Section 42 statutory framework",
   },
   {
     label: "Risk Disclosures",
     href: "/risk-disclosure/",
-    description: "Comprehensive investment, credit, absorption & market risk factors",
+    description: "Investment & credit risk factors",
   },
   {
     label: "Support & FAQ",
     href: "/support-faq/",
-    description: "Operational guidelines, grievance procedures & stakeholder queries",
+    description: "Operational guidelines & queries",
   },
   {
     label: "Grievance Redressal",
     href: "/grievance/",
-    description: "Independent dispute resolution mechanism with 30-day statutory SLA",
+    description: "Dispute resolution with 30-day SLA",
   },
 ];
 
@@ -72,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
   const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Detect scroll for sticky header elevation
+  // Detect scroll for subtle header elevation
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -119,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [openDropdown, isMobileMenuOpen, closeDropdowns, closeMobile]);
 
-  // Lock body scroll when mobile drawer is active
+  // Lock body scroll when mobile drawer is open
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
     return () => {
@@ -127,7 +126,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
     };
   }, [isMobileMenuOpen]);
 
-  // Delayed dropdown close on mouse leave (prevents accidental flicker)
+  // Delayed dropdown close on mouse leave
   const handleMouseEnter = (id: string) => {
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current);
@@ -148,8 +147,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
   return (
     <>
       {/* ============================================================
-          HEADER: Premium Institutional · Confident · Uncluttered
-          Height: 74px fixed, 3-column horizontal architecture
+          HEADER: Premium Institutional · Minimal · Uncluttered
           ============================================================ */}
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-200 ${
@@ -160,13 +158,11 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
       >
         <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[74px]">
-            {/* ========================================================
-                COLUMN 1 (LEFT): Authentic Logo & Wordmark Unit
-                ======================================================== */}
+            {/* Logo Unit */}
             <div className="flex items-center shrink-0 lg:mr-8 xl:mr-10">
               <Link
                 href="/"
-                className="flex items-center gap-3.5 group rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] focus-visible:ring-offset-2 py-1"
+                className="flex items-center gap-3.5 group rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] focus-visible:ring-offset-2 py-1 min-h-[44px]"
                 aria-label="Niventra Capital Advisory — Home"
               >
                 <div className="relative h-9 w-9 sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-[2px] transition-opacity duration-200 group-hover:opacity-90">
@@ -190,10 +186,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
               </Link>
             </div>
 
-            {/* ========================================================
-                COLUMN 2 (MIDDLE): Desktop Primary Navigation
-                Strictly on 1 line with clean dropdowns & direct links
-                ======================================================== */}
+            {/* Desktop Navigation */}
             <nav
               className="hidden lg:flex items-center gap-1 xl:gap-2 whitespace-nowrap"
               aria-label="Primary institutional navigation"
@@ -210,7 +203,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                   onClick={() => setOpenDropdown(openDropdown === "advisory" ? null : "advisory")}
                   aria-expanded={openDropdown === "advisory"}
                   aria-haspopup="true"
-                  className={`inline-flex items-center gap-1.5 px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
                     isAdvisoryActive || openDropdown === "advisory"
                       ? "text-[#9A7B2C] font-semibold bg-[rgba(154,123,44,0.06)]"
                       : "text-[#4A4A4A] hover:text-[#1A1A1A] hover:bg-[rgba(26,26,26,0.03)]"
@@ -229,7 +222,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                   <div
                     role="menu"
                     aria-label="Advisory and capital offerings"
-                    className="absolute top-full left-0 mt-1.5 w-80 rounded-lg bg-white border border-[rgba(26,26,26,0.09)] shadow-[0_10px_35px_rgba(26,26,26,0.08)] p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                    className="absolute top-full left-0 mt-1 w-72 rounded-lg bg-white border border-[rgba(26,26,26,0.09)] shadow-[0_8px_30px_rgba(26,26,26,0.08)] p-2 z-50 animate-in fade-in duration-150"
                   >
                     {ADVISORY_ITEMS.map((item) => {
                       const isActive = activePath === item.href;
@@ -239,7 +232,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                           href={item.href}
                           role="menuitem"
                           onClick={closeDropdowns}
-                          className={`block px-3 py-2.5 rounded-md transition-colors group/item ${
+                          className={`block px-3 py-2 rounded-md transition-colors group/item ${
                             isActive
                               ? "bg-[rgba(154,123,44,0.08)]"
                               : "hover:bg-[#FAFAF7]"
@@ -253,7 +246,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                             {item.label}
                           </div>
                           {item.description && (
-                            <div className="text-[0.6875rem] text-[#7A7A7A] mt-0.5 leading-snug font-normal">
+                            <div className="text-[0.6875rem] text-[#7A7A7A] mt-0.5 leading-tight font-normal">
                               {item.description}
                             </div>
                           )}
@@ -267,7 +260,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
               {/* 2. Due Diligence (Direct Link) */}
               <Link
                 href="/due-diligence/"
-                className={`px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
+                className={`px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 min-h-[40px] inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
                   activePath === "/due-diligence/"
                     ? "text-[#9A7B2C] font-semibold bg-[rgba(154,123,44,0.06)]"
                     : "text-[#4A4A4A] hover:text-[#1A1A1A] hover:bg-[rgba(26,26,26,0.03)]"
@@ -288,7 +281,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                   onClick={() => setOpenDropdown(openDropdown === "governance" ? null : "governance")}
                   aria-expanded={openDropdown === "governance"}
                   aria-haspopup="true"
-                  className={`inline-flex items-center gap-1.5 px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
                     isGovernanceActive || openDropdown === "governance"
                       ? "text-[#9A7B2C] font-semibold bg-[rgba(154,123,44,0.06)]"
                       : "text-[#4A4A4A] hover:text-[#1A1A1A] hover:bg-[rgba(26,26,26,0.03)]"
@@ -307,7 +300,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                   <div
                     role="menu"
                     aria-label="Investor governance and regulatory disclosures"
-                    className="absolute top-full left-0 mt-1.5 w-84 rounded-lg bg-white border border-[rgba(26,26,26,0.09)] shadow-[0_10px_35px_rgba(26,26,26,0.08)] p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                    className="absolute top-full left-0 mt-1 w-76 rounded-lg bg-white border border-[rgba(26,26,26,0.09)] shadow-[0_8px_30px_rgba(26,26,26,0.08)] p-2 z-50 animate-in fade-in duration-150"
                   >
                     {GOVERNANCE_ITEMS.map((item) => {
                       const isActive = activePath === item.href;
@@ -317,7 +310,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                           href={item.href}
                           role="menuitem"
                           onClick={closeDropdowns}
-                          className={`block px-3 py-2.5 rounded-md transition-colors group/item ${
+                          className={`block px-3 py-2 rounded-md transition-colors group/item ${
                             isActive
                               ? "bg-[rgba(154,123,44,0.08)]"
                               : "hover:bg-[#FAFAF7]"
@@ -331,7 +324,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                             {item.label}
                           </div>
                           {item.description && (
-                            <div className="text-[0.6875rem] text-[#7A7A7A] mt-0.5 leading-snug font-normal">
+                            <div className="text-[0.6875rem] text-[#7A7A7A] mt-0.5 leading-tight font-normal">
                               {item.description}
                             </div>
                           )}
@@ -345,7 +338,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
               {/* 4. About (Direct Link) */}
               <Link
                 href="/about/"
-                className={`px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
+                className={`px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 min-h-[40px] inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
                   activePath === "/about/"
                     ? "text-[#9A7B2C] font-semibold bg-[rgba(154,123,44,0.06)]"
                     : "text-[#4A4A4A] hover:text-[#1A1A1A] hover:bg-[rgba(26,26,26,0.03)]"
@@ -357,7 +350,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
               {/* 5. Contact (Direct Link) */}
               <Link
                 href="/contact/"
-                className={`px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
+                className={`px-3 py-2 text-[0.8125rem] font-medium tracking-normal rounded transition-colors duration-150 min-h-[40px] inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] ${
                   activePath === "/contact/"
                     ? "text-[#9A7B2C] font-semibold bg-[rgba(154,123,44,0.06)]"
                     : "text-[#4A4A4A] hover:text-[#1A1A1A] hover:bg-[rgba(26,26,26,0.03)]"
@@ -367,52 +360,45 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
               </Link>
             </nav>
 
-            {/* ========================================================
-                COLUMN 3 (RIGHT): Actions (Phone, Portal, Primary CTA)
-                Graceful responsive simplification on narrower viewports
-                ======================================================== */}
+            {/* Desktop Actions */}
             <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-              {/* Phone Number: Full single-line on >=1280px (xl), compact button on 1024px-1279px (lg) */}
+              {/* Toll-free phone */}
               <a
                 href="tel:18008900818"
-                className="hidden xl:inline-flex items-center gap-2 text-[0.8125rem] font-medium text-[#5C5C5C] hover:text-[#1A1A1A] transition-colors py-1.5 px-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] whitespace-nowrap"
+                className="hidden xl:inline-flex items-center gap-2 text-[0.8125rem] font-medium text-[#5C5C5C] hover:text-[#1A1A1A] transition-colors py-1.5 px-2 rounded min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] whitespace-nowrap"
                 aria-label="Call toll-free: 1800 890 0818"
               >
-                <Phone
-                  className="w-3.5 h-3.5 shrink-0 text-[#9A7B2C]"
-                  aria-hidden="true"
-                />
+                <Phone className="w-3.5 h-3.5 shrink-0 text-[#9A7B2C]" aria-hidden="true" />
                 <span className="font-semibold text-[#1A1A1A]">1800 890 0818</span>
               </a>
 
-              {/* Compact Phone Icon on intermediate desktop (lg) */}
               <a
                 href="tel:18008900818"
-                className="hidden lg:inline-flex xl:hidden items-center justify-center w-9 h-9 rounded-md border border-[rgba(26,26,26,0.12)] text-[#5C5C5C] hover:text-[#1A1A1A] hover:border-[#9A7B2C] transition-colors"
+                className="hidden lg:inline-flex xl:hidden items-center justify-center w-10 h-10 rounded-md border border-[rgba(26,26,26,0.12)] text-[#5C5C5C] hover:text-[#1A1A1A] hover:border-[#9A7B2C] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C]"
                 aria-label="Call toll-free: 1800 890 0818"
                 title="Call toll-free: 1800 890 0818"
               >
                 <Phone className="w-3.5 h-3.5 text-[#9A7B2C]" aria-hidden="true" />
               </a>
 
-              {/* Investor Portal (Visually Distinct Secondary Action) */}
+              {/* Investor Portal */}
               <Link
                 href="/login/"
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-[0.8125rem] font-semibold rounded border border-[rgba(26,26,26,0.16)] bg-white text-[#1A1A1A] hover:bg-[#FAFAF7] hover:border-[#9A7B2C] hover:text-[#9A7B2C] transition-all min-h-[38px] whitespace-nowrap shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C]"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-[0.8125rem] font-medium text-[#4A4A4A] hover:text-[#9A7B2C] transition-colors min-h-[40px] whitespace-nowrap rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C]"
               >
                 <Lock className="w-3.5 h-3.5 text-[#9A7B2C] shrink-0" aria-hidden="true" />
                 <span>Investor Portal</span>
               </Link>
 
-              {/* Schedule a Consultation (Primary Institutional CTA) */}
+              {/* Primary Consultation CTA */}
               <Link
                 href="/contact/"
-                className="inline-flex items-center justify-center px-4 py-2 text-[0.8125rem] font-semibold rounded bg-[#1A1A1A] text-white hover:bg-[#2D2D2D] hover:shadow-sm transition-all duration-150 min-h-[38px] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C]"
+                className="inline-flex items-center justify-center px-4 py-2 text-[0.8125rem] font-semibold rounded bg-[#1A1A1A] text-white hover:bg-[#2D2D2D] transition-colors duration-150 min-h-[40px] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C]"
               >
                 <span>Schedule a Consultation</span>
               </Link>
 
-              {/* Mobile Hamburger Menu Toggle */}
+              {/* Mobile Drawer Toggle */}
               <button
                 ref={mobileToggleRef}
                 type="button"
@@ -433,10 +419,6 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
         </div>
       </header>
 
-      {/* ============================================================
-          MOBILE DRAWER: Accessible Slide-in Drawer with Grouped Links
-          ============================================================ */}
-
       {/* Backdrop */}
       {isMobileMenuOpen && (
         <div
@@ -452,7 +434,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation menu"
-        className={`fixed top-0 right-0 z-50 h-full w-[340px] max-w-[85vw] bg-[#FAFAF7] border-l border-[rgba(26,26,26,0.08)] shadow-2xl lg:hidden flex flex-col transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-50 h-full w-[320px] max-w-[85vw] bg-[#FAFAF7] border-l border-[rgba(26,26,26,0.08)] shadow-xl lg:hidden flex flex-col transition-transform duration-300 ease-in-out ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -483,7 +465,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
         </div>
 
         {/* Drawer Navigation Links */}
-        <nav className="flex-1 overflow-y-auto px-5 py-6 space-y-6" aria-label="Mobile site links">
+        <nav className="flex-1 overflow-y-auto px-5 py-5 space-y-5" aria-label="Mobile site links">
           {/* Quick Home Link */}
           <div>
             <Link
@@ -495,7 +477,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                   : "text-[#1A1A1A] hover:bg-[rgba(26,26,26,0.04)]"
               }`}
             >
-              <span>Home Overview</span>
+              <span>Home</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#8A8A8A]" />
             </Link>
           </div>
@@ -512,7 +494,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobile}
-                  className={`flex flex-col px-3 py-2.5 rounded-md transition-colors min-h-[44px] ${
+                  className={`flex flex-col justify-center px-3 py-2 rounded-md transition-colors min-h-[44px] ${
                     isActive
                       ? "text-[#9A7B2C] bg-[rgba(154,123,44,0.08)] font-semibold"
                       : "text-[#2D2D2D] hover:bg-[rgba(26,26,26,0.04)]"
@@ -520,7 +502,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                 >
                   <span className="text-sm font-medium">{item.label}</span>
                   {item.description && (
-                    <span className="text-[0.6875rem] text-[#7A7A7A] mt-0.5 leading-snug">
+                    <span className="text-[0.6875rem] text-[#7A7A7A] mt-0.5 leading-tight">
                       {item.description}
                     </span>
                   )}
@@ -543,7 +525,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                   : "text-[#2D2D2D] hover:bg-[rgba(26,26,26,0.04)]"
               }`}
             >
-              <span>5-Point Due Diligence Framework</span>
+              <span>Due Diligence Framework</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#8A8A8A]" />
             </Link>
           </div>
@@ -560,7 +542,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobile}
-                  className={`flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors min-h-[40px] ${
+                  className={`flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors min-h-[44px] ${
                     isActive
                       ? "text-[#9A7B2C] bg-[rgba(154,123,44,0.08)] font-semibold"
                       : "text-[#3D3D3D] hover:bg-[rgba(26,26,26,0.04)]"
@@ -581,7 +563,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
             <Link
               href="/about/"
               onClick={closeMobile}
-              className={`flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors min-h-[40px] ${
+              className={`flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors min-h-[44px] ${
                 activePath === "/about/"
                   ? "text-[#9A7B2C] bg-[rgba(154,123,44,0.08)] font-semibold"
                   : "text-[#3D3D3D] hover:bg-[rgba(26,26,26,0.04)]"
@@ -593,23 +575,23 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
             <Link
               href="/contact/"
               onClick={closeMobile}
-              className={`flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors min-h-[40px] ${
+              className={`flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors min-h-[44px] ${
                 activePath === "/contact/"
                   ? "text-[#9A7B2C] bg-[rgba(154,123,44,0.08)] font-semibold"
                   : "text-[#3D3D3D] hover:bg-[rgba(26,26,26,0.04)]"
               }`}
             >
-              <span>Contact &amp; Offices</span>
+              <span>Contact</span>
               <ArrowRight className="w-3 h-3 text-[#A0A0A0]" />
             </Link>
           </div>
         </nav>
 
         {/* Drawer Footer Actions */}
-        <div className="p-5 border-t border-[rgba(26,26,26,0.08)] bg-white space-y-3 shrink-0">
+        <div className="p-4 border-t border-[rgba(26,26,26,0.08)] bg-white space-y-2.5 shrink-0">
           <a
             href="tel:18008900818"
-            className="flex items-center justify-center gap-2 text-xs font-medium text-[#5C5C5C] hover:text-[#1A1A1A] transition-colors py-2.5 rounded-md border border-[rgba(26,26,26,0.1)] min-h-[44px]"
+            className="flex items-center justify-center gap-2 text-xs font-medium text-[#5C5C5C] hover:text-[#1A1A1A] transition-colors py-2 rounded-md border border-[rgba(26,26,26,0.1)] min-h-[44px]"
           >
             <Phone className="w-3.5 h-3.5 text-[#9A7B2C]" aria-hidden="true" />
             <span>1800 890 0818 <span className="text-[#8A8A8A]">(Toll-Free)</span></span>
@@ -618,16 +600,16 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
           <Link
             href="/login/"
             onClick={closeMobile}
-            className="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 text-xs font-semibold rounded-md border border-[rgba(26,26,26,0.16)] bg-white text-[#1A1A1A] hover:bg-[#FAFAF7] hover:border-[#9A7B2C] transition-colors min-h-[44px]"
+            className="flex items-center justify-center gap-2 w-full text-center px-4 py-2 text-xs font-semibold rounded-md border border-[rgba(26,26,26,0.16)] bg-white text-[#1A1A1A] hover:bg-[#FAFAF7] hover:border-[#9A7B2C] transition-colors min-h-[44px]"
           >
             <Lock className="w-3.5 h-3.5 text-[#9A7B2C]" />
-            <span>Investor Portal Login</span>
+            <span>Investor Portal</span>
           </Link>
 
           <Link
             href="/contact/"
             onClick={closeMobile}
-            className="flex items-center justify-center w-full text-center px-4 py-3 text-xs font-semibold rounded-md bg-[#1A1A1A] text-white hover:bg-[#2D2D2D] transition-colors min-h-[44px] shadow-sm"
+            className="flex items-center justify-center w-full text-center px-4 py-2.5 text-xs font-semibold rounded-md bg-[#1A1A1A] text-white hover:bg-[#2D2D2D] transition-colors min-h-[44px]"
           >
             <span>Schedule a Consultation</span>
           </Link>

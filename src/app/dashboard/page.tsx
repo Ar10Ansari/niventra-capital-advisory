@@ -9,6 +9,7 @@ import {
   LogOut,
   CheckCircle2,
   ChevronRight,
+  Settings,
 } from "lucide-react";
 
 interface UserProfile {
@@ -183,9 +184,18 @@ export default function InvestorDashboardPage() {
               <span className="text-[0.625rem] text-[#8A8A8A] font-mono">{user?.role} • {user?.email}</span>
             </div>
 
+            <NextLink
+              href="/dashboard/settings/"
+              className="flex items-center gap-1.5 text-xs font-semibold text-[#5C5C5C] hover:text-[#1A1A1A] transition-colors p-2 rounded hover:bg-[rgba(26,26,26,0.04)] min-h-[44px]"
+              title="Account Settings"
+            >
+              <Settings className="w-4 h-4 text-[#9A7B2C]" />
+              <span className="hidden sm:inline">Settings</span>
+            </NextLink>
+
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 text-xs font-semibold text-[#5C5C5C] hover:text-red-700 transition-colors p-2 rounded hover:bg-red-50"
+              className="flex items-center gap-1.5 text-xs font-semibold text-[#5C5C5C] hover:text-red-700 transition-colors p-2 rounded hover:bg-red-50 min-h-[44px]"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />

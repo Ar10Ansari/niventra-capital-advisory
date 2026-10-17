@@ -56,7 +56,7 @@ export default function AboutPage() {
                     <p className="font-heading text-base font-semibold text-[#1A1A1A]">
                       Gwalior &amp; New Delhi, India
                     </p>
-                    <p className="text-xs text-[#5C5C5C] mt-0.5">
+                    <p className="text-xs text-[#5C5C5C] mt-0.5 font-body">
                       Patel Nagar City Centre, Gwalior — 474001
                     </p>
                   </div>
@@ -68,7 +68,7 @@ export default function AboutPage() {
                     <p className="font-heading text-base font-semibold text-[#1A1A1A]">
                       Structured Debt &amp; Real Estate
                     </p>
-                    <p className="text-xs text-[#5C5C5C] mt-0.5">
+                    <p className="text-xs text-[#5C5C5C] mt-0.5 font-body">
                       Secured NCDs, Project Due Diligence &amp; Monitoring
                     </p>
                   </div>
@@ -103,54 +103,80 @@ export default function AboutPage() {
         </section>
 
         {/* ==================================================================
-            MISSION & VISION: Dual Column Asymmetric Editorial Composition
+            MISSION, VISION & VALUES: Consolidated 3-Pillar Layout
             ================================================================== */}
-        <section className="py-20 bg-white border-b border-[rgba(26,26,26,0.08)]" aria-label="Mission and Vision">
+        <section className="py-20 bg-white border-b border-[rgba(26,26,26,0.08)]" aria-label="Mission, Vision and Core Values">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
-              
-              {/* Mission */}
-              <div className="p-8 sm:p-10 rounded-xl bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)] flex flex-col justify-between">
+            <div className="max-w-2xl mb-12">
+              <span className="text-eyebrow mb-2 block">Institutional Foundations</span>
+              <h2 className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A]">
+                Guided by discipline, governed by purpose.
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              {/* Pillar 1: Mission */}
+              <div className="p-7 sm:p-8 rounded-xl bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)] flex flex-col justify-between">
                 <div>
-                  <div className="w-12 h-12 rounded-lg bg-[rgba(154,123,44,0.1)] flex items-center justify-center mb-6">
-                    <Target className="w-6 h-6 text-[#9A7B2C]" aria-hidden="true" />
+                  <div className="w-10 h-10 rounded-lg bg-[rgba(154,123,44,0.1)] flex items-center justify-center mb-5 text-[#9A7B2C]">
+                    <Target className="w-5 h-5" aria-hidden="true" />
                   </div>
-                  <span className="text-eyebrow mb-2 block">Our Mission</span>
-                  <h2 className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A] mb-4">
+                  <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-[#9A7B2C] block mb-2">
+                    Our Mission
+                  </span>
+                  <h3 className="font-heading text-xl font-semibold text-[#1A1A1A] mb-3">
                     Disciplined capital facilitation
-                  </h2>
-                  <p className="text-sm sm:text-base text-[#5C5C5C] leading-relaxed font-body">
-                    To bridge the structural capital gap in India&rsquo;s real estate ecosystem by facilitating compliant, secured, and transparent debt instruments that prioritize principal protection, robust due diligence, and reliable returns for discerning capital providers.
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
+                    To bridge the structural capital gap in India&rsquo;s real estate ecosystem by facilitating compliant, secured, and transparent debt instruments that prioritize principal protection, robust due diligence, and reliable cash-flow visibility.
                   </p>
                 </div>
-                <div className="mt-8 pt-6 border-t border-[rgba(26,26,26,0.08)]">
-                  <span className="text-[0.6875rem] text-[#8A8A8A] font-medium uppercase tracking-wider block">
-                    Fiduciary Integrity · Risk Mitigation · Regulatory Alignment
-                  </span>
+                <div className="mt-6 pt-4 border-t border-[rgba(26,26,26,0.06)] text-[0.6875rem] text-[#8A8A8A] font-medium uppercase tracking-wider">
+                  Fiduciary Integrity · Risk Mitigation
                 </div>
               </div>
 
-              {/* Vision */}
-              <div className="p-8 sm:p-10 rounded-xl bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)] flex flex-col justify-between">
+              {/* Pillar 2: Vision */}
+              <div className="p-7 sm:p-8 rounded-xl bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)] flex flex-col justify-between">
                 <div>
-                  <div className="w-12 h-12 rounded-lg bg-[rgba(154,123,44,0.1)] flex items-center justify-center mb-6">
-                    <Compass className="w-6 h-6 text-[#9A7B2C]" aria-hidden="true" />
+                  <div className="w-10 h-10 rounded-lg bg-[rgba(154,123,44,0.1)] flex items-center justify-center mb-5 text-[#9A7B2C]">
+                    <Compass className="w-5 h-5" aria-hidden="true" />
                   </div>
-                  <span className="text-eyebrow mb-2 block">Our Vision</span>
-                  <h2 className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A] mb-4">
+                  <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-[#9A7B2C] block mb-2">
+                    Our Vision
+                  </span>
+                  <h3 className="font-heading text-xl font-semibold text-[#1A1A1A] mb-3">
                     Setting the benchmark in private debt
-                  </h2>
-                  <p className="text-sm sm:text-base text-[#5C5C5C] leading-relaxed font-body">
-                    To be recognized across India as an institutional advisory firm that sets the standard for structured financial governance — known for uncompromising project vetting, unvarnished risk disclosures, and alignment of interests between developers and capital providers.
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
+                    To be recognized across India as an institutional advisory firm that sets the standard for structured financial governance — known for uncompromising project vetting, unvarnished risk disclosures, and rigorous alignment between developers and capital providers.
                   </p>
                 </div>
-                <div className="mt-8 pt-6 border-t border-[rgba(26,26,26,0.08)]">
-                  <span className="text-[0.6875rem] text-[#8A8A8A] font-medium uppercase tracking-wider block">
-                    Transparency First · Disciplined Underwriting · Capital Security
-                  </span>
+                <div className="mt-6 pt-4 border-t border-[rgba(26,26,26,0.06)] text-[0.6875rem] text-[#8A8A8A] font-medium uppercase tracking-wider">
+                  Transparency · Disciplined Underwriting
                 </div>
               </div>
 
+              {/* Pillar 3: Core Values */}
+              <div className="p-7 sm:p-8 rounded-xl bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)] flex flex-col justify-between">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-[rgba(154,123,44,0.1)] flex items-center justify-center mb-5 text-[#9A7B2C]">
+                    <Shield className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                  <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-[#9A7B2C] block mb-2">
+                    Institutional Values
+                  </span>
+                  <h3 className="font-heading text-xl font-semibold text-[#1A1A1A] mb-3">
+                    Compliance &amp; Fiduciary Ethics
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
+                    Upholding absolute fiduciary transparency with zero speculative promises, strict adherence to Section 42 of the Companies Act, 2013, robust data governance under the DPDP Act, 2023, and prompt grievance resolution.
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-[rgba(26,26,26,0.06)] text-[0.6875rem] text-[#8A8A8A] font-medium uppercase tracking-wider">
+                  Zero Speculation · Statutory Alignment
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -160,11 +186,11 @@ export default function AboutPage() {
             ================================================================== */}
         <section className="py-20 bg-[#F4F3EF] border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="approach-heading">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mb-14">
-              <span className="text-eyebrow mb-3 block">Operating Philosophy</span>
+            <div className="max-w-3xl mb-12">
+              <span className="text-eyebrow mb-2 block">Operating Philosophy</span>
               <h2
                 id="approach-heading"
-                className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] leading-[1.2] tracking-[-0.02em] text-[#1A1A1A] mb-4"
+                className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] leading-[1.2] tracking-[-0.02em] text-[#1A1A1A] mb-3"
               >
                 Our strategic approach to capital advisory
               </h2>
@@ -173,7 +199,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {[
                 {
                   step: "01",
@@ -198,16 +224,13 @@ export default function AboutPage() {
               ].map((item, idx) => (
                 <div key={idx} className="bg-white border border-[rgba(26,26,26,0.08)] rounded-xl p-6 flex flex-col justify-between shadow-2xs">
                   <div>
-                    <span
-                      className="font-mono text-sm font-bold block mb-4"
-                      style={{ color: "var(--color-brass)" }}
-                    >
+                    <span className="font-mono text-xs font-bold text-[#9A7B2C] block mb-3">
                       TENET {item.step}
                     </span>
-                    <h3 className="font-heading text-lg font-semibold text-[#1A1A1A] mb-2">
+                    <h3 className="font-heading text-base font-semibold text-[#1A1A1A] mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
+                    <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
                       {item.desc}
                     </p>
                   </div>
@@ -245,25 +268,25 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                   <div className="p-4 rounded-lg bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)]">
                     <Scale className="w-5 h-5 text-[#9A7B2C] mb-2" />
                     <span className="text-xs font-semibold text-[#1A1A1A] block">Companies Act, 2013</span>
-                    <span className="text-[0.6875rem] text-[#8A8A8A] block mt-0.5">Section 42 &amp; 71 Framework</span>
+                    <span className="text-[0.6875rem] text-[#8A8A8A] block mt-0.5 font-body">Section 42 &amp; 71 Framework</span>
                   </div>
                   <div className="p-4 rounded-lg bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)]">
                     <Shield className="w-5 h-5 text-[#9A7B2C] mb-2" />
                     <span className="text-xs font-semibold text-[#1A1A1A] block">DPDP Act, 2023</span>
-                    <span className="text-[0.6875rem] text-[#8A8A8A] block mt-0.5">Fiduciary Data Privacy</span>
+                    <span className="text-[0.6875rem] text-[#8A8A8A] block mt-0.5 font-body">Fiduciary Data Privacy</span>
                   </div>
                   <div className="p-4 rounded-lg bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)]">
                     <Clock className="w-5 h-5 text-[#9A7B2C] mb-2" />
                     <span className="text-xs font-semibold text-[#1A1A1A] block">48-Hour SLA</span>
-                    <span className="text-[0.6875rem] text-[#8A8A8A] block mt-0.5">Grievance Redressal</span>
+                    <span className="text-[0.6875rem] text-[#8A8A8A] block mt-0.5 font-body">Grievance Redressal</span>
                   </div>
                 </div>
 
-                <div className="pt-4 flex flex-wrap gap-4">
+                <div className="pt-2 flex flex-wrap gap-4">
                   <Button variant="primary" size="md" href="/due-diligence/" icon={<ArrowRight className="w-4 h-4" />}>
                     Due Diligence Framework
                   </Button>
@@ -274,9 +297,9 @@ export default function AboutPage() {
               </div>
 
               {/* Right Column: Office Footprint Directory */}
-              <div className="lg:col-span-5 space-y-6">
+              <div className="lg:col-span-5 space-y-5">
                 <div className="p-6 rounded-xl bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)]">
-                  <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-2.5 mb-4">
                     <Building className="w-5 h-5 text-[#9A7B2C]" />
                     <h3 className="font-heading text-lg font-semibold text-[#1A1A1A]">
                       Corporate Offices &amp; Liaison
@@ -284,17 +307,17 @@ export default function AboutPage() {
                   </div>
 
                   <div className="space-y-4 divide-y divide-[rgba(26,26,26,0.08)]">
-                    <div className="pt-2">
+                    <div className="pt-1">
                       <span className="text-[0.625rem] font-bold uppercase tracking-wider text-[#9A7B2C] block mb-1">
                         Principal Head Office
                       </span>
                       <p className="font-heading text-sm font-semibold text-[#1A1A1A]">
                         Gwalior, Madhya Pradesh
                       </p>
-                      <p className="text-xs text-[#5C5C5C] mt-0.5">
+                      <p className="text-xs text-[#5C5C5C] mt-0.5 font-body">
                         Patel Nagar City Centre, Gwalior — 474001, India
                       </p>
-                      <p className="text-[0.6875rem] text-[#8A8A8A] mt-1">
+                      <p className="text-[0.6875rem] text-[#8A8A8A] mt-1 font-body">
                         Corporate administration &amp; central operations
                       </p>
                     </div>
@@ -306,21 +329,21 @@ export default function AboutPage() {
                       <p className="font-heading text-sm font-semibold text-[#1A1A1A]">
                         New Delhi Advisory Liaison
                       </p>
-                      <p className="text-xs text-[#5C5C5C] mt-0.5">
+                      <p className="text-xs text-[#5C5C5C] mt-0.5 font-body">
                         Connaught Place / Barakhamba Road Corridor, New Delhi — 110001
                       </p>
-                      <p className="text-[0.6875rem] text-[#8A8A8A] mt-1">
+                      <p className="text-[0.6875rem] text-[#8A8A8A] mt-1 font-body">
                         Institutional capital desk &amp; statutory legal counsel
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-5 rounded-xl border border-[rgba(154,123,44,0.2)] bg-[rgba(154,123,44,0.04)]">
+                <div className="p-4.5 rounded-xl border border-[rgba(154,123,44,0.2)] bg-[rgba(154,123,44,0.04)]">
                   <span className="text-xs font-semibold text-[#1A1A1A] block mb-1">
                     Direct Corporate Enquiries
                   </span>
-                  <p className="text-xs text-[#5C5C5C] leading-relaxed">
+                  <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
                     Toll-Free: <a href="tel:18008900818" className="font-semibold text-[#1A1A1A] hover:text-[#9A7B2C]">1800 890 0818</a> · Email: <a href="mailto:info@niventracapitaladvisory.com" className="font-semibold text-[#1A1A1A] hover:text-[#9A7B2C]">info@niventracapitaladvisory.com</a>
                   </p>
                 </div>
