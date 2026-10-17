@@ -88,7 +88,7 @@ export const Footer: React.FC = () => {
                     1800 890 0818
                   </a>
                   <span className="mx-2 text-[rgba(255,255,255,0.2)]">·</span>
-                  <a href="tel:+91011405155660" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] rounded">
+                  <a href="tel:+9101140515660" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] rounded">
                     +91 011 4051 5660
                   </a>
                 </div>

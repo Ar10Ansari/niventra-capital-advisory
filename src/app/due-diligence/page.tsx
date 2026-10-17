@@ -1,7 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import {
   ArrowRight,
   Scale,
@@ -10,9 +9,6 @@ import {
   TrendingUp,
   ShieldCheck,
   CheckCircle2,
-  FileCheck,
-  Layers,
-  Building,
 } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";

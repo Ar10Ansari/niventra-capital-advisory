@@ -1,8 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Building, Home, Briefcase, RefreshCw, CheckCircle2, ShieldCheck, Scale, MapPin } from "lucide-react";
+import { ArrowRight, Building, Home, Briefcase, RefreshCw } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";

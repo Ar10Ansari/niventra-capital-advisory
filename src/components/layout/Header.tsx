@@ -397,7 +397,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
 
               {/* Investor Portal (Visually Distinct Secondary Action) */}
               <Link
-                href="/login"
+                href="/login/"
                 className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-[0.8125rem] font-semibold rounded border border-[rgba(26,26,26,0.16)] bg-white text-[#1A1A1A] hover:bg-[#FAFAF7] hover:border-[#9A7B2C] hover:text-[#9A7B2C] transition-all min-h-[38px] whitespace-nowrap shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C]"
               >
                 <Lock className="w-3.5 h-3.5 text-[#9A7B2C] shrink-0" aria-hidden="true" />
@@ -616,7 +616,7 @@ export const Header: React.FC<HeaderProps> = ({ activePath = "/" }) => {
           </a>
 
           <Link
-            href="/login"
+            href="/login/"
             onClick={closeMobile}
             className="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 text-xs font-semibold rounded-md border border-[rgba(26,26,26,0.16)] bg-white text-[#1A1A1A] hover:bg-[#FAFAF7] hover:border-[#9A7B2C] transition-colors min-h-[44px]"
           >

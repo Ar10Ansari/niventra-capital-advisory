@@ -1,8 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Target, Compass, Shield, Award, CheckCircle2, Building, Scale, Clock } from "lucide-react";
+import { ArrowRight, Target, Compass, Shield, Building, Scale, Clock } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";

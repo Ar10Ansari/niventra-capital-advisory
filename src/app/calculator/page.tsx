@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { ArrowRight, AlertTriangle, CheckCircle2, ShieldAlert, Calculator } from "lucide-react";
+import { ArrowRight, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";

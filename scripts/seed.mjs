@@ -164,13 +164,22 @@ function hashPassword(password) {
   return { hash: derived.toString("hex"), salt };
 }
 
-// 1. Seed Users
+// 1. Seed Users (explicit development-only bootstrap with non-documented dynamic credentials)
+if (process.env.NODE_ENV === "production") {
+  console.error("[Seed Error] Seeding development accounts is prohibited in production.");
+  process.exit(1);
+}
+
+const adminPassword = process.env.DEV_ADMIN_PASSWORD || crypto.randomBytes(16).toString("base64url");
+const staffPassword = process.env.DEV_STAFF_PASSWORD || crypto.randomBytes(16).toString("base64url");
+const investorPassword = process.env.DEV_INVESTOR_PASSWORD || crypto.randomBytes(16).toString("base64url");
+
 const users = [
   {
     id: "usr_admin_dev",
     name: "System Administrator",
     email: "admin@niventra.local",
-    password: "NiventraAdmin2026!",
+    password: adminPassword,
     role: "ADMIN",
     phone: "+91 98765 00001",
   },
@@ -178,7 +187,7 @@ const users = [
     id: "usr_staff_dev",
     name: "Advisory Desk Operator",
     email: "staff@niventra.local",
-    password: "NiventraStaff2026!",
+    password: staffPassword,
     role: "STAFF",
     phone: "+91 98765 00002",
   },
@@ -186,7 +195,7 @@ const users = [
     id: "usr_investor_dev",
     name: "Vikramaditya Sharma",
     email: "investor@example.com",
-    password: "Investor2026!",
+    password: investorPassword,
     role: "INVESTOR",
     phone: "+91 98765 00003",
   },
@@ -209,28 +218,28 @@ const products = [
   {
     id: "prod_ncd_tranche_a",
     slug: "secured-ncd-tranche-a",
-    title: "Secured Real Estate Debenture Tranche A",
+    title: "[ILLUSTRATIVE MODEL] Secured Real Estate Debenture Tranche A",
     category: "DEBENTURE",
     indicativeYield: "14.5% p.a.*",
     tenor: "36 Months",
     minInvestment: "₹10,00,000",
     securityType: "First Pari-Passu Charge on Commercial Assets (ROC CHG-9)",
-    summary: "Senior secured non-convertible debenture backed by prime commercial assets with quarterly coupon distribution.",
-    description: "Tranche A debentures are structured pursuant to Section 42 of the Companies Act, 2013 on a private placement basis. Capital is deployed into vetted commercial property developments with verified RERA approvals and escrow controls.",
-    risksSummary: "Subject to obligor credit risk, real estate absorption velocity, and liquidity lock-in. Tax deducted at source (TDS) applies.",
+    summary: "[DEVELOPMENT FIXTURE] Illustrative debenture structure for architecture and schema verification. Not an active financial offering or investment solicitation.",
+    description: "[DEVELOPMENT FIXTURE] This record is an illustrative data model used exclusively for development testing and schema verification. Genuine debentures require approved Form PAS-4 documentation and Board authorization.",
+    risksSummary: "[TEST RECORD] Illustrative model only. No genuine financial transactions or investment allocations can be executed against this record.",
   },
   {
     id: "prod_redevelopment_series_1",
     slug: "redevelopment-debt-series-1",
-    title: "Urban Redevelopment Debt Series 1",
+    title: "[ILLUSTRATIVE MODEL] Urban Redevelopment Debt Series 1",
     category: "REAL_ESTATE_DEBT",
     indicativeYield: "15.0% p.a.*",
     tenor: "24 Months",
     minInvestment: "₹25,00,000",
     securityType: "Escrow Cash-Flow Waterfall + Mortgage Charge",
-    summary: "Targeted project debt supporting brownfield residential redevelopment in high-density tier-1 corridors.",
-    description: "Structured project finance tranche featuring milestone-linked capital releases strictly verified by third-party civil engineering monitors.",
-    risksSummary: "Construction timeline risks, municipal approval delays, and micro-market absorption pacing.",
+    summary: "[DEVELOPMENT FIXTURE] Illustrative project finance debt tranche for testing purposes.",
+    description: "[DEVELOPMENT FIXTURE] Sample redevelopment debt structure for development testing.",
+    risksSummary: "[TEST RECORD] Illustrative model only. No genuine financial transactions can be executed against this record.",
   },
 ];
 
@@ -241,7 +250,7 @@ for (const p of products) {
       INSERT INTO products (
         id, slug, title, category, indicative_yield, tenor, min_investment,
         security_type, status, summary, description, risks_summary
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'PUBLISHED', ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'DRAFT', ?, ?, ?)
     `).run(
       p.id, p.slug, p.title, p.category, p.indicativeYield, p.tenor,
       p.minInvestment, p.securityType, p.summary, p.description, p.risksSummary
@@ -254,16 +263,16 @@ for (const p of products) {
 const documents = [
   {
     id: "doc_corporate_profile",
-    title: "Niventra Corporate Profile & Advisory Standards",
+    title: "[SAMPLE TEMPLATE] Niventra Corporate Profile & Advisory Standards",
     docType: "POLICY",
     filePath: "storage/documents/doc_corporate_profile.pdf",
     fileSize: 412000,
     mimeType: "application/pdf",
-    isPublic: 1,
+    isPublic: 0,
   },
   {
     id: "doc_pas4_sample",
-    title: "Private Placement Offer Letter (PAS-4) Reference Format",
+    title: "[SAMPLE TEMPLATE] Private Placement Offer Letter (PAS-4) Reference Format",
     docType: "OFFER_DOC",
     filePath: "storage/documents/doc_pas4_sample.pdf",
     fileSize: 854000,
@@ -272,7 +281,7 @@ const documents = [
   },
   {
     id: "doc_termsheet_sample",
-    title: "Sample Debenture Term Sheet & Security Covenants",
+    title: "[SAMPLE TEMPLATE] Sample Debenture Term Sheet & Security Covenants",
     docType: "TERM_SHEET",
     filePath: "storage/documents/doc_termsheet_sample.pdf",
     fileSize: 320000,
@@ -287,7 +296,7 @@ for (const d of documents) {
     db.prepare(`
       INSERT INTO documents (
         id, title, doc_type, file_path, file_size, mime_type, version, is_public, status
-      ) VALUES (?, ?, ?, ?, ?, ?, '1.0', ?, 'APPROVED')
+      ) VALUES (?, ?, ?, ?, ?, ?, '1.0', ?, 'PENDING')
     `).run(d.id, d.title, d.docType, d.filePath, d.fileSize, d.mimeType, d.isPublic);
     console.log(`[Seed] Document created: ${d.title}`);
   }

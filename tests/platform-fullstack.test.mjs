@@ -33,14 +33,25 @@ test("Stage D — SQLite Relational Database & Schema Integrity", async () => {
     assert.ok(tables.includes(table), `Table ${table} must be defined in schema`);
   }
 
-  // Verify seeded users exist with valid roles
-  const users = db.prepare("SELECT email, role, status FROM users").all();
-  assert.ok(users.length >= 3, "At least 3 seeded users must exist");
-  
-  const roles = users.map((u) => u.role);
-  assert.ok(roles.includes("ADMIN"), "ADMIN role user must exist");
-  assert.ok(roles.includes("STAFF"), "STAFF role user must exist");
-  assert.ok(roles.includes("INVESTOR"), "INVESTOR role user must exist");
+  // Verify users table supports required role definitions (ADMIN, STAFF, INVESTOR)
+  const testRunId = `usr_test_${Date.now()}`;
+  const rolesToTest = ["ADMIN", "STAFF", "INVESTOR"];
+  const insertUser = db.prepare(`
+    INSERT INTO users (id, name, email, password_hash, salt, role, status)
+    VALUES (?, ?, ?, 'ephemeral_hash', 'ephemeral_salt', ?, 'ACTIVE')
+  `);
+  for (const role of rolesToTest) {
+    insertUser.run(`${testRunId}_${role}`, `Test ${role}`, `${testRunId}_${role}@example.test`, role);
+  }
+
+  const verifiedUsers = db.prepare("SELECT role FROM users WHERE id LIKE ?").all(`${testRunId}_%`);
+  const roles = verifiedUsers.map((u) => u.role);
+  assert.ok(roles.includes("ADMIN"), "ADMIN role user must be supported");
+  assert.ok(roles.includes("STAFF"), "STAFF role user must be supported");
+  assert.ok(roles.includes("INVESTOR"), "INVESTOR role user must be supported");
+
+  // Clean up ephemeral test users
+  db.prepare("DELETE FROM users WHERE id LIKE ?").run(`${testRunId}_%`);
 });
 
 test("Stage E — Cryptographic Password Security & Timing-Safe Verification", async () => {

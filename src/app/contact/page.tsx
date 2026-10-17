@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { Phone, Mail, MapPin, MessageSquare, Clock, ShieldCheck, Building } from "lucide-react";
+import { Phone, Mail, MapPin, MessageSquare, Building } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ConsultationForm } from "@/components/forms/ConsultationForm";

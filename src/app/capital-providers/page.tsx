@@ -1,17 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  ArrowRight,
-  FileText,
-  Lock,
-  Shield,
-  Layers,
-  CheckCircle2,
-  Building2,
-  TrendingUp,
-} from "lucide-react";
+import { ArrowRight, FileText, Lock } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";

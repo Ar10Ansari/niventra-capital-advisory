@@ -16,7 +16,17 @@ export interface SendNotificationParams {
   };
 }
 
-const EMAIL_SINK_PATH = path.join(process.cwd(), "data", "email_sink.log");
+function getEmailSinkPath(): string | null {
+  try {
+    const localDir = path.join(process.cwd(), "data");
+    if (fs.existsSync(localDir)) {
+      return path.join(localDir, "email_sink.log");
+    }
+  } catch {
+    // Read-only filesystem
+  }
+  return null;
+}
 
 /**
  * Sends an in-app notification and dispatches to local email sink
@@ -41,10 +51,15 @@ export function sendNotification(params: SendNotificationParams): void {
       message: params.message,
     };
 
-    try {
-      fs.appendFileSync(EMAIL_SINK_PATH, JSON.stringify(emailEntry) + "\n", "utf-8");
-    } catch (err) {
-      console.error("Failed to append to local email sink:", err);
+    const sinkPath = getEmailSinkPath();
+    if (sinkPath) {
+      try {
+        fs.appendFileSync(sinkPath, JSON.stringify(emailEntry) + "\n", "utf-8");
+      } catch (err) {
+        console.error("Failed to append to local email sink:", err);
+      }
+    } else {
+      console.log(`[Dev Notification Recorded (No External Email Sent)] To: ${emailEntry.to} | Subject: ${emailEntry.subject}`);
     }
   }
 }

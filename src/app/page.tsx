@@ -8,9 +8,7 @@ import {
   FileCheck2,
   Building2,
   Scale,
-  CheckCircle2,
   ChevronRight,
-  Clock,
   Lock,
 } from "lucide-react";
 import { Header } from "@/components/layout/Header";

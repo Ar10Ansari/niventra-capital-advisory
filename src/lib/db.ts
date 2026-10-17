@@ -1,25 +1,70 @@
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import fs from "node:fs";
+import os from "node:os";
 
-// Ensure data directory exists
-const DATA_DIR = path.join(process.cwd(), "data");
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+/**
+ * Resolves a resilient, writable database path across environments:
+ * 1. Local workspace 'data/' directory (ideal for local development persistence).
+ * 2. Operating system /tmp directory (writable in serverless runtimes like AWS Lambda / Vercel: /tmp).
+ * 3. In-memory fallback (':memory:') if filesystem writes are restricted.
+ */
+function resolveDbPath(): string {
+  // 1. Try local project 'data' directory
+  try {
+    const localDataDir = path.join(process.cwd(), "data");
+    if (!fs.existsSync(localDataDir)) {
+      fs.mkdirSync(localDataDir, { recursive: true });
+    }
+    const probeFile = path.join(localDataDir, ".probe");
+    fs.writeFileSync(probeFile, "probe");
+    fs.unlinkSync(probeFile);
+    return path.join(localDataDir, "niventra.db");
+  } catch {
+    // Read-only filesystem in container or serverless runtime
+  }
+
+  // 2. Try OS temporary directory (/tmp on Vercel/Linux)
+  try {
+    const tmpDataDir = path.join(os.tmpdir(), "niventra_data");
+    if (!fs.existsSync(tmpDataDir)) {
+      fs.mkdirSync(tmpDataDir, { recursive: true });
+    }
+    const probeFile = path.join(tmpDataDir, ".probe");
+    fs.writeFileSync(probeFile, "probe");
+    fs.unlinkSync(probeFile);
+    return path.join(tmpDataDir, "niventra.db");
+  } catch {
+    // Fallback to in-memory SQLite
+    return ":memory:";
+  }
 }
-
-const DB_PATH = path.join(DATA_DIR, "niventra.db");
 
 // Singleton connection
 let dbInstance: DatabaseSync | null = null;
 
 export function getDb(): DatabaseSync {
   if (!dbInstance) {
-    dbInstance = new DatabaseSync(DB_PATH);
-    // Enable WAL mode for high concurrency & performance
-    dbInstance.exec("PRAGMA journal_mode = WAL;");
-    dbInstance.exec("PRAGMA foreign_keys = ON;");
+    const dbPath = resolveDbPath();
+    try {
+      dbInstance = new DatabaseSync(dbPath);
+    } catch {
+      dbInstance = new DatabaseSync(":memory:");
+    }
+
+    try {
+      dbInstance.exec("PRAGMA journal_mode = WAL;");
+    } catch {
+      // WAL journal mode may not be supported on in-memory or some tmpfs, continue gracefully
+    }
+    try {
+      dbInstance.exec("PRAGMA foreign_keys = ON;");
+    } catch {
+      // Continue if PRAGMA fails
+    }
+
     initSchema(dbInstance);
+    seedDefaultsIfEmpty(dbInstance);
   }
   return dbInstance;
 }
@@ -159,6 +204,112 @@ function initSchema(db: DatabaseSync) {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
+}
+
+function seedDefaultsIfEmpty(db: DatabaseSync) {
+  try {
+    // Never auto-seed development fixtures in production environments
+    if (process.env.NODE_ENV === "production") {
+      return;
+    }
+
+    // 1. Seed Products if empty (explicitly labelled as non-transactable development test fixtures)
+    const productCountRow = db.prepare("SELECT COUNT(*) as count FROM products").get() as { count: number } | undefined;
+    if (!productCountRow || productCountRow.count === 0) {
+      const defaultProducts = [
+        {
+          id: "prod_ncd_tranche_a",
+          slug: "secured-ncd-tranche-a",
+          title: "[ILLUSTRATIVE MODEL] Secured Real Estate Debenture Tranche A",
+          category: "DEBENTURE",
+          indicativeYield: "14.5% p.a.*",
+          tenor: "36 Months",
+          minInvestment: "₹10,00,000",
+          securityType: "First Pari-Passu Charge on Commercial Assets (ROC CHG-9)",
+          summary: "[DEVELOPMENT FIXTURE] Illustrative debenture structure for architecture and schema verification. Not an active financial offering or investment solicitation.",
+          description: "[DEVELOPMENT FIXTURE] This record is an illustrative data model used exclusively for development testing and schema verification. Genuine debentures require approved Form PAS-4 documentation and Board authorization.",
+          risksSummary: "[TEST RECORD] Illustrative model only. No genuine financial transactions or investment allocations can be executed against this record.",
+        },
+        {
+          id: "prod_redevelopment_series_1",
+          slug: "redevelopment-debt-series-1",
+          title: "[ILLUSTRATIVE MODEL] Urban Redevelopment Debt Series 1",
+          category: "REAL_ESTATE_DEBT",
+          indicativeYield: "15.0% p.a.*",
+          tenor: "24 Months",
+          minInvestment: "₹25,00,000",
+          securityType: "Escrow Cash-Flow Waterfall + Mortgage Charge",
+          summary: "[DEVELOPMENT FIXTURE] Illustrative project finance debt tranche for testing purposes.",
+          description: "[DEVELOPMENT FIXTURE] Sample redevelopment debt structure for development testing.",
+          risksSummary: "[TEST RECORD] Illustrative model only. No genuine financial transactions can be executed against this record.",
+        },
+      ];
+
+      const insertProdStmt = db.prepare(`
+        INSERT INTO products (
+          id, slug, title, category, indicative_yield, tenor, min_investment,
+          security_type, status, summary, description, risks_summary
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'DRAFT', ?, ?, ?)
+      `);
+
+      for (const p of defaultProducts) {
+        insertProdStmt.run(
+          p.id, p.slug, p.title, p.category, p.indicativeYield, p.tenor,
+          p.minInvestment, p.securityType, p.summary, p.description, p.risksSummary
+        );
+      }
+    }
+
+    // 2. Seed Default Documents if empty (explicitly labelled as sample templates)
+    const docCountRow = db.prepare("SELECT COUNT(*) as count FROM documents").get() as { count: number } | undefined;
+    if (!docCountRow || docCountRow.count === 0) {
+      const defaultDocs = [
+        {
+          id: "doc_corporate_profile",
+          title: "[SAMPLE TEMPLATE] Niventra Corporate Profile & Advisory Standards",
+          docType: "POLICY",
+          filePath: "storage/documents/doc_corporate_profile.pdf",
+          fileSize: 412000,
+          mimeType: "application/pdf",
+          isPublic: 0,
+          status: "PENDING",
+        },
+        {
+          id: "doc_pas4_sample",
+          title: "[SAMPLE TEMPLATE] Private Placement Offer Letter (PAS-4) Reference Format",
+          docType: "OFFER_DOC",
+          filePath: "storage/documents/doc_pas4_sample.pdf",
+          fileSize: 854000,
+          mimeType: "application/pdf",
+          isPublic: 0,
+          status: "PENDING",
+        },
+        {
+          id: "doc_termsheet_sample",
+          title: "[SAMPLE TEMPLATE] Sample Debenture Term Sheet & Security Covenants",
+          docType: "TERM_SHEET",
+          filePath: "storage/documents/doc_termsheet_sample.pdf",
+          fileSize: 320000,
+          mimeType: "application/pdf",
+          isPublic: 0,
+          status: "PENDING",
+        },
+      ];
+
+      const insertDocStmt = db.prepare(`
+        INSERT INTO documents (
+          id, title, doc_type, file_path, file_size, mime_type, version, is_public, status
+        ) VALUES (?, ?, ?, ?, ?, ?, '1.0', ?, ?)
+      `);
+
+      for (const d of defaultDocs) {
+        insertDocStmt.run(d.id, d.title, d.docType, d.filePath, d.fileSize, d.mimeType, d.isPublic, d.status);
+      }
+    }
+
+  } catch (err) {
+    console.error("Initial seed check warning:", err);
+  }
 }
 
 // Ensure database initializes on module load

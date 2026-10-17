@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, Info } from "lucide-react";
+import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -35,20 +35,14 @@ export default function LoginPage() {
 
       // Route according to user role
       if (data.user.role === "ADMIN" || data.user.role === "STAFF") {
-        router.push("/admin");
+        router.push("/admin/");
       } else {
-        router.push("/dashboard");
+        router.push("/dashboard/");
       }
     } catch {
       setErrorMessage("Network error connecting to institutional gateway. Please try again.");
       setIsLoading(false);
     }
-  };
-
-  const fillQuick = (eMail: string, pass: string) => {
-    setEmail(eMail);
-    setPassword(pass);
-    setErrorMessage("");
   };
 
   return (
@@ -166,49 +160,9 @@ export default function LoginPage() {
 
             <div className="mt-6 pt-6 border-t border-[rgba(26,26,26,0.08)] text-center text-xs text-[#5C5C5C]">
               <span>Need investor portal access? </span>
-              <Link href="/register" className="text-[#9A7B2C] font-semibold hover:underline">
+              <Link href="/register/" className="text-[#9A7B2C] font-semibold hover:underline">
                 Register Onboarding Request
               </Link>
-            </div>
-          </div>
-
-          {/* Quick Development Demo Credentials Box */}
-          <div className="mt-6 p-4 rounded-lg bg-[rgba(154,123,44,0.06)] border border-[rgba(154,123,44,0.2)] text-xs">
-            <div className="flex items-center gap-2 font-semibold text-[#1A1A1A] mb-2">
-              <Info className="w-4 h-4 text-[#9A7B2C]" />
-              <span>Local Development Test Accounts</span>
-            </div>
-            <div className="space-y-1.5 text-[0.6875rem] text-[#5C5C5C]">
-              <div className="flex items-center justify-between">
-                <span><strong>Administrator:</strong> admin@niventra.local</span>
-                <button
-                  type="button"
-                  onClick={() => fillQuick("admin@niventra.local", "NiventraAdmin2026!")}
-                  className="text-[#9A7B2C] underline hover:text-[#1A1A1A]"
-                >
-                  Fill
-                </button>
-              </div>
-              <div className="flex items-center justify-between">
-                <span><strong>Staff Desk:</strong> staff@niventra.local</span>
-                <button
-                  type="button"
-                  onClick={() => fillQuick("staff@niventra.local", "NiventraStaff2026!")}
-                  className="text-[#9A7B2C] underline hover:text-[#1A1A1A]"
-                >
-                  Fill
-                </button>
-              </div>
-              <div className="flex items-center justify-between">
-                <span><strong>Investor:</strong> investor@example.com</span>
-                <button
-                  type="button"
-                  onClick={() => fillQuick("investor@example.com", "Investor2026!")}
-                  className="text-[#9A7B2C] underline hover:text-[#1A1A1A]"
-                >
-                  Fill
-                </button>
-              </div>
             </div>
           </div>
 
