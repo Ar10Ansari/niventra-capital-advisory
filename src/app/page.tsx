@@ -224,8 +224,8 @@ export default function HomePage() {
               <div className="lg:col-span-5 order-2 lg:order-1">
                 <div className="relative rounded-lg overflow-hidden border border-[rgba(26,26,26,0.1)] shadow-lg aspect-[4/3] group">
                   <Image
-                    src="/assets/images/commercial_development.jpg"
-                    alt="Contemporary mixed-use urban development evaluated under Niventra real estate advisory"
+                    src="/assets/images/re_commercial_grade_a.jpg"
+                    alt="Grade-A commercial office headquarters evaluated under Niventra real estate advisory"
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-102"
