@@ -2,11 +2,12 @@ import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronRight, Lock } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { ConsultationForm } from "@/components/forms/ConsultationForm";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Niventra Capital Advisory India | Professional Structured Capital & Real Estate Advisory",
@@ -24,62 +25,71 @@ export default function HomePage() {
 
       <main id="main-content" className="flex-1">
         {/* ==================================================================
-            SECTION 1: HERO
+            SECTION B: PREMIUM HERO (APPLE-LEVEL POLISH, INSTITUTIONAL CALM)
+            Two-column desktop layout, clean stacked mobile layout.
             One headline, one short supporting sentence, one primary CTA,
-            one calm architectural image. No floating badges or overlapping cards.
+            one calm architectural image, one unobtrusive disclosure.
             ================================================================== */}
         <section
           className="relative bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.06)] overflow-hidden"
           aria-label="Introduction and Overview"
         >
-          <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              {/* Left: Concise Typographic Narrative */}
+              {/* Left Column: Typographic Narrative */}
               <div className="lg:col-span-7 flex flex-col justify-center">
-                <h1 className="font-heading text-[clamp(2.4rem,4.5vw,4rem)] font-[500] leading-[1.1] tracking-[-0.025em] text-[#1A1A1A] mb-6">
-                  Connecting eligible capital with professionally evaluated{" "}
-                  <em className="not-italic text-[#9A7B2C]">
-                    real estate opportunities.
-                  </em>
-                </h1>
-
-                <p className="text-base sm:text-lg text-[#5C5C5C] leading-relaxed max-w-[540px] mb-8 font-body">
-                  Niventra facilitates senior secured debt debentures and bespoke project
-                  capital solutions across India under disciplined underwriting covenants.
-                </p>
-
-                {/* Single Primary Action CTA */}
-                <div className="mb-8">
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    href="/contact/"
-                    icon={<ArrowRight className="w-4 h-4" />}
-                  >
-                    Schedule a Consultation
-                  </Button>
+                <div className="animate-hero-1">
+                  <span className="text-eyebrow mb-4 block">
+                    Institutional Financial Advisory
+                  </span>
+                  <h1 className="font-heading text-[clamp(2.4rem,4.4vw,4.1rem)] font-[500] leading-[1.08] tracking-[-0.025em] text-[#1A1A1A] mb-6">
+                    Connecting eligible capital with professionally evaluated{" "}
+                    <em className="not-italic text-[#9A7B2C]">
+                      real estate opportunities.
+                    </em>
+                  </h1>
                 </div>
 
-                {/* Statutory Yield Guidance Qualification */}
-                <div className="pt-4 border-t border-[rgba(26,26,26,0.06)] max-w-[520px]">
+                <div className="animate-hero-2">
+                  <p className="font-body text-base sm:text-lg text-[#5C5C5C] leading-relaxed max-w-[540px] mb-8 font-normal">
+                    Structured debt and debenture advisory backed by disciplined evaluation and transparent governance.
+                  </p>
+
+                  {/* Single Primary Action CTA */}
+                  <div className="mb-10">
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      href="/contact/"
+                      icon={<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+                      className="group"
+                    >
+                      Schedule a Consultation
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Unobtrusive Statutory Disclosure */}
+                <div className="animate-hero-3 pt-5 border-t border-[rgba(26,26,26,0.06)] max-w-[540px]">
                   <p className="text-[0.75rem] text-[#8A8A8A] leading-relaxed font-body">
-                    <span className="text-[#9A7B2C] font-bold">*</span>{" "}
-                    Indicative debenture yield guidance of 12%–16% p.a. is indicative business guidance. Subject to formal offer documentation, ROC charge creation, and statutory approvals under the Companies Act, 2013. Past performance does not indicate future results.
+                    <span className="text-[#9A7B2C] font-semibold">*</span>{" "}
+                    Indicative debenture yield guidance of 12%–16% p.a. reflects internal structuring parameters. Subject to formal private placement documentation (Form PAS-4), ROC charge creation under Section 42 of the Companies Act, 2013, and statutory approvals. Non-guaranteed.
                   </p>
                 </div>
               </div>
 
-              {/* Right: Clean Architectural Image without Overlays */}
+              {/* Right Column: Architectural Photography */}
               <div className="lg:col-span-5">
-                <div className="relative rounded-lg overflow-hidden border border-[rgba(26,26,26,0.08)] bg-white aspect-[4/3]">
+                <div className="relative rounded-xl overflow-hidden border border-[rgba(26,26,26,0.08)] bg-white aspect-[4/3] sm:aspect-[16/11] shadow-2xs group animate-hero-image">
                   <Image
                     src="/assets/images/hero_commercial_architecture.jpg"
-                    alt="Contemporary commercial financial headquarters representing Niventra institutional real estate advisory"
+                    alt="Contemporary corporate architecture representing Niventra institutional advisory standards"
                     fill
                     priority
-                    sizes="(max-width: 1024px) 100vw, 45vw"
-                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,26,26,0.15)] via-transparent to-transparent pointer-events-none" />
                 </div>
               </div>
             </div>
@@ -87,37 +97,40 @@ export default function HomePage() {
         </section>
 
         {/* ==================================================================
-            SECTION 2: CORE ADVISORY PRACTICES
-            Four concise service rows with generous whitespace
+            SECTION C: ADVISORY SERVICES (CONCISE EDITORIAL ROWS)
+            Replaces heavy cards with scannable, understated rows.
             ================================================================== */}
-        <section className="py-20 bg-white border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="advisory-services">
+        <section className="py-20 lg:py-28 bg-white border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="advisory-services">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-              {/* Left Column: Architectural Photo */}
-              <div className="lg:col-span-5">
-                <div className="relative rounded-lg overflow-hidden border border-[rgba(26,26,26,0.08)] aspect-[4/3] bg-[#FAFAF7]">
-                  <Image
-                    src="/assets/images/re_commercial_grade_a.jpg"
-                    alt="Grade-A commercial office headquarters evaluated under Niventra real estate advisory"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* Right Column: Four Concise Practice Disciplines */}
-              <div className="lg:col-span-7 space-y-6">
-                <div>
-                  <h2 id="advisory-services" className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A]">
+              {/* Left Column: Contextual Overview & Architectural Image */}
+              <div className="lg:col-span-5 space-y-6">
+                <ScrollReveal direction="up">
+                  <span className="text-eyebrow mb-2 block">Core Disciplines</span>
+                  <h2 id="advisory-services" className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] text-[#1A1A1A] leading-tight">
                     Advisory Services
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#5C5C5C] mt-1 font-body">
-                    Disciplined practice areas for institutional capital allocation.
+                  <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2 font-body leading-relaxed max-w-md">
+                    Disciplined practice areas connecting evaluated real estate opportunities with institutional capital allocation channels.
                   </p>
-                </div>
+                </ScrollReveal>
 
-                <div className="divide-y divide-[rgba(26,26,26,0.06)]">
+                <ScrollReveal direction="up" delay={150}>
+                  <div className="relative rounded-xl overflow-hidden border border-[rgba(26,26,26,0.08)] aspect-[4/3] bg-[#FAFAF7] shadow-2xs group">
+                    <Image
+                      src="/assets/images/re_commercial_grade_a.jpg"
+                      alt="Grade-A commercial office headquarters evaluated under Niventra real estate advisory"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 38vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    />
+                  </div>
+                </ScrollReveal>
+              </div>
+
+              {/* Right Column: Four Refined Service Rows */}
+              <div className="lg:col-span-7">
+                <div className="divide-y divide-[rgba(26,26,26,0.08)] border-y border-[rgba(26,26,26,0.08)]">
                   {[
                     {
                       num: "01",
@@ -134,41 +147,43 @@ export default function HomePage() {
                     {
                       num: "03",
                       title: "Capital Providers Advisory",
-                      desc: "Institutional co-investment facilitation for family offices, HNIs, and corporate treasuries seeking secured fixed-income allocations.",
+                      desc: "Institutional co-investment facilitation for family offices, corporate treasuries, and accredited capital providers seeking secured fixed-income allocations.",
                       href: "/capital-providers/",
                     },
                     {
                       num: "04",
                       title: "Independent Due Diligence",
-                      desc: "Rigorous evaluation anchored in our 5-Point due diligence framework spanning 30-year forensic title searches, municipal sanctions, and engineering audits.",
+                      desc: "Forensic evaluation anchored in our 5-Point due diligence framework spanning 30-year revenue title searches, municipal sanctions, and structural engineering audits.",
                       href: "/due-diligence/",
                     },
-                  ].map((service) => (
-                    <div key={service.num} className="py-4.5 group">
-                      <div className="flex items-center justify-between gap-4">
-                        <div className="flex items-start gap-4">
-                          <span className="font-mono text-xs font-bold text-[#9A7B2C] pt-0.5">
-                            {service.num}
-                          </span>
-                          <div>
-                            <h3 className="font-heading text-base font-semibold text-[#1A1A1A] group-hover:text-[#9A7B2C] transition-colors">
-                              {service.title}
-                            </h3>
-                            <p className="text-xs text-[#5C5C5C] leading-relaxed mt-1 max-w-xl font-body">
-                              {service.desc}
-                            </p>
+                  ].map((service, idx) => (
+                    <ScrollReveal key={service.num} direction="up" delay={idx * 80}>
+                      <Link
+                        href={service.href}
+                        className="group block py-6 sm:py-7 transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#9A7B2C]"
+                        aria-label={`Explore ${service.title}`}
+                      >
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="flex items-start gap-5">
+                            <span className="font-mono text-xs font-bold text-[#9A7B2C] pt-1">
+                              {service.num}
+                            </span>
+                            <div>
+                              <h3 className="font-heading text-lg sm:text-xl font-[600] text-[#1A1A1A] group-hover:text-[#9A7B2C] transition-colors duration-200">
+                                {service.title}
+                              </h3>
+                              <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed mt-1.5 max-w-xl font-body">
+                                {service.desc}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="shrink-0 p-2 text-[#8A8A8A] group-hover:text-[#1A1A1A] group-hover:translate-x-1 transition-all duration-200">
+                            <ArrowRight className="w-4 h-4" aria-hidden="true" />
                           </div>
                         </div>
-
-                        <Link
-                          href={service.href}
-                          className="shrink-0 p-2 rounded-full border border-[rgba(26,26,26,0.08)] group-hover:bg-[#1A1A1A] group-hover:text-white transition-colors"
-                          aria-label={`Learn more about ${service.title}`}
-                        >
-                          <ChevronRight className="w-4 h-4" />
-                        </Link>
-                      </div>
-                    </div>
+                      </Link>
+                    </ScrollReveal>
                   ))}
                 </div>
               </div>
@@ -177,131 +192,141 @@ export default function HomePage() {
         </section>
 
         {/* ==================================================================
-            SECTION 3: EXECUTION METHODOLOGY
-            Restrained 3-phase overview; full 6-stage details linked to dedicated page
+            SECTION D: EVALUATION METHODOLOGY (THREE BALANCED PHASES)
+            Visual sequence with restrained phase numbering and no crowded cards
             ================================================================== */}
-        <section className="py-16 sm:py-20 bg-[#F4F3EF] border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="execution-methodology">
+        <section className="py-20 lg:py-28 bg-[#F4F3EF] border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="execution-methodology">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl mb-12">
-              <h2 id="execution-methodology" className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A]">
-                Execution Methodology
-              </h2>
-              <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2 font-body">
-                A disciplined three-phase framework from screening to redemption.
-              </p>
-            </div>
+            <ScrollReveal direction="up">
+              <div className="max-w-2xl mb-14">
+                <span className="text-eyebrow mb-2 block">Disciplined Governance</span>
+                <h2 id="execution-methodology" className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] text-[#1A1A1A]">
+                  Execution Methodology
+                </h2>
+                <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2 font-body leading-relaxed">
+                  A disciplined three-phase framework guiding capital evaluation from screening to contractual repayment.
+                </p>
+              </div>
+            </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Three Phase Columns */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  step: "01",
+                  phase: "01",
                   title: "Opportunity Identification & Due Diligence",
-                  desc: "Comprehensive developer vetting, 30-year revenue title searches, active RERA approvals, and independent structural engineering inspection.",
+                  desc: "Forensic underwriting covering 30-year revenue title searches, municipal building sanctions, active RERA registrations, and independent technical feasibility audits.",
                 },
                 {
-                  step: "02",
+                  phase: "02",
                   title: "Structuring & Deployment",
-                  desc: "Definitive term sheets, ROC Form CHG-9 charge registration, and milestone-linked disbursements through independent escrow bank accounts.",
+                  desc: "Definitive term sheet formulation, ROC Form CHG-9 charge registration, and milestone-linked tranche disbursements through independent escrow bank accounts.",
                 },
                 {
-                  step: "03",
+                  phase: "03",
                   title: "Monitoring, Repayment & Redemption",
                   desc: "Continuous technical audit oversight, scheduled periodic coupon servicing, and disciplined principal repayment upon contractual maturity.",
                 },
-              ].map((s) => (
-                <div key={s.step} className="bg-white p-6 rounded-lg border border-[rgba(26,26,26,0.06)] shadow-2xs space-y-2">
-                  <span className="font-mono text-xs font-bold text-[#9A7B2C] block">
-                    PHASE {s.step}
-                  </span>
-                  <h3 className="font-heading text-base font-semibold text-[#1A1A1A]">
-                    {s.title}
-                  </h3>
-                  <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
-                    {s.desc}
-                  </p>
-                </div>
+              ].map((item, idx) => (
+                <ScrollReveal key={item.phase} direction="up" delay={idx * 120} className="h-full">
+                  <div className="bg-white p-7 sm:p-8 rounded-xl border border-[rgba(26,26,26,0.08)] shadow-2xs h-full flex flex-col justify-between space-y-4 hover:border-[#9A7B2C]/40 transition-colors duration-200">
+                    <div className="space-y-3">
+                      <span className="font-mono text-xs font-bold text-[#9A7B2C] uppercase tracking-wider block">
+                        Phase {item.phase}
+                      </span>
+                      <h3 className="font-heading text-lg font-semibold text-[#1A1A1A] leading-snug">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                </ScrollReveal>
               ))}
             </div>
 
-            <div className="mt-8 text-center sm:text-left">
-              <Link
-                href="/due-diligence/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#9A7B2C] hover:text-[#1A1A1A] transition-colors"
-              >
-                <span>Explore the complete six-stage Due Diligence Methodology</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+            <ScrollReveal direction="up" delay={250}>
+              <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 border-t border-[rgba(26,26,26,0.08)]">
+                <span className="text-xs text-[#7A7A7A] font-body">
+                  Illustrative methodology overview. Specific covenants, timelines, and trustee frameworks are defined in transaction-specific Debenture Trust Deeds.
+                </span>
+                <Link
+                  href="/due-diligence/"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#9A7B2C] hover:text-[#1A1A1A] transition-colors shrink-0 group"
+                >
+                  <span>Explore the complete six-stage Due Diligence Methodology</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* ==================================================================
-            SECTION 4: FINANCIAL TRANSPARENCY
-            Factual statutory disclosures presented cleanly without visual bloat
+            SECTION E: TRUST AND TRANSPARENCY (COMPACT FIDUCIARY DISCLOSURES)
+            Four factual governance pillars without marketing fluff
             ================================================================== */}
-        <section className="py-20 bg-white border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="financial-transparency">
+        <section className="py-20 lg:py-28 bg-white border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="financial-transparency">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* Left Column: Boardroom Photography */}
               <div className="lg:col-span-5">
-                <div className="relative rounded-lg overflow-hidden border border-[rgba(26,26,26,0.08)] aspect-[4/3] bg-[#FAFAF7]">
-                  <Image
-                    src="/assets/images/advisory_boardroom.jpg"
-                    alt="Executive boardroom representing Niventra governance"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover"
-                  />
-                </div>
+                <ScrollReveal direction="up">
+                  <div className="relative rounded-xl overflow-hidden border border-[rgba(26,26,26,0.08)] aspect-[4/3] bg-[#FAFAF7] shadow-2xs group">
+                    <Image
+                      src="/assets/images/advisory_boardroom.jpg"
+                      alt="Executive boardroom representing Niventra corporate governance"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 38vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    />
+                  </div>
+                </ScrollReveal>
               </div>
 
-              {/* Right Column: Factual Corporate Disclosures */}
+              {/* Right Column: Four Factual Pillars */}
               <div className="lg:col-span-7 space-y-6">
-                <div>
-                  <h2 id="financial-transparency" className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A]">
+                <ScrollReveal direction="up">
+                  <span className="text-eyebrow mb-2 block">Institutional Integrity</span>
+                  <h2 id="financial-transparency" className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] text-[#1A1A1A]">
                     Financial Transparency
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#5C5C5C] mt-1 font-body">
-                    Statutory disclosures and investor governance benchmarks.
+                  <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2 font-body leading-relaxed max-w-lg">
+                    Clear corporate disclosures, documented risk factors, and institutional governance benchmarks.
                   </p>
-                </div>
+                </ScrollReveal>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="p-4.5 rounded-lg border border-[rgba(26,26,26,0.06)] bg-[#FAFAF7] space-y-1">
-                    <span className="text-xs font-semibold text-[#1A1A1A] block">
-                      Debenture Yield Guidance (12%–16% p.a.*)
-                    </span>
-                    <p className="text-[0.6875rem] text-[#5C5C5C] leading-relaxed font-body">
-                      Indicative yield range reflects internal structuring parameters. It is an indicative target and not a guaranteed return. Final terms are set in Form PAS-4 upon ROC charge creation.
-                    </p>
-                  </div>
-
-                  <div className="p-4.5 rounded-lg border border-[rgba(26,26,26,0.06)] bg-[#FAFAF7] space-y-1">
-                    <span className="text-xs font-semibold text-[#1A1A1A] block">
-                      Return Calculator — Deferred (Decision 7)
-                    </span>
-                    <p className="text-[0.6875rem] text-[#5C5C5C] leading-relaxed font-body">
-                      Interactive calculation widgets are deferred pending CFO certification, eliminating flawed compounding assumptions that misrepresent fixed-income coupon structures.
-                    </p>
-                  </div>
-
-                  <div className="p-4.5 rounded-lg border border-[rgba(26,26,26,0.06)] bg-[#FAFAF7] space-y-1">
-                    <span className="text-xs font-semibold text-[#1A1A1A] block">
-                      Issuer Entity Status (Decision 1)
-                    </span>
-                    <p className="text-[0.6875rem] text-[#5C5C5C] leading-relaxed font-body">
-                      Niventra Capital Advisory India Pvt. Ltd. is intended to be the legal Issuer Entity of the initial debenture product, subject to formal board approvals and ROC filings.
-                    </p>
-                  </div>
-
-                  <div className="p-4.5 rounded-lg border border-[rgba(26,26,26,0.06)] bg-[#FAFAF7] space-y-1">
-                    <span className="text-xs font-semibold text-[#1A1A1A] block">
-                      Independent Grievance Redressal (48h SLA)
-                    </span>
-                    <p className="text-[0.6875rem] text-[#5C5C5C] leading-relaxed font-body">
-                      Dedicated dispute resolution mechanism with guaranteed 48-business-hour written acknowledgment and statutory 30-day final resolution determination.
-                    </p>
-                  </div>
+                  {[
+                    {
+                      title: "Structured 5-Point Evaluation",
+                      desc: "Every evaluated opportunity undergoes forensic due diligence spanning title verification, financial modeling, structural integrity, and statutory charge creation.",
+                    },
+                    {
+                      title: "Yield Guidance (12%–16% p.a.*)",
+                      desc: "Indicative debenture yield guidance of 12%–16% p.a. reflects internal structuring parameters. Non-guaranteed; final terms set in Form PAS-4 upon ROC charge creation.",
+                    },
+                    {
+                      title: "Issuer Entity Governance",
+                      desc: "Niventra Capital Advisory India Pvt. Ltd. is designated as the legal Issuer Entity under Section 42 of the Companies Act, 2013, subject to Board authorizations.",
+                    },
+                    {
+                      title: "Return Calculator — Deferred",
+                      desc: "Official calculation widgets remain deferred pending CFO certification, eliminating flawed retail compounding assumptions that misrepresent debentures.",
+                    },
+                  ].map((item, idx) => (
+                    <ScrollReveal key={item.title} direction="up" delay={idx * 70}>
+                      <div className="p-5 rounded-lg border border-[rgba(26,26,26,0.06)] bg-[#FAFAF7] space-y-1.5 h-full">
+                        <span className="text-xs font-semibold text-[#1A1A1A] block">
+                          {item.title}
+                        </span>
+                        <p className="text-[0.75rem] text-[#5C5C5C] leading-relaxed font-body">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </ScrollReveal>
+                  ))}
                 </div>
               </div>
             </div>
@@ -309,47 +334,54 @@ export default function HomePage() {
         </section>
 
         {/* ==================================================================
-            SECTION 5: CONSULTATION ACTION
-            One clear consultation action with accessible form and DPDP consent
+            SECTION F: FINAL CTA & CONSULTATION ENGAGEMENT
+            Clear closing narrative with accessible DPDP-compliant consultation form
             ================================================================== */}
-        <section id="consultation" className="py-20 bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="consultation-heading">
+        <section id="consultation" className="py-20 lg:py-28 bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="consultation-heading">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
               {/* Left Column: Direct Consultation Guidance */}
-              <div className="lg:col-span-5 space-y-5">
-                <div>
-                  <h2 id="consultation-heading" className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A]">
-                    Schedule a Consultation
+              <div className="lg:col-span-5 space-y-6">
+                <ScrollReveal direction="up">
+                  <span className="text-eyebrow mb-2 block">Direct Engagement</span>
+                  <h2 id="consultation-heading" className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] text-[#1A1A1A] leading-tight">
+                    Evaluating a capital requirement or investment opportunity?
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2.5 font-body leading-relaxed">
-                    Speak with our advisory team to evaluate opportunities. Whether you are an accredited capital provider evaluating debentures or a real estate developer seeking structured capital, consultations are preliminary and confidential.
+                  <p className="text-xs sm:text-sm text-[#5C5C5C] mt-3 font-body leading-relaxed">
+                    Speak with our advisory team to understand the process and eligibility requirements. Consultations are strictly preliminary, confidential, and compliant with Section 42 standards.
                   </p>
-                </div>
+                </ScrollReveal>
 
-                <div className="p-4 rounded-lg border border-[rgba(26,26,26,0.06)] bg-white space-y-2.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#8A8A8A] font-medium">Toll-Free Helpline</span>
-                    <a href="tel:18008900818" className="font-bold text-[#1A1A1A] hover:text-[#9A7B2C]">
-                      1800 890 0818
-                    </a>
+                <ScrollReveal direction="up" delay={120}>
+                  <div className="p-5 rounded-xl border border-[rgba(26,26,26,0.08)] bg-white space-y-3 shadow-2xs">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-[#8A8A8A] font-medium">Toll-Free Direct Desk</span>
+                      <a href="tel:18008900818" className="font-bold text-[#1A1A1A] hover:text-[#9A7B2C] transition-colors">
+                        1800 890 0818
+                      </a>
+                    </div>
+                    <div className="flex items-center justify-between text-xs border-t border-[rgba(26,26,26,0.06)] pt-3">
+                      <span className="text-[#8A8A8A] font-medium">Corporate Inquiries</span>
+                      <a href="mailto:info@niventracapitaladvisory.com" className="font-semibold text-[#1A1A1A] hover:text-[#9A7B2C] transition-colors">
+                        info@niventracapitaladvisory.com
+                      </a>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between text-xs border-t border-[rgba(26,26,26,0.06)] pt-2.5">
-                    <span className="text-[#8A8A8A] font-medium">Corporate Email</span>
-                    <a href="mailto:info@niventracapitaladvisory.com" className="font-semibold text-[#1A1A1A] hover:text-[#9A7B2C]">
-                      info@niventracapitaladvisory.com
-                    </a>
-                  </div>
-                </div>
+                </ScrollReveal>
 
-                <div className="flex items-center gap-2 text-[0.6875rem] text-[#8A8A8A] pt-1">
-                  <Lock className="w-3.5 h-3.5 text-[#9A7B2C] shrink-0" />
-                  <span>Submissions processed under Digital Personal Data Protection (DPDP) Act, 2023.</span>
-                </div>
+                <ScrollReveal direction="up" delay={200}>
+                  <div className="flex items-center gap-2 text-[0.6875rem] text-[#8A8A8A] pt-1">
+                    <Lock className="w-3.5 h-3.5 text-[#9A7B2C] shrink-0" aria-hidden="true" />
+                    <span>Inquiries processed under Digital Personal Data Protection (DPDP) Act, 2023.</span>
+                  </div>
+                </ScrollReveal>
               </div>
 
               {/* Right Column: Accessible Consultation Form */}
               <div className="lg:col-span-7">
-                <ConsultationForm />
+                <ScrollReveal direction="up" delay={100}>
+                  <ConsultationForm />
+                </ScrollReveal>
               </div>
             </div>
           </div>

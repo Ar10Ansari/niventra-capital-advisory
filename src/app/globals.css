@@ -253,6 +253,72 @@
 }
 
 /* ==========================================================================
+   HERO ENTRANCE ANIMATIONS & MICRO-INTERACTIONS
+   ========================================================================== */
+
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroImageReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-hero-1 {
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-2 {
+  opacity: 0;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.14s forwards;
+}
+
+.animate-hero-3 {
+  opacity: 0;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.28s forwards;
+}
+
+.animate-hero-image {
+  animation: heroImageReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+/* Subtle editorial underline micro-interaction */
+.hover-underline-brass {
+  position: relative;
+}
+.hover-underline-brass::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--color-brass);
+  transform-origin: bottom right;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-underline-brass:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+
+/* ==========================================================================
    REDUCED MOTION SAFETY
    ========================================================================== */
 
