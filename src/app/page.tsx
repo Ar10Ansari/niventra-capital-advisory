@@ -25,10 +25,10 @@ export default function HomePage() {
 
       <main id="main-content" className="flex-1">
         {/* ==================================================================
-            SECTION B: PREMIUM HERO (APPLE-LEVEL POLISH, INSTITUTIONAL CALM)
-            Two-column desktop layout, clean stacked mobile layout.
-            One headline, one short supporting sentence, one primary CTA,
-            one calm architectural image, one unobtrusive disclosure.
+            SECTION 1: HERO
+            One headline, one concise supporting paragraph, primary CTA,
+            secondary CTA to working catalog, calm architectural image,
+            and qualified yield guidance disclosure.
             ================================================================== */}
         <section
           className="relative bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.06)] overflow-hidden"
@@ -40,23 +40,23 @@ export default function HomePage() {
               <div className="lg:col-span-7 flex flex-col justify-center">
                 <div className="animate-hero-1">
                   <span className="text-eyebrow mb-4 block">
-                    Institutional Financial Advisory
+                    Institutional Advisory · Connecting eligible capital
                   </span>
                   <h1 className="font-heading text-[clamp(2.4rem,4.4vw,4.1rem)] font-[500] leading-[1.08] tracking-[-0.025em] text-[#1A1A1A] mb-6">
-                    Connecting eligible capital with professionally evaluated{" "}
+                    Connecting Capital with{" "}
                     <em className="not-italic text-[#9A7B2C]">
-                      real estate opportunities.
+                      Evaluated Real Estate Opportunities
                     </em>
                   </h1>
                 </div>
 
                 <div className="animate-hero-2">
                   <p className="font-body text-base sm:text-lg text-[#5C5C5C] leading-relaxed max-w-[540px] mb-8 font-normal">
-                    Structured debt and debenture advisory backed by disciplined evaluation and transparent governance.
+                    We advise on structured debt, debenture opportunities and real estate capital through disciplined evaluation and transparent processes.
                   </p>
 
-                  {/* Single Primary Action CTA */}
-                  <div className="mb-10">
+                  {/* Primary & Secondary Action CTAs */}
+                  <div className="flex flex-wrap items-center gap-4 mb-10">
                     <Button
                       variant="primary"
                       size="lg"
@@ -65,6 +65,13 @@ export default function HomePage() {
                       className="group"
                     >
                       Schedule a Consultation
+                    </Button>
+                    <Button
+                      variant="primary-outline"
+                      size="lg"
+                      href="/products/"
+                    >
+                      Explore Opportunities
                     </Button>
                   </div>
                 </div>
@@ -97,8 +104,8 @@ export default function HomePage() {
         </section>
 
         {/* ==================================================================
-            SECTION C: ADVISORY SERVICES (CONCISE EDITORIAL ROWS)
-            Replaces heavy cards with scannable, understated rows.
+            SECTION 2: WHAT WE DO (ADVISORY SERVICES)
+            Four concise service rows with <= 20 words each and working links.
             ================================================================== */}
         <section className="py-20 lg:py-28 bg-white border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="advisory-services">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,7 +118,7 @@ export default function HomePage() {
                     Advisory Services
                   </h2>
                   <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2 font-body leading-relaxed max-w-md">
-                    Disciplined practice areas connecting evaluated real estate opportunities with institutional capital allocation channels.
+                    Disciplined practice areas connecting evaluated real estate opportunities with institutional capital.
                   </p>
                 </ScrollReveal>
 
@@ -135,25 +142,25 @@ export default function HomePage() {
                     {
                       num: "01",
                       title: "Debt & Debenture Advisory",
-                      desc: "Senior secured non-convertible debentures structured under Section 42 of the Companies Act, 2013 with formal ROC Form CHG-9 filings.",
+                      desc: "Senior secured non-convertible debentures structured under Section 42 private placement regulations.",
                       href: "/debt-debenture/",
                     },
                     {
                       num: "02",
-                      title: "Real Estate Capital Facilitation",
-                      desc: "Structured project debt and mezzanine finance for vetted developers across residential and commercial developments with mandatory RERA approvals.",
+                      title: "Real Estate Capital",
+                      desc: "Structured project debt and mezzanine finance for evaluated residential and commercial developments.",
                       href: "/real-estate/",
                     },
                     {
                       num: "03",
                       title: "Capital Providers Advisory",
-                      desc: "Institutional co-investment facilitation for family offices, corporate treasuries, and accredited capital providers seeking secured fixed-income allocations.",
+                      desc: "Institutional co-investment advisory for family offices, corporate treasuries, and accredited capital providers.",
                       href: "/capital-providers/",
                     },
                     {
                       num: "04",
                       title: "Independent Due Diligence",
-                      desc: "Forensic evaluation anchored in our 5-Point due diligence framework spanning 30-year revenue title searches, municipal sanctions, and structural engineering audits.",
+                      desc: "Forensic evaluation anchored in our 5-Point due diligence framework, title records, and structural reviews.",
                       href: "/due-diligence/",
                     },
                   ].map((service, idx) => (
@@ -192,16 +199,16 @@ export default function HomePage() {
         </section>
 
         {/* ==================================================================
-            SECTION D: EVALUATION METHODOLOGY (THREE BALANCED PHASES)
-            Visual sequence with restrained phase numbering and no crowded cards
+            SECTION 3: OUR APPROACH (THREE CONCISE PHASES)
+            Consolidated 3-phase methodology without redundant summaries.
             ================================================================== */}
         <section className="py-20 lg:py-28 bg-[#F4F3EF] border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="execution-methodology">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal direction="up">
               <div className="max-w-2xl mb-14">
-                <span className="text-eyebrow mb-2 block">Disciplined Governance</span>
+                <span className="text-eyebrow mb-2 block">Execution Methodology</span>
                 <h2 id="execution-methodology" className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] text-[#1A1A1A]">
-                  Execution Methodology
+                  Our Approach
                 </h2>
                 <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2 font-body leading-relaxed">
                   A disciplined three-phase framework guiding capital evaluation from screening to contractual repayment.
@@ -214,18 +221,18 @@ export default function HomePage() {
               {[
                 {
                   phase: "01",
-                  title: "Opportunity Identification & Due Diligence",
-                  desc: "Forensic underwriting covering 30-year revenue title searches, municipal building sanctions, active RERA registrations, and independent technical feasibility audits.",
+                  title: "01 — Evaluate",
+                  desc: "Opportunity Identification: Review the opportunity, available documentation, title records, and relevant approvals.",
                 },
                 {
                   phase: "02",
-                  title: "Structuring & Deployment",
-                  desc: "Definitive term sheet formulation, ROC Form CHG-9 charge registration, and milestone-linked tranche disbursements through independent escrow bank accounts.",
+                  title: "02 — Structure",
+                  desc: "Transaction Structuring: Assess the proposed financing structure, transaction documentation, and applicable security arrangements.",
                 },
                 {
                   phase: "03",
-                  title: "Monitoring, Repayment & Redemption",
-                  desc: "Continuous technical audit oversight, scheduled periodic coupon servicing, and disciplined principal repayment upon contractual maturity.",
+                  title: "03 — Monitor",
+                  desc: "Monitoring & Repayment: Oversee progress, financial covenants, periodic servicing, and contractual repayment per transaction terms.",
                 },
               ].map((item, idx) => (
                 <ScrollReveal key={item.phase} direction="up" delay={idx * 120} className="h-full">
@@ -249,7 +256,7 @@ export default function HomePage() {
             <ScrollReveal direction="up" delay={250}>
               <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 border-t border-[rgba(26,26,26,0.08)]">
                 <span className="text-xs text-[#7A7A7A] font-body">
-                  Illustrative methodology overview. Specific covenants, timelines, and trustee frameworks are defined in transaction-specific Debenture Trust Deeds.
+                  Illustrative methodology overview. Specific covenants, security structures, and trustee frameworks are transaction-specific.
                 </span>
                 <Link
                   href="/due-diligence/"
@@ -264,16 +271,68 @@ export default function HomePage() {
         </section>
 
         {/* ==================================================================
-            SECTION E: TRUST AND TRANSPARENCY (COMPACT FIDUCIARY DISCLOSURES)
-            Four factual governance pillars without marketing fluff
+            SECTION 4: WHY NIVENTRA (FOUR EVIDENCE-BACKED PILLARS)
+            Compact institutional differentiation without fabricated metrics.
             ================================================================== */}
-        <section className="py-20 lg:py-28 bg-white border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="financial-transparency">
+        <section className="py-20 lg:py-24 bg-white border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="why-niventra">
+          <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal direction="up">
+              <div className="max-w-2xl mb-12">
+                <span className="text-eyebrow mb-2 block">Institutional Standards</span>
+                <h2 id="why-niventra" className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] text-[#1A1A1A]">
+                  Why Niventra
+                </h2>
+                <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2 font-body leading-relaxed">
+                  Rigorous underwriting, statutory compliance, and transparent governance.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  title: "Disciplined Underwriting",
+                  desc: "Systematic multi-factor diligence covering title records, municipal sanctions, and developer viability.",
+                },
+                {
+                  title: "Statutory Alignment",
+                  desc: "Transactions structured strictly under Section 42 private placement norms and ROC filings.",
+                },
+                {
+                  title: "Security Focus",
+                  desc: "Transaction-specific asset charges, covenants, and monitored cash flows.",
+                },
+                {
+                  title: "Transparent Governance",
+                  desc: "Clear risk disclosures, qualified indicative yields, and zero speculative return promises.",
+                },
+              ].map((item, idx) => (
+                <ScrollReveal key={item.title} direction="up" delay={idx * 80}>
+                  <div className="bg-[#FAFAF7] p-6 rounded-xl border border-[rgba(26,26,26,0.06)] h-full space-y-2">
+                    <h3 className="font-heading text-base font-semibold text-[#1A1A1A]">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
+                      {item.desc}
+                    </p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ==================================================================
+            SECTION 5: FINANCIAL TRANSPARENCY (STATUTORY DISCLOSURES)
+            Four factual governance pillars preserving all legal notices.
+            ================================================================== */}
+        <section className="py-20 lg:py-28 bg-[#F4F3EF] border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="financial-transparency">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* Left Column: Boardroom Photography */}
               <div className="lg:col-span-5">
                 <ScrollReveal direction="up">
-                  <div className="relative rounded-xl overflow-hidden border border-[rgba(26,26,26,0.08)] aspect-[4/3] bg-[#FAFAF7] shadow-2xs group">
+                  <div className="relative rounded-xl overflow-hidden border border-[rgba(26,26,26,0.08)] aspect-[4/3] bg-white shadow-2xs group">
                     <Image
                       src="/assets/images/advisory_boardroom.jpg"
                       alt="Executive boardroom representing Niventra corporate governance"
@@ -300,10 +359,6 @@ export default function HomePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Structured 5-Point Evaluation",
-                      desc: "Every evaluated opportunity undergoes forensic due diligence spanning title verification, financial modeling, structural integrity, and statutory charge creation.",
-                    },
-                    {
                       title: "Yield Guidance (12%–16% p.a.*)",
                       desc: "Indicative debenture yield guidance of 12%–16% p.a. reflects internal structuring parameters. Non-guaranteed; final terms set in Form PAS-4 upon ROC charge creation.",
                     },
@@ -315,9 +370,13 @@ export default function HomePage() {
                       title: "Return Calculator — Deferred",
                       desc: "Official calculation widgets remain deferred pending CFO certification, eliminating flawed retail compounding assumptions that misrepresent debentures.",
                     },
+                    {
+                      title: "Private Placement Standards",
+                      desc: "All transactions are offered strictly on a private placement basis pursuant to Section 42, subject to statutory limits and investment documentation.",
+                    },
                   ].map((item, idx) => (
                     <ScrollReveal key={item.title} direction="up" delay={idx * 70}>
-                      <div className="p-5 rounded-lg border border-[rgba(26,26,26,0.06)] bg-[#FAFAF7] space-y-1.5 h-full">
+                      <div className="p-5 rounded-lg border border-[rgba(26,26,26,0.06)] bg-white space-y-1.5 h-full">
                         <span className="text-xs font-semibold text-[#1A1A1A] block">
                           {item.title}
                         </span>
@@ -334,8 +393,8 @@ export default function HomePage() {
         </section>
 
         {/* ==================================================================
-            SECTION F: FINAL CTA & CONSULTATION ENGAGEMENT
-            Clear closing narrative with accessible DPDP-compliant consultation form
+            SECTION 6: CONSULTATION ENGAGEMENT
+            Clear closing narrative with accessible DPDP-compliant consultation form.
             ================================================================== */}
         <section id="consultation" className="py-20 lg:py-28 bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.06)]" aria-labelledby="consultation-heading">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -345,10 +404,10 @@ export default function HomePage() {
                 <ScrollReveal direction="up">
                   <span className="text-eyebrow mb-2 block">Direct Engagement</span>
                   <h2 id="consultation-heading" className="font-heading text-2xl sm:text-3xl lg:text-4xl font-[500] text-[#1A1A1A] leading-tight">
-                    Evaluating a capital requirement or investment opportunity?
+                    Schedule a Consultation
                   </h2>
                   <p className="text-xs sm:text-sm text-[#5C5C5C] mt-3 font-body leading-relaxed">
-                    Speak with our advisory team to understand the process and eligibility requirements. Consultations are strictly preliminary, confidential, and compliant with Section 42 standards.
+                    Speak with our advisory team to discuss opportunities and eligibility. Consultations are preliminary, confidential, and compliant with Section 42 standards.
                   </p>
                 </ScrollReveal>
 
