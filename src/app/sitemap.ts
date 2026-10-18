@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/capital-providers/",
     "/investor-information/",
     "/calculator/",
+    "/products/",
     "/contact/",
     "/risk-disclosure/",
     "/terms-conditions/",

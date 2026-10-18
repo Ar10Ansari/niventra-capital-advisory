@@ -27,6 +27,16 @@ const ADVISORY_ITEMS: DropdownItem[] = [
     href: "/capital-providers/",
     description: "Co-investment for family offices & HNIs",
   },
+  {
+    label: "Offerings Catalog",
+    href: "/products/",
+    description: "Evaluated debenture structures",
+  },
+  {
+    label: "Return Calculator",
+    href: "/calculator/",
+    description: "Simple-interest cash-flow modeling",
+  },
 ];
 
 const GOVERNANCE_ITEMS: DropdownItem[] = [

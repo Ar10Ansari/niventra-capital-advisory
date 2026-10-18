@@ -14,6 +14,8 @@ const FOOTER_LINKS = {
     { label: "Debt & Debenture", href: "/debt-debenture/" },
     { label: "Real Estate Capital", href: "/real-estate/" },
     { label: "Capital Providers", href: "/capital-providers/" },
+    { label: "Offerings Catalog", href: "/products/" },
+    { label: "Return Calculator", href: "/calculator/" },
     { label: "Due Diligence", href: "/due-diligence/" },
     { label: "About Niventra", href: "/about/" },
   ],

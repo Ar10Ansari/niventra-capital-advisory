@@ -5,11 +5,12 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { CalloutNotice } from "@/components/ui/CalloutNotice";
+import { IndicativeReturnCalculator } from "@/components/calculator/IndicativeReturnCalculator";
 
 export const metadata: Metadata = {
-  title: "Return Calculator — Under Review | Niventra Capital Advisory India",
+  title: "Return Calculator — Under Review & Illustrative Model | Niventra Capital Advisory India",
   description:
-    "Notice regarding the deferral and mathematical restructuring of the financial return calculator pending formal CFO certification.",
+    "Notice regarding the deferral and mathematical restructuring of the financial return calculator pending formal CFO certification, with educational simple-interest preview.",
   alternates: {
     canonical: "/calculator/",
   },
@@ -22,7 +23,7 @@ export default function CalculatorPage() {
 
       <main id="main-content" className="flex-1">
         {/* ==================================================================
-            HERO: Editorial Header
+            HERO: Editorial Header & Deferral Status
             ================================================================== */}
         <section className="relative bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.08)] overflow-hidden" aria-label="Governance Notice">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -42,16 +43,35 @@ export default function CalculatorPage() {
               </h1>
 
               <p className="font-body text-base sm:text-lg text-[#5C5C5C] leading-relaxed max-w-2xl">
-                The interactive return calculation tool is currently withheld pending formal mathematical restructuring and Chief Financial Officer (CFO) certification, eliminating flawed retail compounding assumptions.
+                The interactive return calculation tool is currently withheld pending formal mathematical restructuring and Chief Financial Officer (CFO) certification, eliminating flawed retail compounding assumptions. An illustrative simple-interest model is provided below for educational reference.
               </p>
             </div>
           </div>
         </section>
 
         {/* ==================================================================
-            DEFERRAL RATIONALE & GOVERNANCE AUDIT DETAILS
+            SECTION 1: ILLUSTRATIVE SIMPLE-INTEREST CALCULATOR (PREVIEW)
             ================================================================== */}
-        <section className="py-16 lg:py-20 bg-white border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="deferral-rationale">
+        <section className="py-12 lg:py-16 bg-white border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="illustrative-calculator-heading">
+          <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mb-8">
+              <span className="text-eyebrow mb-2 block">Educational Preview</span>
+              <h2 id="illustrative-calculator-heading" className="font-heading text-2xl sm:text-3xl font-[600] text-[#1A1A1A]">
+                Illustrative Simple-Interest Calculator (Development Preview)
+              </h2>
+              <p className="text-xs sm:text-sm text-[#5C5C5C] mt-2 leading-relaxed font-body">
+                This preview model replaces the decommissioned SIP compounding algorithm with standard simple-interest mathematics matching fixed-income debenture conventions. While binding commercial terms require CFO certification, capital providers may use this educational widget to model indicative coupon payouts within the company-approved 12%–16% p.a.* guidance.
+              </p>
+            </div>
+
+            <IndicativeReturnCalculator initialPrincipal={1000000} initialRate={14.0} initialTenor={36} initialFrequency="QUARTERLY" />
+          </div>
+        </section>
+
+        {/* ==================================================================
+            SECTION 2: DEFERRAL RATIONALE & GOVERNANCE AUDIT DETAILS
+            ================================================================== */}
+        <section className="py-16 lg:py-20 bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="deferral-rationale">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mb-12">
               <CalloutNotice variant="brass" title="Fiduciary Commitment to Mathematical Accuracy">
@@ -60,7 +80,7 @@ export default function CalculatorPage() {
             </div>
 
             <div className="max-w-4xl space-y-10">
-              <div className="bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)] rounded-xl p-8 sm:p-10 shadow-2xs space-y-6">
+              <div className="bg-white border border-[rgba(26,26,26,0.08)] rounded-xl p-8 sm:p-10 shadow-2xs space-y-6">
                 <div>
                   <span className="text-eyebrow mb-2 block">Technical Finding</span>
                   <h2
@@ -76,7 +96,7 @@ export default function CalculatorPage() {
                 </p>
 
                 <ul className="space-y-4 text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
-                  <li className="flex items-start gap-3 p-4 rounded-lg bg-white border border-[rgba(26,26,26,0.06)]">
+                  <li className="flex items-start gap-3 p-4 rounded-lg bg-[#FAFAF7] border border-[rgba(26,26,26,0.06)]">
                     <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" aria-hidden="true" />
                     <div>
                       <strong className="text-[#1A1A1A] block mb-0.5 font-semibold">
@@ -86,7 +106,7 @@ export default function CalculatorPage() {
                     </div>
                   </li>
 
-                  <li className="flex items-start gap-3 p-4 rounded-lg bg-white border border-[rgba(26,26,26,0.06)]">
+                  <li className="flex items-start gap-3 p-4 rounded-lg bg-[#FAFAF7] border border-[rgba(26,26,26,0.06)]">
                     <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" aria-hidden="true" />
                     <div>
                       <strong className="text-[#1A1A1A] block mb-0.5 font-semibold">
@@ -96,7 +116,7 @@ export default function CalculatorPage() {
                     </div>
                   </li>
 
-                  <li className="flex items-start gap-3 p-4 rounded-lg bg-white border border-[rgba(26,26,26,0.06)]">
+                  <li className="flex items-start gap-3 p-4 rounded-lg bg-[#FAFAF7] border border-[rgba(26,26,26,0.06)]">
                     <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" aria-hidden="true" />
                     <div>
                       <strong className="text-[#1A1A1A] block mb-0.5 font-semibold">
@@ -109,7 +129,7 @@ export default function CalculatorPage() {
               </div>
 
               {/* REQUIREMENTS FOR THE FUTURE CERTIFIED ENGINE */}
-              <div className="bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)] rounded-xl p-8 sm:p-10 shadow-2xs space-y-6">
+              <div className="bg-white border border-[rgba(26,26,26,0.08)] rounded-xl p-8 sm:p-10 shadow-2xs space-y-6">
                 <div>
                   <span className="text-eyebrow mb-2 block">Restructuring Roadmap</span>
                   <h3 className="font-heading text-xl font-[600] text-[#1A1A1A]">
