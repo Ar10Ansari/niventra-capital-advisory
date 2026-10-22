@@ -113,12 +113,21 @@ test("Branch Directory — Search & Filter Functionality", () => {
   const counts = getStateCounts(PUBLISHED_BRANCHES);
   const totalCount = counts.reduce((acc, c) => acc + c.count, 0);
   assert.equal(totalCount, 25, "State counts sum must equal 25");
-
   const mpCount = counts.find((c) => c.state === "Madhya Pradesh");
   assert.equal(mpCount?.count, 12);
-
   const rjCount = counts.find((c) => c.state === "Rajasthan");
   assert.equal(rjCount?.count, 7);
+
+  // 6. Resetting filters and search restores all 25 records without limits or truncation
+  const resetResults = filterBranches(PUBLISHED_BRANCHES, "", "ALL");
+  assert.equal(resetResults.length, 25, "Unfiltered directory must expose all 25 records with zero truncation");
+
+  // Verify that all 25 locations have valid IDs and addresses
+  for (const b of resetResults) {
+    assert.ok(b.id && b.id.length > 0, "Every branch must have a unique identifier");
+    assert.ok(b.address && b.address.length > 10, `Branch ${b.city} must have a valid physical address`);
+    assert.ok(b.pinCode && /^\d{6}$/.test(b.pinCode), `Branch ${b.city} must have a valid 6-digit PIN code`);
+  }
 });
 
 test("Database Architecture — Persistent Adapter Contract", () => {

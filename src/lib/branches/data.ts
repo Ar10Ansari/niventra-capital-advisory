@@ -328,8 +328,9 @@ export function filterBranches(
     const stateMatch = branch.state.toLowerCase().includes(query);
     const addressMatch = branch.address.toLowerCase().includes(query);
     const pinMatch = branch.pinCode ? branch.pinCode.includes(query) : false;
+    const notesMatch = branch.notes ? branch.notes.toLowerCase().includes(query) : false;
 
-    return cityMatch || stateMatch || addressMatch || pinMatch;
+    return cityMatch || stateMatch || addressMatch || pinMatch || notesMatch;
   });
 }
 
