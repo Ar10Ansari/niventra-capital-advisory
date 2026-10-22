@@ -3,10 +3,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import {
   ArrowRight,
-  ShieldAlert,
   CheckCircle2,
   AlertTriangle,
-  FileText,
 } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -52,7 +50,7 @@ export default function DebtDebenturePage() {
                 </h1>
 
                 <p className="font-body text-base sm:text-lg text-[#5C5C5C] leading-relaxed max-w-2xl">
-                  Facilitating secured non-convertible debentures (NCDs) under the Companies Act, 2013 framework — structured to deliver fixed-income predictability, collateral backing, and disciplined repayment priorities for eligible capital providers.
+                  Secured non-convertible debentures (NCDs) under the Companies Act, 2013 — structured for fixed-income predictability, collateral backing, and disciplined repayment priorities.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[rgba(26,26,26,0.08)]">
@@ -134,9 +132,9 @@ export default function DebtDebenturePage() {
         </div>
 
         {/* ==================================================================
-            SECTION 1: WHAT IS A DEBENTURE & SENIORITY ARCHITECTURE
+            SECTION 1: WHAT IS A DEBENTURE — CONCISE OVERVIEW
             ================================================================== */}
-        <section className="py-20 bg-white border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="what-is-debenture">
+        <section className="py-16 lg:py-20 bg-white border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="what-is-debenture">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
               
@@ -152,7 +150,7 @@ export default function DebtDebenturePage() {
                 </div>
                 
                 <p className="font-body text-sm sm:text-base text-[#5C5C5C] leading-relaxed">
-                  A debenture is a debt instrument issued by a corporate entity to raise long-term capital. Unlike equity shares, debentures do not confer ownership rights or voting powers; instead, the issuing entity enters into a legally binding agreement to pay regular interest (coupons) and return the principal face value upon maturity.
+                  A debenture is a debt instrument issued by a corporate entity to raise long-term capital. Unlike equity shares, debentures do not confer ownership rights; the issuer enters into a binding agreement to pay regular interest (coupons) and return the principal at maturity.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
@@ -161,7 +159,7 @@ export default function DebtDebenturePage() {
                       Fixed Income
                     </p>
                     <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
-                      Predetermined coupon schedule distributed monthly, quarterly, or annually.
+                      Predetermined coupon schedule — monthly, quarterly, or annually.
                     </p>
                   </div>
                   <div className="p-4 bg-[#FAFAF7] rounded-lg border border-[rgba(26,26,26,0.08)]">
@@ -169,7 +167,7 @@ export default function DebtDebenturePage() {
                       Defined Tenor
                     </p>
                     <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
-                      Contractual maturity date ranging typically from 12 to 60 months.
+                      Contractual maturity typically from 12 to 60 months.
                     </p>
                   </div>
                   <div className="p-4 bg-[#FAFAF7] rounded-lg border border-[rgba(26,26,26,0.08)]">
@@ -177,7 +175,7 @@ export default function DebtDebenturePage() {
                       Priority Repayment
                     </p>
                     <p className="text-xs text-[#5C5C5C] leading-relaxed font-body">
-                      Higher claim on corporate cash flows and liquidation proceeds than equity.
+                      Higher claim on cash flows and liquidation proceeds than equity.
                     </p>
                   </div>
                 </div>
@@ -198,7 +196,7 @@ export default function DebtDebenturePage() {
                       <span className="w-6 h-6 rounded-full bg-[rgba(154,123,44,0.1)] text-[#9A7B2C] font-mono text-xs font-bold flex items-center justify-center">1</span>
                       <div>
                         <span className="text-xs font-semibold text-[#1A1A1A] block">Senior Secured Debentures</span>
-                        <span className="text-[0.625rem] text-[#5C5C5C]">First-charge mortgage backing · Priority claim</span>
+                        <span className="text-[0.625rem] text-[#5C5C5C]">First-charge mortgage · Priority claim</span>
                       </div>
                     </div>
                     <span className="text-[0.625rem] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Highest</span>
@@ -209,7 +207,7 @@ export default function DebtDebenturePage() {
                       <span className="w-6 h-6 rounded-full bg-[#F4F3EF] text-[#5C5C5C] font-mono text-xs font-bold flex items-center justify-center">2</span>
                       <div>
                         <span className="text-xs font-semibold text-[#1A1A1A] block">Subordinated / Unsecured Debt</span>
-                        <span className="text-[0.625rem] text-[#5C5C5C]">Junior ranking claim · Subordinate to secured debt</span>
+                        <span className="text-[0.625rem] text-[#5C5C5C]">Junior ranking claim</span>
                       </div>
                     </div>
                     <span className="text-[0.625rem] font-medium text-[#5C5C5C]">Subordinate</span>
@@ -243,109 +241,9 @@ export default function DebtDebenturePage() {
         </section>
 
         {/* ==================================================================
-            SECTION 2: TYPES OF DEBENTURES & COMPARISON
+            SECTION 2: BENEFITS & RISKS (TIGHTENED)
             ================================================================== */}
-        <section className="py-20 bg-[#F4F3EF] border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="types-features">
-          <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mb-12">
-              <span className="text-eyebrow mb-2 block">Instrument Classification</span>
-              <h2
-                id="types-features"
-                className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A] mb-3"
-              >
-                Types and Key Features of Debentures
-              </h2>
-              <p className="text-sm sm:text-base text-[#5C5C5C] leading-relaxed font-body">
-                Understanding debenture structures is essential for assessing risk and return parameters:
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              <div className="bg-white p-6 rounded-xl border border-[rgba(26,26,26,0.08)] shadow-2xs">
-                <span className="text-[0.625rem] font-bold uppercase tracking-wider text-[#9A7B2C] block mb-2">
-                  Primary Focus of Niventra Advisory
-                </span>
-                <h3 className="font-heading text-lg font-semibold text-[#1A1A1A] mb-2">
-                  Non-Convertible (NCDs)
-                </h3>
-                <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
-                  Cannot be converted into equity shares. They offer higher interest rates and are redeemed in full at maturity, offering pure debt exposure without dilution.
-                </p>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl border border-[rgba(26,26,26,0.08)] shadow-2xs">
-                <span className="text-[0.625rem] font-bold uppercase tracking-wider text-[#9A7B2C] block mb-2">
-                  Collateralized Claims
-                </span>
-                <h3 className="font-heading text-lg font-semibold text-[#1A1A1A] mb-2">
-                  Secured Debentures
-                </h3>
-                <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
-                  Backed by specific corporate assets or real property through a charge created with the Registrar of Companies (ROC Form CHG-9), providing recovery recourse in distress.
-                </p>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl border border-[rgba(26,26,26,0.08)] shadow-2xs">
-                <span className="text-[0.625rem] font-bold uppercase tracking-wider text-[#9A7B2C] block mb-2">
-                  PCDs &amp; FCDs
-                </span>
-                <h3 className="font-heading text-lg font-semibold text-[#1A1A1A] mb-2">
-                  Convertible Debentures
-                </h3>
-                <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
-                  Give the issuer or investor the option to convert a fraction or entirety of the instrument into company shares after a specified holding period.
-                </p>
-              </div>
-            </div>
-
-            {/* Comparison Table */}
-            <div className="bg-white rounded-xl border border-[rgba(26,26,26,0.08)] overflow-hidden shadow-2xs">
-              <div className="p-6 border-b border-[rgba(26,26,26,0.08)]">
-                <h3 className="font-heading text-lg font-semibold text-[#1A1A1A]">
-                  Convertible vs Non-Convertible Debentures
-                </h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs sm:text-sm">
-                  <thead className="bg-[#FAFAF7] text-[0.6875rem] uppercase tracking-wider text-[#8A8A8A] border-b border-[rgba(26,26,26,0.08)]">
-                    <tr>
-                      <th className="py-3.5 px-6 font-semibold">Parameter</th>
-                      <th className="py-3.5 px-6 font-semibold">Non-Convertible Debenture (NCD)</th>
-                      <th className="py-3.5 px-6 font-semibold">Convertible Debenture (PCD/FCD)</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[rgba(26,26,26,0.06)] text-[#5C5C5C] font-body">
-                    <tr>
-                      <td className="py-3.5 px-6 font-medium text-[#1A1A1A]">Conversion Option</td>
-                      <td className="py-3.5 px-6">None; strictly redeemed as debt capital</td>
-                      <td className="py-3.5 px-6">Converts into equity shares upon terms</td>
-                    </tr>
-                    <tr>
-                      <td className="py-3.5 px-6 font-medium text-[#1A1A1A]">Coupon Yield</td>
-                      <td className="py-3.5 px-6">Typically higher fixed coupon yield</td>
-                      <td className="py-3.5 px-6">Generally lower coupon due to upside equity option</td>
-                    </tr>
-                    <tr>
-                      <td className="py-3.5 px-6 font-medium text-[#1A1A1A]">Repayment Security</td>
-                      <td className="py-3.5 px-6">Full principal returned at maturity</td>
-                      <td className="py-3.5 px-6">Subject to equity market valuation upon conversion</td>
-                    </tr>
-                    <tr>
-                      <td className="py-3.5 px-6 font-medium text-[#1A1A1A]">Investor Profile</td>
-                      <td className="py-3.5 px-6">Capital preservation &amp; predictable yields</td>
-                      <td className="py-3.5 px-6">Investors seeking hybrid debt-equity growth</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ==================================================================
-            SECTION 3: BENEFITS & RISKS (BALANCED INSTITUTIONAL PRESENTATION)
-            ================================================================== */}
-        <section className="py-20 bg-white border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="benefits-risks">
+        <section className="py-16 lg:py-20 bg-[#F4F3EF] border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="benefits-risks">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
               
@@ -353,30 +251,30 @@ export default function DebtDebenturePage() {
               <div className="space-y-6">
                 <div>
                   <span className="text-eyebrow mb-2 block">Investor Benefits</span>
-                  <h3
+                  <h2
                     id="benefits-risks"
                     className="font-heading text-2xl font-[600] text-[#1A1A1A]"
                   >
-                    Structured Fixed-Income Advantages
-                  </h3>
+                    Fixed-Income Advantages
+                  </h2>
                 </div>
                 <ul className="space-y-4">
                   {[
                     {
                       title: "Predictable Yield Schedule",
-                      desc: "Coupons are paid at defined regular intervals, providing dependable cash-flow modeling for institutional and family office portfolios.",
+                      desc: "Coupons at defined intervals for dependable cash-flow modeling.",
                     },
                     {
-                      title: "Collateral Protection Priority",
-                      desc: "Secured NCDs hold priority claims on underlying real estate assets over common equity and promoter capital in distress scenarios.",
+                      title: "Collateral Protection",
+                      desc: "Priority claims on underlying real estate assets in distress scenarios.",
                     },
                     {
                       title: "Inflation Hedging Potential",
-                      desc: "Target return guidance of 12%–16% p.a. offers substantial spread above traditional retail bank fixed deposits and sovereign gilts.",
+                      desc: "12%–16% p.a.* guidance offers spread above bank fixed deposits.",
                     },
                     {
-                      title: "Defined Exit Milestones",
-                      desc: "Clear contractual tenure without the ambiguity of equity market volatility or speculative multiple expansion dependencies.",
+                      title: "Defined Exit",
+                      desc: "Clear contractual maturity without equity market volatility.",
                     },
                   ].map((b, idx) => (
                     <li key={idx} className="flex items-start gap-3.5">
@@ -398,27 +296,27 @@ export default function DebtDebenturePage() {
               <div className="space-y-6">
                 <div>
                   <span className="text-eyebrow mb-2 block text-[#9A3412]">Risk Considerations</span>
-                  <h3 className="font-heading text-2xl font-[600] text-[#1A1A1A]">
-                    Key Financial &amp; Execution Risks
-                  </h3>
+                  <h2 className="font-heading text-2xl font-[600] text-[#1A1A1A]">
+                    Key Risks
+                  </h2>
                 </div>
                 <ul className="space-y-4">
                   {[
                     {
-                      title: "Credit & Obligor Default Risk",
-                      desc: "Risk that the issuing entity or underlying project sponsor fails to meet contractual coupon or principal repayment schedules.",
+                      title: "Credit & Default Risk",
+                      desc: "Risk that the issuer fails to meet coupon or principal obligations.",
                     },
                     {
-                      title: "Real Estate Execution & Delay Risk",
-                      desc: "Construction approvals, statutory clearances, or physical development bottlenecks may delay project completion and subsequent cash flows.",
+                      title: "Execution & Delay Risk",
+                      desc: "Construction or regulatory delays may impact project cash flows.",
                     },
                     {
-                      title: "Liquidity & Illiquidity Risk",
-                      desc: "Unlisted private placement debentures lack immediate secondary market liquidity and are intended to be held to full contractual maturity.",
+                      title: "Liquidity Risk",
+                      desc: "Private placement NCDs lack secondary market liquidity; held to maturity.",
                     },
                     {
-                      title: "Taxation & TDS Withholding",
-                      desc: "Coupon returns are taxable as per applicable income tax slab rates; statutory TDS (under Section 193/194A) is deducted where applicable.",
+                      title: "Taxation & TDS",
+                      desc: "Coupon income taxable at applicable slab rates; TDS under Section 193/194A.",
                     },
                   ].map((r, idx) => (
                     <li key={idx} className="flex items-start gap-3.5">
@@ -441,166 +339,43 @@ export default function DebtDebenturePage() {
         </section>
 
         {/* ==================================================================
-            SECTION 4: 8-POINT DUE DILIGENCE CHECKLIST & 6 RED FLAGS
-            Refined balanced institutional presentation with crisp scannability
+            SECTION 3: DUE DILIGENCE STANDARDS & VERIFICATION SUMMARY
             ================================================================== */}
-        <section className="py-20 bg-[#FAFAF7] border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="due-diligence-checklist">
+        <section className="py-14 lg:py-16 bg-white border-b border-[rgba(26,26,26,0.08)]" aria-labelledby="due-diligence-summary">
           <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mb-12">
-              <span className="text-eyebrow mb-2 block">Prudent Evaluation</span>
-              <h2
-                id="due-diligence-checklist"
-                className="font-heading text-2xl sm:text-3xl font-[500] text-[#1A1A1A] mb-3"
-              >
-                Investor Due Diligence &amp; Warning Flags
-              </h2>
-              <p className="text-sm sm:text-base text-[#5C5C5C] leading-relaxed font-body">
-                We recommend that all prospective capital providers evaluate any debenture offering against this rigorous 8-point due diligence standard:
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* 8-Point Investor Due Diligence Checklist */}
-              <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-xl border border-[rgba(26,26,26,0.08)] shadow-2xs">
-                <div className="flex items-center gap-2.5 pb-5 border-b border-[rgba(26,26,26,0.08)] mb-6">
-                  <div className="w-8 h-8 rounded-md bg-[rgba(154,123,44,0.1)] flex items-center justify-center text-[#9A7B2C]">
-                    <FileText className="w-4 h-4" aria-hidden="true" />
-                  </div>
-                  <h3 className="font-heading text-lg font-semibold text-[#1A1A1A]">
-                    8-Point Investor Due Diligence Checklist
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    {
-                      num: "01",
-                      title: "Issuer Legal Standing",
-                      desc: "Verify corporate incorporation, CIN, and authorized capital on MCA portal.",
-                    },
-                    {
-                      num: "02",
-                      title: "Security & Charge Creation",
-                      desc: "Confirm Form CHG-9 charge registration with ROC establishing first or pari-passu charge on identified assets.",
-                    },
-                    {
-                      num: "03",
-                      title: "Debenture Trustee Appointment",
-                      desc: "Confirm appointment of an independent SEBI-registered Debenture Trustee for collective security enforcement.",
-                    },
-                    {
-                      num: "04",
-                      title: "Project RERA Registration",
-                      desc: "Ensure the underlying real estate development possesses valid, active RERA registration.",
-                    },
-                    {
-                      num: "05",
-                      title: "Escrow Account Ring-Fencing",
-                      desc: "Verify that capital disbursements and receivables are routed through a designated escrow bank account.",
-                    },
-                    {
-                      num: "06",
-                      title: "Cash-Flow Coverage Ratio",
-                      desc: "Review projected project revenues against debt service requirements (target DSCR > 1.5x).",
-                    },
-                    {
-                      num: "07",
-                      title: "Promoter Track Record & Litigation",
-                      desc: "Check for pending disputes, civil suits, or regulatory sanctions on promoters.",
-                    },
-                    {
-                      num: "08",
-                      title: "Repayment & Exit Mechanism",
-                      desc: "Scrutinize specific repayment triggers, lock-in terms, and early redemption conditions.",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.num}
-                      className="p-3.5 rounded-lg bg-[#FAFAF7] border border-[rgba(26,26,26,0.06)] flex flex-col justify-between"
-                    >
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <span className="font-mono text-[0.6875rem] font-bold text-[#9A7B2C]">
-                          {item.num}
-                        </span>
-                        <h4 className="text-xs font-semibold text-[#1A1A1A]">
-                          {item.title}
-                        </h4>
-                      </div>
-                      <p className="text-[0.6875rem] text-[#5C5C5C] leading-normal font-body">
-                        {item.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+            <div className="p-8 sm:p-10 rounded-xl bg-[#FAFAF7] border border-[rgba(26,26,26,0.08)] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-2xs">
+              <div className="max-w-2xl space-y-2">
+                <span className="text-eyebrow block">Prudent Verification</span>
+                <h3 id="due-diligence-summary" className="font-heading text-xl sm:text-2xl font-[600] text-[#1A1A1A]">
+                  8-Point Investor Due Diligence Standards
+                </h3>
+                <p className="text-xs sm:text-sm text-[#5C5C5C] leading-relaxed font-body">
+                  Every debenture issuance undergoes independent 30-year title verification, registered ROC Form CHG-9 mortgage charge filing, and appointment of a SEBI-registered debenture trustee. For the complete 8-Point Investor Due Diligence evaluation methodology and 6 Red Flags warning criteria, visit our dedicated underwriting guide.
+                </p>
               </div>
-
-              {/* 6 Red Flags — Be Cautious */}
-              <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-xl border border-[rgba(180,60,40,0.18)] shadow-2xs">
-                <div className="flex items-center gap-2.5 pb-5 border-b border-[rgba(180,60,40,0.12)] mb-6">
-                  <div className="w-8 h-8 rounded-md bg-[rgba(180,60,40,0.08)] flex items-center justify-center text-[#B43C28]">
-                    <ShieldAlert className="w-4 h-4" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading text-lg font-semibold text-[#1A1A1A]">
-                      6 Red Flags — Be Cautious
-                    </h3>
-                  </div>
-                </div>
-
-                <ul className="space-y-3 font-body">
-                  {[
-                    {
-                      title: "Guaranteed Payout Promises",
-                      desc: "Promising risk-free high-yield debt is illegal and misleading under statutory regulations.",
-                    },
-                    {
-                      title: "Unregistered Charges",
-                      desc: "Failure to provide ROC Form CHG-9 certificate of charge registration.",
-                    },
-                    {
-                      title: "Vague Project Backing",
-                      desc: "No identified physical real estate project or land parcel backing the issuance.",
-                    },
-                    {
-                      title: "Absence of Trustee",
-                      desc: "Lack of an independent debenture trustee to protect investor rights.",
-                    },
-                    {
-                      title: "Cash Transactions",
-                      desc: "Any request for cash payments or bypassing registered banking channels.",
-                    },
-                    {
-                      title: "Missing Documentation",
-                      desc: "Reluctance to provide a complete Private Placement Offer Letter (PAS-4).",
-                    },
-                  ].map((flag, idx) => (
-                    <li
-                      key={idx}
-                      className="p-3 rounded-lg bg-[rgba(180,60,40,0.03)] border border-[rgba(180,60,40,0.08)] flex items-start gap-2.5"
-                    >
-                      <span className="font-bold text-[#B43C28] text-xs mt-0.5 shrink-0">✕</span>
-                      <div>
-                        <strong className="text-xs font-semibold text-[#1A1A1A] block">
-                          {flag.title}
-                        </strong>
-                        <span className="text-[0.6875rem] text-[#5C5C5C] leading-snug block mt-0.5">
-                          {flag.desc}
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+              <div className="shrink-0">
+                <Button variant="primary-outline" size="md" href="/due-diligence/" icon={<ArrowRight className="w-4 h-4" />}>
+                  Explore Due Diligence Standards
+                </Button>
               </div>
             </div>
+          </div>
+        </section>
 
-            <div className="mt-12 text-center flex flex-wrap items-center justify-center gap-4">
-              <Button variant="primary" size="lg" href="/contact/" icon={<ArrowRight className="w-4 h-4" />}>
-                Discuss Structured Debt Opportunities
-              </Button>
-              <Button variant="primary-outline" size="lg" href="/due-diligence/">
-                Explore Due Diligence Standards
-              </Button>
-            </div>
+        {/* ==================================================================
+            SECTION 4: ADVISORY CONSULTATION CTA
+            ================================================================== */}
+        <section className="py-14 bg-[#FAFAF7]" aria-label="Advisory Consultation">
+          <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 className="font-heading text-xl sm:text-2xl font-[600] text-[#1A1A1A] mb-3">
+              Discuss Structured Debt Opportunities
+            </h3>
+            <p className="text-xs sm:text-sm text-[#5C5C5C] max-w-lg mx-auto mb-6 leading-relaxed font-body">
+              Connect with our advisory desk to review private placement structures and indicative tranche availability.
+            </p>
+            <Button variant="primary" size="lg" href="/contact/" icon={<ArrowRight className="w-4 h-4" />}>
+              Connect with Advisory Desk
+            </Button>
           </div>
         </section>
       </main>

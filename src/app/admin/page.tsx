@@ -438,8 +438,9 @@ export default function AdminDashboardPage() {
                     <th className="py-3 px-4">Client Details</th>
                     <th className="py-3 px-4">Category & Range</th>
                     <th className="py-3 px-4">Status Pipeline</th>
+                    <th className="py-3 px-4">Notification Transport</th>
                     <th className="py-3 px-4">Internal Advisory Notes</th>
-                    <th className="py-3 px-4">Action</th>
+                    <th className="py-3 px-4">Submitted</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[rgba(26,26,26,0.06)]">
@@ -465,8 +466,16 @@ export default function AdminDashboardPage() {
                           <option value="IN_REVIEW">IN_REVIEW</option>
                           <option value="CONTACTED">CONTACTED</option>
                           <option value="QUALIFIED">QUALIFIED</option>
+                          <option value="FOLLOW_UP">FOLLOW_UP</option>
+                          <option value="CONVERTED">CONVERTED</option>
                           <option value="CLOSED">CLOSED</option>
                         </select>
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[0.625rem] font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200" title="Audited to local mock sink (data/email_sink.log). No live external email sent.">
+                          <span>MOCK SINK</span>
+                          <span className="text-[0.5625rem] text-blue-500">(Logged)</span>
+                        </span>
                       </td>
                       <td className="py-3.5 px-4">
                         <input

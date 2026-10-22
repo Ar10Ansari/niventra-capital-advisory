@@ -56,6 +56,7 @@ export const ConsultationForm: React.FC = () => {
 
   const [referenceId, setReferenceId] = useState<string>("");
   const [submitError, setSubmitError] = useState<string>("");
+  const [honeypot, setHoneypot] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,6 +76,7 @@ export const ConsultationForm: React.FC = () => {
           capitalRange: formData.capitalRange,
           message: formData.message,
           consent: formData.consent,
+          website_hp: honeypot,
         }),
       });
 
@@ -108,12 +110,12 @@ export const ConsultationForm: React.FC = () => {
           Reference ID: {referenceId}
         </div>
         <h3 className="font-heading text-[1.375rem] font-[600] text-[#1A1A1A]">
-          Advisory Consultation Logged
+          Advisory Consultation Request Logged
         </h3>
         <p className="text-[0.9rem] text-[#5C5C5C] max-w-sm mx-auto leading-relaxed">
           Thank you, <strong className="text-[#1A1A1A]">{formData.fullName}</strong>.
-          Your consultation request has been securely recorded under ref <strong className="font-mono text-[#1A1A1A]">{referenceId}</strong>.
-          Our advisory desk will review suitability and reach out within one business day.
+          Your consultation request has been recorded in our advisory queue under reference <strong className="font-mono text-[#1A1A1A]">{referenceId}</strong>.
+          Our team reviews submissions during standard business hours (Mon–Fri 9:30 AM – 6:30 PM IST).
         </p>
         <button
           onClick={() => {
@@ -128,6 +130,7 @@ export const ConsultationForm: React.FC = () => {
               message: "",
               consent: true,
             });
+            setHoneypot("");
           }}
           className="text-sm font-medium text-[#9A7B2C] hover:text-[#B8922F] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A7B2C] rounded mt-2 underline underline-offset-2"
         >
@@ -144,6 +147,19 @@ export const ConsultationForm: React.FC = () => {
       noValidate
       aria-label="Advisory consultation enquiry form"
     >
+      {/* Honeypot field - hidden from human users */}
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="website_hp">Leave this field blank</label>
+        <input
+          type="text"
+          id="website_hp"
+          name="website_hp"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       {/* Form header */}
       <div className="pb-5 border-b border-[rgba(26,26,26,0.08)]">
         <h3 className="font-heading text-[1.25rem] font-[600] text-[#1A1A1A]">

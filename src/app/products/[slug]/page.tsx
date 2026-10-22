@@ -70,9 +70,9 @@ const PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     principalRepayment: "Contractual Bullet Repayment at Month 36",
     governingLaw: "Companies Act, 2013 (Section 42 & Section 71)",
     summary:
-      "Illustrative debenture structure for institutional evaluation and cash-flow modeling. Structured against contracted lease receivables and underlying commercial collateral with independent Debenture Trustee oversight.",
+      "Commercial lease receivables-backed model with ROC Form CHG-9 first pari-passu charge.",
     description:
-      "Tranche A debentures represent an illustrative institutional fixed-income structure designed to demonstrate security covenant creation under Indian statutory provisions. All terms shown are illustrative models for development and platform testing. Genuine debenture offerings require approved Form PAS-4 documentation, Registrar of Companies filings, and Board authorization before capital commitment.",
+      "Tranche A models an asset-backed debenture structure demonstrating security covenant creation under Section 42 of the Companies Act, 2013. Formal participation requires approved Form PAS-4 documentation, ROC filings, and Board authorization.",
     underwritingHighlights: [
       "First ranking mortgage registered with Registrar of Companies via Form CHG-9 within 30 days of allotment",
       "Asset cover ratio maintained at minimum 1.50x of outstanding principal throughout tenor",
@@ -81,13 +81,13 @@ const PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     ],
     riskAnalysis: {
       creditRisk:
-        "Obligor credit risk arises from potential adverse operational conditions impacting the underlying borrower's ability to service quarterly coupon obligations. Mitigated by asset cover and hypothecated cash flows.",
+        "Borrower operational shifts may impact coupon servicing. Mitigated by 1.50x asset coverage and hypothecated cash flows.",
       constructionRisk:
-        "Minimal project completion risk as collateral is based on completed or near-completion Grade-A commercial asset inventory with existing occupancy certifications.",
+        "Low completion risk; collateral comprises completed commercial assets with valid occupancy certifications.",
       liquidityRisk:
-        "Non-convertible debentures are fixed-term illiquid debt instruments. No secondary exchange liquidity is promised or implied; capital is committed until contractual 36-month maturity.",
+        "Fixed-term illiquid debt instrument with no secondary exchange liquidity; capital committed until 36-month maturity.",
       taxRisk:
-        "Subject to mandatory Tax Deducted at Source (TDS) under Section 193 of the Income Tax Act, 1961 (standard 10% for resident individuals presenting PAN, or Form 15G/15H exemptions).",
+        "Statutory TDS under Section 193 of the Income Tax Act, 1961 (standard 10% with PAN, or Form 15G/15H exemptions).",
     },
     sampleDocuments: [
       {
@@ -125,9 +125,9 @@ const PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     principalRepayment: "Amortized Principal Returns Over Months 18 to 24",
     governingLaw: "Companies Act, 2013 & Indian Contract Act, 1872",
     summary:
-      "Targeted project debt tranche supporting structured urban renewal evaluation with project escrow covenants and milestone-based disbursement tranches.",
+      "Milestone-disbursed urban renewal tranche with dual-signatory escrow waterfall covenants.",
     description:
-      "Series 1 Redevelopment Debt models a structured project financing tranche supporting evaluated brownfield rehabilitation projects. Features strict milestone-based capital deployment and dual-signatory escrow accounts. This record is an illustrative architectural fixture; no genuine financial transactions can be executed against this model.",
+      "Series 1 models structured project debt with milestone-based disbursements and dual-signatory escrow accounts. Illustrative model for development evaluation.",
     underwritingHighlights: [
       "Capital deployed strictly in tranches upon independent Chartered Engineer certification of project milestones",
       "Sales receivables locked into project escrow account with predetermined waterfall priority",
@@ -136,13 +136,13 @@ const PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     ],
     riskAnalysis: {
       creditRisk:
-        "Developer credit standing and working capital adequacy. Evaluated through financial cash-flow underwriting and promoter track record analysis.",
+        "Developer creditworthiness and working capital adequacy, vetted through cash-flow underwriting and track record.",
       constructionRisk:
-        "Risk of civil execution or municipal approval delays. Mitigated by tranche-based disbursements and retention accounts.",
+        "Execution or municipal approval delays, mitigated by milestone-linked tranches and retention accounts.",
       liquidityRisk:
-        "Private placement debt cannot be transferred without regulatory notification and Issuer approval. No active secondary market exists.",
+        "Transfer restricted under private placement rules; no active secondary market exists.",
       taxRisk:
-        "Coupon income treated as interest income taxable at applicable investor slab rates, subject to statutory Section 194A TDS withholding.",
+        "Coupon income taxable at applicable investor slab rates, subject to statutory Section 194A TDS withholding.",
     },
     sampleDocuments: [
       {
@@ -180,9 +180,9 @@ const PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     principalRepayment: "Bullet Repayment at Month 48 with Amortization Option",
     governingLaw: "Companies Act, 2013 (Section 42 & Section 71)",
     summary:
-      "Commercial grade cash-flow secured debenture model with quarterly coupon distribution and structured principal amortization waterfall.",
+      "Receivables-hypothecated facility with quarterly coupon distributions and structured amortization.",
     description:
-      "Facility II models senior secured credit extended against operational commercial office assets with long-term corporate tenant leases. Focuses on debt service coverage ratio (DSCR) preservation and bankruptcy-remote escrow ringfencing. Model presented solely for institutional architectural evaluation.",
+      "Facility II models senior secured credit against operational commercial office assets with corporate leases and DSCR covenants. Illustrative model for institutional evaluation.",
     underwritingHighlights: [
       "100% of underlying lease rentals escrowed directly with Debenture Trustee's designated bank",
       "Minimum Debt Service Coverage Ratio (DSCR) covenant of 1.40x throughout facility lifecycle",
@@ -191,13 +191,13 @@ const PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     ],
     riskAnalysis: {
       creditRisk:
-        "Tenant concentration or corporate lease default risk. Mitigated by multi-tenant diversification and security deposits.",
+        "Tenant vacancy or lease default risk, mitigated by multi-tenant diversification and security deposits.",
       constructionRisk:
-        "Zero greenfield risk; asset is fully operational with occupancy certificate and active lease agreements.",
+        "Zero greenfield risk; asset is fully operational with occupancy certificate and active corporate lease agreements.",
       liquidityRisk:
-        "Locked until contractual maturity (48 months) with limited institutional secondary co-sale options.",
+        "Locked until contractual maturity (48 months) without secondary exchange liquidity.",
       taxRisk:
-        "TDS deducted at source under Section 193. Capital providers receive Form 16A quarterly certificates for tax reconciliation.",
+        "TDS deducted under Section 193, with quarterly Form 16A certificates provided for tax reconciliation.",
     },
     sampleDocuments: [
       {
@@ -297,9 +297,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </span>
               <span className="text-[0.625rem] font-mono uppercase tracking-wider text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">
                 Illustrative Model — Non-Transactable
-              </span>
-              <span className="text-[0.625rem] font-medium text-[#7A7A7A] bg-white border border-[rgba(26,26,26,0.1)] px-2 py-0.5 rounded">
-                Section 42 Private Placement
               </span>
             </div>
 
@@ -476,10 +473,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div>
               <span className="text-eyebrow mb-2 block">Statutory Disclosure</span>
               <h2 id="risk-analysis-heading" className="font-heading text-2xl font-[600] text-[#1A1A1A]">
-                Comprehensive 4-Pillar Risk Evaluation
+                4-Pillar Risk Evaluation
               </h2>
               <p className="text-xs sm:text-sm text-[#5C5C5C] mt-1 max-w-2xl font-body">
-                In strict adherence to regulatory standards, all private debt structures involve inherent financial, operational, and liquidity risks.
+                All private debt structures involve inherent financial, operational, and liquidity risks.
               </p>
             </div>
 

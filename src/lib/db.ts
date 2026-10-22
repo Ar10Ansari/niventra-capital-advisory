@@ -105,7 +105,7 @@ function initSchema(db: DatabaseSync) {
       capital_range TEXT NOT NULL,
       message TEXT,
       consent INTEGER NOT NULL DEFAULT 1,
-      status TEXT NOT NULL DEFAULT 'NEW' CHECK(status IN ('NEW', 'IN_REVIEW', 'CONTACTED', 'QUALIFIED', 'CLOSED')),
+      status TEXT NOT NULL DEFAULT 'NEW' CHECK(status IN ('NEW', 'IN_REVIEW', 'CONTACTED', 'QUALIFIED', 'FOLLOW_UP', 'CONVERTED', 'CLOSED')),
       assigned_to TEXT REFERENCES users(id) ON DELETE SET NULL,
       internal_notes TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -202,6 +202,57 @@ function initSchema(db: DatabaseSync) {
       statutory_retention_notes TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- KYC & INVESTOR VERIFICATION
+    CREATE TABLE IF NOT EXISTS kyc_records (
+      id TEXT PRIMARY KEY,
+      user_id TEXT UNIQUE NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      pan_number_masked TEXT,
+      id_type TEXT CHECK(id_type IN ('PAN', 'AADHAAR', 'PASSPORT', 'VOTER_ID')),
+      id_number_masked TEXT,
+      status TEXT NOT NULL DEFAULT 'NOT_SUBMITTED' CHECK(status IN ('NOT_SUBMITTED', 'PENDING_VERIFICATION', 'VERIFIED', 'REJECTED')),
+      verified_at DATETIME,
+      rejection_reason TEXT,
+      dpdp_consent INTEGER NOT NULL DEFAULT 1,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- INVESTOR HOLDINGS & DEBENTURE ALLOCATIONS
+    CREATE TABLE IF NOT EXISTS investments (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      product_id TEXT REFERENCES products(id) ON DELETE SET NULL,
+      product_title TEXT NOT NULL,
+      principal_amount REAL NOT NULL,
+      interest_rate_pa REAL NOT NULL,
+      tenor_months INTEGER NOT NULL,
+      payout_frequency TEXT NOT NULL CHECK(payout_frequency IN ('MONTHLY', 'QUARTERLY', 'SEMI_ANNUAL', 'ANNUAL', 'CUMULATIVE')),
+      start_date DATE NOT NULL,
+      maturity_date DATE NOT NULL,
+      accrued_interest REAL NOT NULL DEFAULT 0,
+      interest_paid REAL NOT NULL DEFAULT 0,
+      pending_interest REAL NOT NULL DEFAULT 0,
+      next_payout_date DATE,
+      status TEXT NOT NULL DEFAULT 'PENDING' CHECK(status IN ('PENDING', 'UNDER_REVIEW', 'APPROVED', 'REJECTED', 'ACTIVE', 'MATURED', 'CANCELLED')),
+      is_demo INTEGER NOT NULL DEFAULT 1,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- INVESTMENT TRANSACTIONS & PAYOUT LEDGER
+    CREATE TABLE IF NOT EXISTS investment_transactions (
+      id TEXT PRIMARY KEY,
+      investment_id TEXT NOT NULL REFERENCES investments(id) ON DELETE CASCADE,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      transaction_type TEXT NOT NULL CHECK(transaction_type IN ('PRINCIPAL_ALLOCATION', 'INTEREST_PAYOUT', 'TDS_DEDUCTION', 'REDEMPTION')),
+      amount REAL NOT NULL,
+      status TEXT NOT NULL CHECK(status IN ('SCHEDULED', 'PROCESSED', 'FAILED')),
+      payment_reference TEXT,
+      effective_date DATE NOT NULL,
+      is_demo INTEGER NOT NULL DEFAULT 1,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
 }

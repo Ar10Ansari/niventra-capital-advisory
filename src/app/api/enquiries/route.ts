@@ -2,12 +2,20 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth/session";
 import { logAuditEvent } from "@/lib/audit";
-import { sendNotification } from "@/lib/notifications";
+import { sendNotification, dispatchLeadNotification } from "@/lib/notifications";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { fullName, email, phoneNumber, category, capitalRange, message, consent } = body;
+    const { fullName, email, phoneNumber, category, capitalRange, message, consent, website_hp } = body;
+
+    // 1. Honeypot Bot Defense
+    if (website_hp) {
+      return NextResponse.json(
+        { error: "Automated submission rejected." },
+        { status: 400 }
+      );
+    }
 
     if (!fullName || !email || !phoneNumber) {
       return NextResponse.json(
@@ -23,9 +31,31 @@ export async function POST(req: Request) {
       );
     }
 
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPhone = phoneNumber.trim();
+
+    // 2. Duplicate Submission Suppression (Within 60 seconds)
+    try {
+      const recentDup = db.prepare(`
+        SELECT id FROM enquiries
+        WHERE email = ? AND phone_number = ? AND created_at > datetime('now', '-60 seconds')
+        ORDER BY created_at DESC LIMIT 1
+      `).get(cleanEmail, cleanPhone) as { id: string } | undefined;
+
+      if (recentDup) {
+        return NextResponse.json({
+          success: true,
+          referenceId: recentDup.id,
+          message: "Enquiry already recorded. Our advisory desk has your details.",
+        });
+      }
+    } catch {
+      // Continue if duplicate check fails
+    }
+
     const currentUser = await getCurrentUser();
 
-    // Generate unique serialized ID: ENQ-2026-0001
+    // 3. Generate unique serialized ID: ENQ-2026-0001
     const countRow = db.prepare("SELECT COUNT(*) as count FROM enquiries").get() as { count: number };
     const nextSeq = (countRow?.count || 0) + 1;
     const refId = `ENQ-2026-${String(nextSeq).padStart(4, "0")}`;
@@ -41,17 +71,17 @@ export async function POST(req: Request) {
       refId,
       currentUser?.id || null,
       fullName.trim(),
-      email.trim().toLowerCase(),
-      phoneNumber.trim(),
+      cleanEmail,
+      cleanPhone,
       category || "Capital Provider / Investor",
       capitalRange || "₹25 Lakh – ₹1 Crore",
       message?.trim() || null
     );
 
-    // Write audit event
+    // 4. Write audit event
     logAuditEvent({
       actorId: currentUser?.id || null,
-      actorEmail: email.trim().toLowerCase(),
+      actorEmail: cleanEmail,
       actorRole: currentUser?.role || "PUBLIC",
       action: "ENQUIRY_SUBMITTED",
       resourceType: "ENQUIRY",
@@ -63,7 +93,18 @@ export async function POST(req: Request) {
       },
     });
 
-    // Notify user via local email sink & in-app if registered
+    // 5. Provider-neutral lead notification dispatch (handles both public and authenticated leads)
+    await dispatchLeadNotification({
+      referenceId: refId,
+      fullName: fullName.trim(),
+      email: cleanEmail,
+      phoneNumber: cleanPhone,
+      category: category || "Capital Provider / Investor",
+      capitalRange: capitalRange || "₹25 Lakh – ₹1 Crore",
+      message: message?.trim() || null,
+    });
+
+    // 6. In-app notification for registered users
     if (currentUser) {
       sendNotification({
         userId: currentUser.id,
@@ -71,10 +112,6 @@ export async function POST(req: Request) {
         message: `Your consultation enquiry (${category}) has been logged. Our advisory desk will review and contact you within one business day.`,
         type: "ENQUIRY",
         link: `/dashboard/enquiries/`,
-        emailNotification: {
-          to: email.trim().toLowerCase(),
-          subject: `Niventra Advisory Enquiry Acknowledgment — ${refId}`,
-        },
       });
     }
 

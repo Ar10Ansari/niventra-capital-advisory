@@ -42,7 +42,7 @@ const ILLUSTRATIVE_PRODUCTS: ProductItem[] = [
     tenor: "36 Months",
     minInvestment: "₹10,00,000",
     securityType: "First Pari-Passu Charge on Commercial Assets (ROC Form CHG-9)",
-    summary: "Illustrative debenture structure for institutional evaluation and cash-flow modeling. Backed by contracted lease receivables and underlying commercial collateral.",
+    summary: "Commercial lease receivables-backed model with ROC Form CHG-9 first pari-passu charge.",
     isIllustrative: true,
   },
   {
@@ -54,7 +54,7 @@ const ILLUSTRATIVE_PRODUCTS: ProductItem[] = [
     tenor: "24 Months",
     minInvestment: "₹25,00,000",
     securityType: "Escrow Cash-Flow Waterfall + Subordinated Mortgage Charge",
-    summary: "Targeted project debt tranche supporting structured urban renewal evaluation with project escrow covenants and milestone-based disbursement tranches.",
+    summary: "Milestone-disbursed urban renewal tranche with dual-signatory escrow waterfall covenants.",
     isIllustrative: true,
   },
   {
@@ -66,7 +66,7 @@ const ILLUSTRATIVE_PRODUCTS: ProductItem[] = [
     tenor: "48 Months",
     minInvestment: "₹50,00,000",
     securityType: "Exclusive Hypothecation of Receivables & ROC Charge Creation",
-    summary: "Commercial grade cash-flow secured debenture model with quarterly coupon distribution and structured principal amortization waterfall.",
+    summary: "Receivables-hypothecated facility with quarterly coupon distributions and structured amortization.",
     isIllustrative: true,
   },
 ];
@@ -134,7 +134,7 @@ export const ProductCatalogView: React.FC = () => {
           <span>Statutory Framework: Private Placement Under Section 42 of Companies Act, 2013</span>
         </div>
         <p className="leading-relaxed">
-          Debenture offerings structured by Niventra Capital Advisory are addressed solely to verified, eligible institutional investors and accredited capital providers on a private placement basis. Under Section 42 of the Companies Act, 2013, this website does not solicit public investments or distribute public securities offerings.
+          Debenture offerings are addressed solely to verified, eligible investors on a private placement basis under Section 42 of the Companies Act, 2013. This website does not solicit public investments.
         </p>
         <div className="flex flex-wrap items-center gap-4 pt-1 text-[0.6875rem] font-medium text-[#1A1A1A]">
           <span className="inline-flex items-center gap-1">
@@ -320,7 +320,7 @@ export const ProductCatalogView: React.FC = () => {
             Looking for Custom Debenture Tranches?
           </h3>
           <p className="text-xs sm:text-sm text-[rgba(255,255,255,0.7)] leading-relaxed">
-            Our structuring desk creates bespoke private debenture structures for family offices and institutional capital providers, with tailored escrow waterfalls, security trusteeship, and ROC Form CHG-9 filings.
+            Our structuring desk creates bespoke private debenture structures with tailored escrow waterfalls, security trusteeship, and ROC Form CHG-9 filings.
           </p>
         </div>
 

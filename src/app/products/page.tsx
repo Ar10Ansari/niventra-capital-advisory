@@ -59,7 +59,7 @@ export default function ProductsPage() {
               </h1>
 
               <p className="font-body text-base sm:text-lg text-[#5C5C5C] leading-relaxed max-w-2xl">
-                Explore evaluated fixed-income opportunities structured for institutional co-investors, family offices, and accredited capital providers. Governed by formal debenture trust deeds and ROC charge creation.
+                Evaluated fixed-income opportunities for institutional co-investors, family offices, and accredited capital providers.
               </p>
             </div>
           </div>

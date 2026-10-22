@@ -292,19 +292,19 @@ export default function HomePage() {
               {[
                 {
                   title: "Disciplined Underwriting",
-                  desc: "Systematic multi-factor diligence covering title records, municipal sanctions, and developer viability.",
+                  desc: "Multi-factor diligence across title, municipal, and developer records.",
                 },
                 {
                   title: "Statutory Alignment",
-                  desc: "Transactions structured strictly under Section 42 private placement norms and ROC filings.",
+                  desc: "Section 42 private placement norms with ROC filings.",
                 },
                 {
                   title: "Security Focus",
-                  desc: "Transaction-specific asset charges, covenants, and monitored cash flows.",
+                  desc: "Asset-specific charges, covenants, and monitored cash flows.",
                 },
                 {
                   title: "Transparent Governance",
-                  desc: "Clear risk disclosures, qualified indicative yields, and zero speculative return promises.",
+                  desc: "Clear risk disclosures with no speculative return promises.",
                 },
               ].map((item, idx) => (
                 <ScrollReveal key={item.title} direction="up" delay={idx * 80}>
@@ -360,19 +360,19 @@ export default function HomePage() {
                   {[
                     {
                       title: "Yield Guidance (12%–16% p.a.*)",
-                      desc: "Indicative debenture yield guidance of 12%–16% p.a. reflects internal structuring parameters. Non-guaranteed; final terms set in Form PAS-4 upon ROC charge creation.",
+                      desc: "Indicative; non-guaranteed. Final terms set in Form PAS-4 upon ROC charge creation.",
                     },
                     {
-                      title: "Issuer Entity Governance",
-                      desc: "Niventra Capital Advisory India Pvt. Ltd. is designated as the legal Issuer Entity under Section 42 of the Companies Act, 2013, subject to Board authorizations.",
+                      title: "Issuer Entity",
+                      desc: "Niventra Capital Advisory India Pvt. Ltd. — Section 42, Companies Act, 2013.",
                     },
                     {
                       title: "Return Calculator — Deferred",
-                      desc: "Official calculation widgets remain deferred pending CFO certification, eliminating flawed retail compounding assumptions that misrepresent debentures.",
+                      desc: "Pending CFO certification. Illustrative model available.",
                     },
                     {
-                      title: "Private Placement Standards",
-                      desc: "All transactions are offered strictly on a private placement basis pursuant to Section 42, subject to statutory limits and investment documentation.",
+                      title: "Private Placement",
+                      desc: "All transactions offered on a private placement basis under Section 42.",
                     },
                   ].map((item, idx) => (
                     <ScrollReveal key={item.title} direction="up" delay={idx * 70}>
@@ -407,7 +407,7 @@ export default function HomePage() {
                     Schedule a Consultation
                   </h2>
                   <p className="text-xs sm:text-sm text-[#5C5C5C] mt-3 font-body leading-relaxed">
-                    Speak with our advisory team to discuss opportunities and eligibility. Consultations are preliminary, confidential, and compliant with Section 42 standards.
+                    Speak with our advisory team to discuss opportunities and eligibility.
                   </p>
                 </ScrollReveal>
 
