@@ -47,3 +47,5 @@ export function logAuditEvent(params: CreateAuditLogParams): void {
     console.error("Failed to write audit log:", err);
   }
 }
+
+export const logAudit = logAuditEvent;

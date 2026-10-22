@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
+import "../src/lib/db.ts";
 
 const DB_PATH = path.join(process.cwd(), "data", "niventra.db");
 
@@ -27,6 +28,8 @@ test("Stage D — SQLite Relational Database & Schema Integrity", async () => {
     "notifications",
     "audit_logs",
     "deletion_requests",
+    "project_applications",
+    "project_status_history",
   ];
 
   for (const table of requiredTables) {

@@ -17,6 +17,7 @@ const FOOTER_LINKS = {
     { label: "Offerings Catalog", href: "/products/" },
     { label: "Return Calculator", href: "/calculator/" },
     { label: "Due Diligence", href: "/due-diligence/" },
+    { label: "Project Funding", href: "/project-funding/" },
     { label: "About Niventra", href: "/about/" },
   ],
   governance: [

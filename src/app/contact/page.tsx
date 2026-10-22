@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import { Phone, Mail, MapPin, MessageSquare, Building } from "lucide-react";
+import Link from "next/link";
+import { Phone, Mail, MapPin, MessageSquare, Building, ArrowRight } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ConsultationForm } from "@/components/forms/ConsultationForm";
@@ -161,6 +162,24 @@ export default function ContactPage() {
                       </p>
                     </div>
                   </div>
+                </div>
+
+                {/* Real Estate Project Funding Portal Banner */}
+                <div className="rounded-xl border border-[rgba(154,123,44,0.3)] bg-gradient-to-br from-[#FAFAF7] to-white p-5 space-y-2.5 shadow-2xs">
+                  <div className="flex items-center gap-2 text-[#9A7B2C] font-semibold text-xs uppercase tracking-wider">
+                    <Building className="w-4 h-4 text-[#9A7B2C]" />
+                    <span>Seeking Project Funding?</span>
+                  </div>
+                  <p className="text-xs text-[#5C5C5C] leading-relaxed">
+                    Developers with residential, commercial, or plotted developments can submit project specifications, approvals, and financial models directly to our underwriting desk.
+                  </p>
+                  <Link
+                    href="/project-funding/"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1A1A] hover:text-[#9A7B2C] pt-1"
+                  >
+                    <span>Submit Project for Consideration</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
 

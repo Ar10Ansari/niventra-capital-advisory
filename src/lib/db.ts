@@ -254,6 +254,54 @@ function initSchema(db: DatabaseSync) {
       is_demo INTEGER NOT NULL DEFAULT 1,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    -- REAL ESTATE PROJECT FUNDING APPLICATIONS
+    CREATE TABLE IF NOT EXISTS project_applications (
+      id TEXT PRIMARY KEY,
+      reference_number TEXT UNIQUE NOT NULL,
+      applicant_name TEXT NOT NULL,
+      organization_name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      role TEXT NOT NULL,
+      website TEXT,
+      project_name TEXT NOT NULL,
+      category TEXT NOT NULL CHECK(category IN ('RESIDENTIAL', 'COMMERCIAL', 'MIXED_USE', 'PLOTTED_DEVELOPMENT', 'REDEVELOPMENT', 'INDUSTRIAL', 'OTHER')),
+      address TEXT NOT NULL,
+      city TEXT NOT NULL,
+      state TEXT NOT NULL,
+      pin_code TEXT NOT NULL,
+      land_status TEXT NOT NULL,
+      stage TEXT NOT NULL CHECK(stage IN ('LAND_ACQUISITION', 'PLANNING_APPROVALS', 'UNDER_CONSTRUCTION', 'COMPLETED', 'OTHER')),
+      description TEXT NOT NULL,
+      total_cost REAL NOT NULL,
+      funding_requested REAL NOT NULL,
+      promoter_contribution REAL,
+      use_of_funds TEXT NOT NULL,
+      expected_timeline TEXT NOT NULL,
+      existing_loans TEXT,
+      documents TEXT DEFAULT '[]',
+      consent_given INTEGER NOT NULL DEFAULT 1,
+      status TEXT NOT NULL DEFAULT 'RECEIVED' CHECK(status IN ('RECEIVED', 'UNDER_REVIEW', 'MORE_INFORMATION_REQUIRED', 'SHORTLISTED', 'DECLINED', 'CLOSED')),
+      assigned_to TEXT REFERENCES users(id) ON DELETE SET NULL,
+      internal_notes TEXT,
+      decline_reason TEXT,
+      info_requested TEXT,
+      is_demo INTEGER NOT NULL DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- PROJECT APPLICATION STATUS CHANGE AUDIT TRAIL
+    CREATE TABLE IF NOT EXISTS project_status_history (
+      id TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL REFERENCES project_applications(id) ON DELETE CASCADE,
+      previous_status TEXT,
+      new_status TEXT NOT NULL,
+      changed_by TEXT,
+      change_note TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 }
 

@@ -65,17 +65,17 @@ export default function RealEstatePage() {
                   <Button
                     variant="primary"
                     size="lg"
-                    href="/contact/"
+                    href="/project-funding/"
                     icon={<ArrowRight className="w-4 h-4" />}
                   >
-                    Schedule a Consultation
+                    Submit a Project for Funding
                   </Button>
                   <Button
                     variant="primary-outline"
                     size="lg"
-                    href="/debt-debenture/"
+                    href="/contact/"
                   >
-                    Explore Debenture Advisory
+                    Schedule a Consultation
                   </Button>
                 </div>
 

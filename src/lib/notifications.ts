@@ -181,6 +181,62 @@ export async function dispatchLeadNotification(
   };
 }
 
+export interface ProjectFundingNotificationPayload {
+  referenceNumber: string;
+  applicantName: string;
+  organizationName: string;
+  email: string;
+  phoneNumber: string;
+  projectName: string;
+  category: string;
+  city: string;
+  state: string;
+  fundingRequested: number;
+}
+
+/**
+ * Dispatches project funding application receipt notifications
+ */
+export async function dispatchProjectFundingNotification(
+  payload: ProjectFundingNotificationPayload
+): Promise<NotificationResult> {
+  const maskedUserEmail = maskEmail(payload.email);
+  const staffRecipients = (process.env.STAFF_LEAD_NOTIFICATION_EMAILS || "")
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+
+  const sinkPath = getEmailSinkPath();
+  const mockRecord = {
+    timestamp: new Date().toISOString(),
+    event: "PROJECT_FUNDING_APPLICATION_RECORDED",
+    referenceNumber: payload.referenceNumber,
+    projectName: payload.projectName,
+    organizationName: payload.organizationName,
+    category: payload.category,
+    location: `${payload.city}, ${payload.state}`,
+    fundingRequested: payload.fundingRequested,
+    maskedUserEmail,
+    staffNotificationStatus: staffRecipients.length > 0 ? "CONFIGURED_STAFF_PENDING" : "NO_STAFF_RECIPIENT_CONFIGURED",
+  };
+
+  if (sinkPath) {
+    try {
+      fs.appendFileSync(sinkPath, JSON.stringify(mockRecord) + "\n", "utf-8");
+    } catch {
+      // Graceful fallback
+    }
+  } else {
+    console.log(`[Project Funding Recorded] Ref: ${payload.referenceNumber} | Project: ${payload.projectName} | Org: ${payload.organizationName}`);
+  }
+
+  return {
+    success: true,
+    mode: "MOCK_SINK",
+    recipientCount: staffRecipients.length,
+  };
+}
+
 /**
  * Returns notifications for a specific user
  */

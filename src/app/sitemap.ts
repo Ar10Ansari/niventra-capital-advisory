@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/investor-information/",
     "/calculator/",
     "/products/",
+    "/project-funding/",
     "/contact/",
     "/risk-disclosure/",
     "/terms-conditions/",

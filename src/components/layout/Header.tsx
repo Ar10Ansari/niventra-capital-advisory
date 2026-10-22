@@ -37,6 +37,11 @@ const ADVISORY_ITEMS: DropdownItem[] = [
     href: "/calculator/",
     description: "Simple-interest cash-flow modeling",
   },
+  {
+    label: "Project Funding",
+    href: "/project-funding/",
+    description: "Submit real estate projects for capital review",
+  },
 ];
 
 const GOVERNANCE_ITEMS: DropdownItem[] = [
