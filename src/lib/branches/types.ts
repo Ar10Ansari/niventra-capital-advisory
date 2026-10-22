@@ -1,4 +1,8 @@
-export type BranchVerificationStatus = "VERIFIED" | "PENDING_CONFIRMATION" | "UNVERIFIED";
+export type BranchVerificationStatus =
+  | "VERIFIED"
+  | "PENDING_CONFIRMATION"
+  | "PENDING_VERIFICATION"
+  | "UNVERIFIED";
 
 export type BranchTier = "HEAD_OFFICE" | "REGIONAL_DESK" | "PARTNER_NETWORK";
 

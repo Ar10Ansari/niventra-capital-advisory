@@ -7,32 +7,63 @@ import { LEGACY_UNVERIFIED_BRANCHES } from "../src/lib/branches/legacy-unverifie
 
 const rootDir = process.cwd();
 
-test("Branch Architecture — Published Dataset Integrity", () => {
+test("Branch Architecture — Complete 25-Location Public Dataset Integrity", () => {
   assert.ok(Array.isArray(PUBLISHED_BRANCHES), "PUBLISHED_BRANCHES must be an array");
-  assert.ok(PUBLISHED_BRANCHES.length >= 1, "Must contain at least the verified Corporate Head Office");
+  assert.equal(PUBLISHED_BRANCHES.length, 25, "Must contain all 25 locations across 6 states");
 
-  const headOffice = PUBLISHED_BRANCHES.find((b) => b.isHeadOffice);
-  assert.ok(headOffice, "Must designate an explicit Corporate Head Office");
+  // 1. Exactly 1 Verified Office: Corporate Head Office (Gwalior)
+  const verifiedOffices = PUBLISHED_BRANCHES.filter((b) => b.status === "VERIFIED");
+  assert.equal(verifiedOffices.length, 1, "Only 1 office may be marked VERIFIED");
+  const headOffice = verifiedOffices[0];
   assert.equal(headOffice.city, "Gwalior");
-  assert.equal(headOffice.status, "VERIFIED");
-  assert.ok(headOffice.address.includes("Patel Nagar City Centre"));
+  assert.equal(headOffice.state, "Madhya Pradesh");
+  assert.ok(headOffice.isHeadOffice, "Gwalior must be designated isHeadOffice: true");
   assert.equal(headOffice.pinCode, "474001");
+  assert.equal(headOffice.phone, "1800 890 0818");
+
+  // 2. Exactly 1 Advisory Desk — Pending Confirmation: Delhi Desk
+  const pendingConfirmation = PUBLISHED_BRANCHES.filter((b) => b.status === "PENDING_CONFIRMATION");
+  assert.equal(pendingConfirmation.length, 1, "Only Delhi desk should be PENDING_CONFIRMATION");
+  const delhiEntry = pendingConfirmation[0];
+  assert.equal(delhiEntry.city, "Delhi");
+  assert.equal(delhiEntry.state, "Delhi");
+  assert.equal(delhiEntry.pinCode, "110001");
+  assert.ok(!delhiEntry.address.includes("â€¢"), "Delhi address must be clean UTF-8 without mojibake");
+
+  // 3. Exactly 23 Regional Locations — Pending Verification
+  const pendingVerification = PUBLISHED_BRANCHES.filter((b) => b.status === "PENDING_VERIFICATION");
+  assert.equal(pendingVerification.length, 23, "Must have exactly 23 regional locations PENDING_VERIFICATION");
+
+  // Verify none of the pending locations have invented phone numbers
+  for (const branch of pendingVerification) {
+    assert.equal(branch.phone, undefined, `Branch ${branch.city} must not have invented phone number`);
+  }
+
+  // 4. Verify Gurugram PIN and Address discrepancy note
+  const gurugram = PUBLISHED_BRANCHES.find((b) => b.city === "Gurugram");
+  assert.ok(gurugram, "Gurugram must be present in public directory");
+  assert.equal(gurugram.state, "Haryana");
+  assert.equal(gurugram.pinCode, "122001");
+  assert.ok(gurugram.notes?.includes("PIN discrepancy note"), "Must preserve Gurugram PIN discrepancy note for internal follow-up");
 });
 
-test("Branch Architecture — Isolated Legacy Unverified Dataset", () => {
+test("Branch Architecture — Parity with Legacy Dataset", () => {
   assert.ok(Array.isArray(LEGACY_UNVERIFIED_BRANCHES), "LEGACY_UNVERIFIED_BRANCHES must be an array");
   assert.equal(LEGACY_UNVERIFIED_BRANCHES.length, 24, "Must preserve all 24 legacy entries for audit reconciliation");
+
+  // Every city in the legacy dataset must be present in the public directory
+  const publishedCities = new Set(PUBLISHED_BRANCHES.map((b) => b.city.toLowerCase()));
+  for (const legacyBranch of LEGACY_UNVERIFIED_BRANCHES) {
+    assert.ok(
+      publishedCities.has(legacyBranch.city.toLowerCase()),
+      `Legacy city ${legacyBranch.city} must be present in PUBLISHED_BRANCHES`
+    );
+  }
 
   // Verify that NONE of the legacy regional entries are improperly marked as VERIFIED
   for (const branch of LEGACY_UNVERIFIED_BRANCHES) {
     assert.notEqual(branch.status, "VERIFIED", `Branch ${branch.city} must not be marked VERIFIED without lease documentation`);
   }
-
-  // Verify Delhi address encoding is clean and does not contain mojibake 'â€¢'
-  const delhiEntry = LEGACY_UNVERIFIED_BRANCHES.find((b) => b.city === "Delhi");
-  assert.ok(delhiEntry, "Legacy entries must contain Delhi");
-  assert.ok(!delhiEntry.address.includes("â€¢"), "Delhi address must not contain UTF-8 mojibake â€¢");
-  assert.equal(delhiEntry.status, "PENDING_CONFIRMATION");
 });
 
 test("Branch Directory — Search & Filter Functionality", () => {
@@ -41,23 +72,53 @@ test("Branch Directory — Search & Filter Functionality", () => {
   assert.equal(gwaliorResults.length, 1);
   assert.equal(gwaliorResults[0].city, "Gwalior");
 
+  const jaipurResults = filterBranches(PUBLISHED_BRANCHES, "jaipur", "ALL");
+  assert.equal(jaipurResults.length, 1);
+  assert.equal(jaipurResults[0].city, "Jaipur");
+
   // 2. Search by PIN Code
   const pinResults = filterBranches(PUBLISHED_BRANCHES, "474001", "ALL");
   assert.equal(pinResults.length, 1);
   assert.equal(pinResults[0].city, "Gwalior");
 
-  // 3. Filter by State
+  const gurugramPin = filterBranches(PUBLISHED_BRANCHES, "122001", "ALL");
+  assert.equal(gurugramPin.length, 1);
+  assert.equal(gurugramPin[0].city, "Gurugram");
+
+  // 3. Filter by State — Counts must match exact breakdown
   const mpResults = filterBranches(PUBLISHED_BRANCHES, "", "Madhya Pradesh");
+  assert.equal(mpResults.length, 12, "Madhya Pradesh must have 12 locations (1 HO + 11 regional)");
   assert.ok(mpResults.every((b) => b.state === "Madhya Pradesh"));
+
+  const rjResults = filterBranches(PUBLISHED_BRANCHES, "", "Rajasthan");
+  assert.equal(rjResults.length, 7, "Rajasthan must have 7 locations");
+
+  const upResults = filterBranches(PUBLISHED_BRANCHES, "", "Uttar Pradesh");
+  assert.equal(upResults.length, 2, "Uttar Pradesh must have 2 locations");
+
+  const mhResults = filterBranches(PUBLISHED_BRANCHES, "", "Maharashtra");
+  assert.equal(mhResults.length, 2, "Maharashtra must have 2 locations");
+
+  const dlResults = filterBranches(PUBLISHED_BRANCHES, "", "Delhi");
+  assert.equal(dlResults.length, 1, "Delhi must have 1 location");
+
+  const hrResults = filterBranches(PUBLISHED_BRANCHES, "", "Haryana");
+  assert.equal(hrResults.length, 1, "Haryana must have 1 location");
 
   // 4. Non-matching query returns empty
   const emptyResults = filterBranches(PUBLISHED_BRANCHES, "AtlantisUnknownCity", "ALL");
   assert.equal(emptyResults.length, 0);
 
-  // 5. State counts reflect published records
+  // 5. State counts reflect all 25 published records
   const counts = getStateCounts(PUBLISHED_BRANCHES);
+  const totalCount = counts.reduce((acc, c) => acc + c.count, 0);
+  assert.equal(totalCount, 25, "State counts sum must equal 25");
+
   const mpCount = counts.find((c) => c.state === "Madhya Pradesh");
-  assert.ok(mpCount && mpCount.count >= 1);
+  assert.equal(mpCount?.count, 12);
+
+  const rjCount = counts.find((c) => c.state === "Rajasthan");
+  assert.equal(rjCount?.count, 7);
 });
 
 test("Database Architecture — Persistent Adapter Contract", () => {
@@ -77,7 +138,7 @@ test("Enquiry Notification & Security — Flow & Defensive Controls", () => {
   assert.ok(fs.existsSync(routeFilePath), "Enquiries API route must exist");
 
   const routeContent = fs.readFileSync(routeFilePath, "utf-8");
-  
+
   // 1. Honeypot bot protection
   assert.ok(routeContent.includes("website_hp"), "Enquiry API must check website_hp honeypot field");
 
