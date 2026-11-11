@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
+import "../src/lib/db.ts";
 
 const rootDir = process.cwd();
 const DB_PATH = path.join(rootDir, "data", "niventra.db");

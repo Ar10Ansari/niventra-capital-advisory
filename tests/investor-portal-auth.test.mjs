@@ -1,11 +1,33 @@
-import test from "node:test";
+import test, { before } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { DatabaseSync } from "node:sqlite";
+import "../src/lib/db.ts";
 
 const rootDir = process.cwd();
 const dbPath = path.join(rootDir, "data", "niventra.db");
+
+before(() => {
+  const db = new DatabaseSync(dbPath, { readOnly: true });
+  let needsDemoSeed = false;
+  try {
+    const invCount = db.prepare("SELECT COUNT(*) as c FROM investments WHERE is_demo = 1").get()?.c ?? 0;
+    const txnCount = db.prepare("SELECT COUNT(*) as c FROM investment_transactions WHERE is_demo = 1").get()?.c ?? 0;
+    const kycCount = db.prepare("SELECT COUNT(*) as c FROM kyc_records").get()?.c ?? 0;
+    needsDemoSeed = invCount < 1 || txnCount < 2 || kycCount < 1;
+  } finally {
+    db.close();
+  }
+
+  if (needsDemoSeed) {
+    execFileSync(process.execPath, [path.join(rootDir, "scripts", "seed-demo.mjs")], {
+      cwd: rootDir,
+      stdio: "pipe",
+    });
+  }
+});
 
 test("Investor Portal — Database Schema for Holdings, Transactions & KYC", () => {
   assert.ok(fs.existsSync(dbPath), "Database file data/niventra.db must exist");

@@ -17,6 +17,9 @@ if (process.env.NODE_ENV === "production") {
   process.exit(1);
 }
 
+// Ensure relational tables and preference columns exist on clean repository checkouts before seeding.
+await import("../src/lib/db.ts");
+
 const dbDir = path.join(process.cwd(), "data");
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });
