@@ -63,7 +63,7 @@ export async function PATCH(
         title: `Enquiry Status Update: ${id}`,
         message: `Your advisory enquiry status has transitioned to "${status}".`,
         type: "ENQUIRY",
-        link: "/dashboard/enquiries/",
+        link: "/dashboard/?tab=enquiries",
       });
     }
 

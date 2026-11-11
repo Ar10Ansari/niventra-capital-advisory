@@ -5,10 +5,12 @@ import { hashPassword } from "@/lib/auth/password";
 import { createSession, SESSION_COOKIE_NAME } from "@/lib/auth/session";
 import { logAuditEvent } from "@/lib/audit";
 
+const ALLOWED_INVESTOR_CATEGORIES = new Set(["HNI", "FAMILY_OFFICE", "CORPORATE", "INSTITUTIONAL"]);
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, password, phone } = body;
+    const { name, email, password, phone, investorCategory } = body;
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -37,13 +39,15 @@ export async function POST(req: Request) {
 
     const { hash, salt } = hashPassword(password);
     const userId = `usr_${Date.now()}_${randomBytes(6).toString("hex")}`;
+    const rawCat = typeof investorCategory === "string" ? investorCategory.trim().toUpperCase() : "";
+    const normalizedCategory = ALLOWED_INVESTOR_CATEGORIES.has(rawCat) ? rawCat : null;
 
     // Public registration grants INVESTOR role; ADMIN/STAFF cannot be registered publicly
     const stmt = db.prepare(`
-      INSERT INTO users (id, name, email, password_hash, salt, role, phone, status)
-      VALUES (?, ?, ?, ?, ?, 'INVESTOR', ?, 'ACTIVE')
+      INSERT INTO users (id, name, email, password_hash, salt, role, phone, investor_category, status)
+      VALUES (?, ?, ?, ?, ?, 'INVESTOR', ?, ?, 'ACTIVE')
     `);
-    stmt.run(userId, name.trim(), normalizedEmail, hash, salt, phone || null);
+    stmt.run(userId, name.trim(), normalizedEmail, hash, salt, phone || null, normalizedCategory);
 
     // Create session
     const { token, expiresAt } = createSession(userId);

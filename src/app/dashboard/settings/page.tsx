@@ -21,18 +21,11 @@ import {
   KeyRound,
   ExternalLink,
 } from "lucide-react";
-
-interface UserProfile {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  role: string;
-}
+import { apiClient, ApiClientError, AuthUser } from "@/lib/api/client";
 
 export default function AccountSettingsPage() {
   const router = useRouter();
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"profile" | "security" | "notifications" | "privacy">("profile");
 
@@ -41,6 +34,7 @@ export default function AccountSettingsPage() {
   const [phone, setPhone] = useState("");
   const [investorCategory, setInvestorCategory] = useState("");
   const [profileSaved, setProfileSaved] = useState(false);
+  const [profileError, setProfileError] = useState("");
 
   // Security Form State
   const [currentPassword, setCurrentPassword] = useState("");
@@ -52,11 +46,12 @@ export default function AccountSettingsPage() {
   const [securityMessage, setSecurityMessage] = useState("");
   const [securityError, setSecurityError] = useState("");
 
-  // Notification Toggles (Client state)
+  // Notification Toggles (Persisted to database via /api/account/preferences)
   const [notifyConsultations, setNotifyConsultations] = useState(true);
   const [notifyDisclosures, setNotifyDisclosures] = useState(true);
   const [notifyGrievances, setNotifyGrievances] = useState(true);
   const [notificationsSaved, setNotificationsSaved] = useState(false);
+  const [notificationsError, setNotificationsError] = useState("");
 
   // Password criteria aid for new password
   const hasMinLength = newPassword.length >= 8;
@@ -70,16 +65,23 @@ export default function AccountSettingsPage() {
   useEffect(() => {
     async function loadUser() {
       try {
-        const res = await fetch("/api/auth/me");
-        if (!res.ok) {
+        const data = await apiClient.auth.me();
+        if (!data.user) {
           router.push("/login/");
           return;
         }
-        const data = await res.json();
         setUser(data.user);
         setFullName(data.user.name || "");
         setPhone(data.user.phone || "");
+        setInvestorCategory(data.user.investor_category || "");
+        setNotifyConsultations(data.user.notify_consultations !== 0);
+        setNotifyDisclosures(data.user.notify_disclosures !== 0);
+        setNotifyGrievances(data.user.notify_grievances !== 0);
       } catch (err) {
+        if (err instanceof ApiClientError && err.status === 401) {
+          router.push("/login/");
+          return;
+        }
         console.error("Failed to load user profile:", err);
       } finally {
         setIsLoading(false);
@@ -88,13 +90,25 @@ export default function AccountSettingsPage() {
     loadUser();
   }, [router]);
 
-  const handleProfileSubmit = (e: React.FormEvent) => {
+  const handleProfileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setProfileSaved(true);
-    setTimeout(() => setProfileSaved(false), 4000);
+    setProfileError("");
+    setProfileSaved(false);
+    try {
+      const data = await apiClient.account.updateProfile({
+        name: fullName,
+        phone,
+        investorCategory,
+      });
+      setUser(data.user);
+      setProfileSaved(true);
+      setTimeout(() => setProfileSaved(false), 4000);
+    } catch (err) {
+      setProfileError(err instanceof Error ? err.message : "Failed to update profile.");
+    }
   };
 
-  const handleSecuritySubmit = (e: React.FormEvent) => {
+  const handleSecuritySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSecurityError("");
     setSecurityMessage("");
@@ -112,19 +126,42 @@ export default function AccountSettingsPage() {
       return;
     }
 
-    // Explicit label for functionality requiring backend integration
-    setSecurityMessage(
-      "Backend Integration Notice: Password update request submitted in compliance preview mode. In production, password changes require dual-factor authorization and security desk validation."
-    );
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmNewPassword("");
+    try {
+      const res = await apiClient.account.changePassword({ currentPassword, newPassword });
+      setSecurityMessage(
+        res.message || "Your password has been securely updated."
+      );
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmNewPassword("");
+      if (res.requiresReauth) {
+        router.push("/login/?passwordUpdated=1");
+      }
+    } catch (err) {
+      setSecurityError(err instanceof Error ? err.message : "Failed to update password.");
+    }
   };
 
-  const handleNotificationsSave = (e: React.FormEvent) => {
+  const handleNotificationsSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    setNotificationsSaved(true);
-    setTimeout(() => setNotificationsSaved(false), 4000);
+    setNotificationsError("");
+    setNotificationsSaved(false);
+    try {
+      const res = await apiClient.account.updatePreferences({
+        notifyConsultations,
+        notifyDisclosures,
+        notifyGrievances,
+      });
+      setNotifyConsultations(res.preferences.notifyConsultations);
+      setNotifyDisclosures(res.preferences.notifyDisclosures);
+      setNotifyGrievances(res.preferences.notifyGrievances);
+      setNotificationsSaved(true);
+      setTimeout(() => setNotificationsSaved(false), 4000);
+    } catch (err) {
+      setNotificationsError(
+        err instanceof Error ? err.message : "Failed to save notification preferences."
+      );
+    }
   };
 
   if (isLoading) {
@@ -204,9 +241,7 @@ export default function AccountSettingsPage() {
           })}
         </div>
 
-        {/* ================================================================
-            TAB 1: PROFILE INFORMATION
-            ================================================================ */}
+        {/* TAB 1: PROFILE INFORMATION */}
         {activeTab === "profile" && (
           <div className="bg-white border border-[rgba(26,26,26,0.08)] rounded-xl p-6 sm:p-8 shadow-2xs space-y-6 max-w-3xl">
             <div>
@@ -218,6 +253,16 @@ export default function AccountSettingsPage() {
               </p>
             </div>
 
+            {profileError && (
+              <div
+                role="alert"
+                className="p-3.5 rounded bg-red-50 border border-red-200 text-xs text-red-800 flex items-start gap-2"
+              >
+                <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                <span>{profileError}</span>
+              </div>
+            )}
+
             {profileSaved && (
               <div
                 role="alert"
@@ -227,7 +272,7 @@ export default function AccountSettingsPage() {
                 <div>
                   <span className="font-semibold block">Profile Updated</span>
                   <span>
-                    Your profile adjustments are active in your current session. Permanent persistence to master registries is confirmed during formal onboarding verification.
+                    Your profile details and advisory classification have been saved to your account registry and recorded in the audit log.
                   </span>
                 </div>
               </div>
@@ -319,12 +364,9 @@ export default function AccountSettingsPage() {
           </div>
         )}
 
-        {/* ================================================================
-            TAB 2: SECURITY & CREDENTIALS
-            ================================================================ */}
+        {/* TAB 2: SECURITY & CREDENTIALS */}
         {activeTab === "security" && (
           <div className="space-y-6 max-w-3xl">
-            {/* Password Modification Card */}
             <div className="bg-white border border-[rgba(26,26,26,0.08)] rounded-xl p-6 sm:p-8 shadow-2xs space-y-6">
               <div>
                 <h2 className="font-heading text-lg font-semibold text-[#1A1A1A]">
@@ -348,15 +390,14 @@ export default function AccountSettingsPage() {
               {securityMessage && (
                 <div
                   role="alert"
-                  className="p-3.5 rounded bg-[rgba(154,123,44,0.08)] border border-[rgba(154,123,44,0.2)] text-xs text-[#1A1A1A] flex items-start gap-2"
+                  className="p-3.5 rounded bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-start gap-2"
                 >
-                  <Info className="w-4 h-4 text-[#9A7B2C] shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <span>{securityMessage}</span>
                 </div>
               )}
 
               <form onSubmit={handleSecuritySubmit} className="space-y-4">
-                {/* Current Password */}
                 <div>
                   <label className="block text-xs font-semibold text-[#1A1A1A] mb-1.5" htmlFor="cur-pass">
                     Current Password <span className="text-red-600">*</span>
@@ -383,7 +424,6 @@ export default function AccountSettingsPage() {
                   </div>
                 </div>
 
-                {/* New Password & Confirmation */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-[#1A1A1A] mb-1.5" htmlFor="new-pass">
@@ -487,13 +527,13 @@ export default function AccountSettingsPage() {
                     type="submit"
                     className="px-5 py-2.5 rounded bg-[#1A1A1A] text-white hover:bg-[#2D2D2D] text-xs font-semibold min-h-[44px] transition-colors"
                   >
-                    Request Password Update (Preview)
+                    Update Account Password
                   </button>
                 </div>
               </form>
             </div>
 
-            {/* Two-Factor Authentication (2FA) Status Card (Clearly labeled as requiring backend) */}
+            {/* Two-Factor Authentication (2FA) Status Card */}
             <div className="bg-white border border-[rgba(26,26,26,0.08)] rounded-xl p-6 sm:p-8 shadow-2xs space-y-4">
               <div className="flex items-start justify-between">
                 <div>
@@ -535,9 +575,7 @@ export default function AccountSettingsPage() {
           </div>
         )}
 
-        {/* ================================================================
-            TAB 3: NOTIFICATION CHANNELS
-            ================================================================ */}
+        {/* TAB 3: NOTIFICATION CHANNELS */}
         {activeTab === "notifications" && (
           <div className="bg-white border border-[rgba(26,26,26,0.08)] rounded-xl p-6 sm:p-8 shadow-2xs space-y-6 max-w-3xl">
             <div>
@@ -549,13 +587,23 @@ export default function AccountSettingsPage() {
               </p>
             </div>
 
+            {notificationsError && (
+              <div
+                role="alert"
+                className="p-3.5 rounded bg-red-50 border border-red-200 text-xs text-red-800 flex items-start gap-2"
+              >
+                <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                <span>{notificationsError}</span>
+              </div>
+            )}
+
             {notificationsSaved && (
               <div
                 role="alert"
                 className="p-3.5 rounded bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-start gap-2"
               >
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                <span>Notification preferences saved for this active session.</span>
+                <span>Communication notification preferences have been saved to your account profile.</span>
               </div>
             )}
 
@@ -612,7 +660,7 @@ export default function AccountSettingsPage() {
               </div>
 
               <p className="text-[0.6875rem] text-[#8A8A8A] font-body pt-1">
-                Note: Notification preferences are maintained in your active browser session until enterprise email dispatch gateway integration is finalized.
+                Preferences are stored on your account profile and respected by Niventra advisory notification workflows. Statutory compliance and security notices remain mandatory.
               </p>
 
               <div className="pt-2">
@@ -627,9 +675,7 @@ export default function AccountSettingsPage() {
           </div>
         )}
 
-        {/* ================================================================
-            TAB 4: PRIVACY & DATA RETENTION
-            ================================================================ */}
+        {/* TAB 4: PRIVACY & DATA RETENTION */}
         {activeTab === "privacy" && (
           <div className="bg-white border border-[rgba(26,26,26,0.08)] rounded-xl p-6 sm:p-8 shadow-2xs space-y-6 max-w-3xl">
             <div>
@@ -655,7 +701,6 @@ export default function AccountSettingsPage() {
               </p>
             </div>
 
-            {/* Account Deletion / Data Erasure Request */}
             <div className="p-5 rounded-lg border border-red-200 bg-red-50/50 space-y-3">
               <div className="flex items-center gap-2 text-red-800">
                 <Trash2 className="w-4 h-4 text-red-600" />
@@ -678,7 +723,6 @@ export default function AccountSettingsPage() {
         )}
       </main>
 
-      {/* Footer Minimal */}
       <footer className="border-t border-[rgba(26,26,26,0.08)] py-4 text-center text-[0.6875rem] text-[#8A8A8A] mt-auto">
         © 2026 Niventra Capital Advisory India. Confidential Client Portal.
       </footer>

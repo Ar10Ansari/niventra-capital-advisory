@@ -343,7 +343,7 @@ if (notifCount === 0) {
   db.prepare(`
     INSERT INTO notifications (id, user_id, title, message, type, link, is_read)
     VALUES 
-    ('notif_1', 'usr_investor_dev', 'Enquiry Under Review', 'Your enquiry ENQ-2026-0001 is currently under review by our senior desk.', 'ENQUIRY', '/dashboard/enquiries', 0),
+    ('notif_1', 'usr_investor_dev', 'Enquiry Under Review', 'Your enquiry ENQ-2026-0001 is currently under review by our senior desk.', 'ENQUIRY', '/dashboard/?tab=enquiries', 0),
     ('notif_2', 'usr_investor_dev', 'Grievance Acknowledged', 'Grievance GRV-2026-0001 has been logged and assigned to compliance.', 'GRIEVANCE', '/dashboard', 1)
   `).run();
   console.log("[Seed] Sample notifications created for investor.");

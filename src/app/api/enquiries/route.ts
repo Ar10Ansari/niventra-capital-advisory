@@ -111,7 +111,7 @@ export async function POST(req: Request) {
         title: `Enquiry Received: ${refId}`,
         message: `Your consultation enquiry (${category}) has been logged. Our advisory desk will review and contact you within one business day.`,
         type: "ENQUIRY",
-        link: `/dashboard/enquiries/`,
+        link: `/dashboard/?tab=enquiries`,
       });
     }
 

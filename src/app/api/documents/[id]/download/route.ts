@@ -15,6 +15,21 @@ interface DocumentRow {
   status: string;
 }
 
+const MIME_EXTENSIONS: Record<string, string> = {
+  "application/pdf": ".pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ".docx",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": ".xlsx",
+  "text/plain": ".txt",
+  "image/png": ".png",
+  "image/jpeg": ".jpg",
+};
+
+function buildDownloadFilename(title: string, mimeType: string): string {
+  const ext = MIME_EXTENSIONS[mimeType] || ".bin";
+  const base = title.replace(/[\r\n"\\/:*?<>|]+/g, "_").trim() || "document";
+  return base.toLowerCase().endsWith(ext) ? base : `${base}${ext}`;
+}
+
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -30,7 +45,9 @@ export async function GET(
       return NextResponse.json({ error: "Document not found." }, { status: 404 });
     }
 
-    // Permission check: Public docs can be downloaded by anyone; private docs require login
+    const isPrivileged = Boolean(user && (user.role === "ADMIN" || user.role === "STAFF"));
+
+    // Permission check: Public docs can be downloaded by anyone; private docs require authorized session
     if (!doc.is_public && !user) {
       logAuditEvent({
         actorEmail: "ANONYMOUS",
@@ -41,6 +58,34 @@ export async function GET(
         details: { reason: "Unauthenticated request for private document" },
       });
       return NextResponse.json({ error: "Authentication required to access this document." }, { status: 401 });
+    }
+
+    if (doc.status !== "APPROVED" && !isPrivileged) {
+      logAuditEvent({
+        actorId: user?.id || null,
+        actorEmail: user?.email || "ANONYMOUS",
+        actorRole: user?.role || "PUBLIC",
+        action: "DOCUMENT_DOWNLOAD_DENIED",
+        resourceType: "DOCUMENT",
+        resourceId: id,
+        status: "BLOCKED",
+        details: { reason: `Document status "${doc.status}" restricts access` },
+      });
+      return NextResponse.json({ error: "Document is not approved for distribution." }, { status: 403 });
+    }
+
+    if (!doc.is_public && user && user.role === "PUBLIC") {
+      logAuditEvent({
+        actorId: user.id,
+        actorEmail: user.email,
+        actorRole: user.role,
+        action: "DOCUMENT_DOWNLOAD_DENIED",
+        resourceType: "DOCUMENT",
+        resourceId: id,
+        status: "BLOCKED",
+        details: { reason: "PUBLIC role restricted from private documents" },
+      });
+      return NextResponse.json({ error: "Insufficient role permissions for private document." }, { status: 403 });
     }
 
     // Resolve storage file safely within storage/documents to prevent path traversal
@@ -59,13 +104,17 @@ export async function GET(
       details: { title: doc.title, isPublic: !!doc.is_public },
     });
 
-    // If actual binary exists on disk, stream it; otherwise return a structured watermarked notice
+    // If actual binary exists on disk, stream it with validated MIME extension
     if (fs.existsSync(resolvedPath)) {
       const fileBuffer = fs.readFileSync(resolvedPath);
+      const effectiveMime = doc.mime_type || "application/pdf";
+      const safeDownloadName = buildDownloadFilename(doc.title, effectiveMime);
       return new NextResponse(fileBuffer, {
         headers: {
-          "Content-Type": doc.mime_type || "application/pdf",
-          "Content-Disposition": `attachment; filename="${encodeURIComponent(doc.title)}.pdf"`,
+          "Content-Type": effectiveMime,
+          "Content-Disposition": `attachment; filename="${encodeURIComponent(safeDownloadName)}"`,
+          "X-Content-Type-Options": "nosniff",
+          ...(doc.is_public ? {} : { "Cache-Control": "private, no-store" }),
         },
       });
     }

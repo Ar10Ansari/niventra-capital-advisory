@@ -177,8 +177,9 @@ test("Sprint 3A — Authentication & Settings Frontend Integrity", () => {
   assert.ok(fs.existsSync(loginPath), "login/page.tsx must exist");
   const loginContent = fs.readFileSync(loginPath, "utf-8");
   assert.ok(loginContent.includes("showPassword"), "Login must include password visibility toggle");
-  assert.ok(loginContent.includes("Password Recovery"), "Login must include password recovery preview");
-  assert.ok(loginContent.includes("Notice: Self-Service Reset in Compliance Preview"), "Password reset must be explicitly labeled as preview");
+  assert.ok(loginContent.includes("Password Recovery"), "Login must include password recovery flow");
+  assert.ok(loginContent.includes("Single-Use Token Recovery"), "Login password recovery must document single-use token recovery");
+  assert.ok(loginContent.includes("forgotPassword") && loginContent.includes("resetPassword"), "Login must call forgotPassword and resetPassword API endpoints");
 
   // 2. Register Page Integrity
   const regPath = path.join(rootDir, "src", "app", "register", "page.tsx");

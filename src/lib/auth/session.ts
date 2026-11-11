@@ -8,6 +8,10 @@ export interface SafeUser {
   email: string;
   role: "PUBLIC" | "INVESTOR" | "STAFF" | "ADMIN";
   phone: string | null;
+  investor_category: string | null;
+  notify_consultations: number;
+  notify_disclosures: number;
+  notify_grievances: number;
   status: string;
   created_at: string;
 }
@@ -40,7 +44,9 @@ export function getUserBySessionToken(token: string): SafeUser | null {
 
   const now = new Date().toISOString();
   const stmt = db.prepare(`
-    SELECT u.id, u.name, u.email, u.role, u.phone, u.status, u.created_at
+    SELECT u.id, u.name, u.email, u.role, u.phone, u.investor_category,
+           u.notify_consultations, u.notify_disclosures, u.notify_grievances,
+           u.status, u.created_at
     FROM sessions s
     JOIN users u ON s.user_id = u.id
     WHERE s.token = ? AND s.expires_at > ? AND u.status = 'ACTIVE'

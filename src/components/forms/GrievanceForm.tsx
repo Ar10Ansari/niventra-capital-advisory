@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { CheckCircle2, AlertCircle, Send } from "lucide-react";
+import { apiClient, ApiClientError } from "@/lib/api/client";
 
 export const GrievanceForm: React.FC = () => {
   const [complainantName, setComplainantName] = useState("");
@@ -21,32 +22,24 @@ export const GrievanceForm: React.FC = () => {
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/grievances", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          complainantName,
-          email,
-          phone,
-          transactionRef,
-          subject,
-          description,
-        }),
+      const data = await apiClient.grievances.submit({
+        complainantName,
+        email,
+        phone,
+        transactionRef,
+        subject,
+        description,
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMessage(data.error || "Failed to lodge grievance ticket.");
-        setIsLoading(false);
-        return;
-      }
 
       setTicketId(data.ticketId || "GRV-CONFIRMED");
       setSlaDeadline(data.slaDeadline || "30 Business Days");
       setIsLoading(false);
-    } catch {
-      setErrorMessage("Network error connecting to grievance redressal cell.");
+    } catch (err) {
+      if (err instanceof ApiClientError) {
+        setErrorMessage(err.message || "Failed to lodge grievance ticket.");
+      } else {
+        setErrorMessage("Network error connecting to grievance redressal cell.");
+      }
       setIsLoading(false);
     }
   };

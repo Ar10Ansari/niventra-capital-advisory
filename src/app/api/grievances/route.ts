@@ -63,7 +63,7 @@ export async function POST(req: Request) {
         title: `Grievance Ticket Lodged: ${refId}`,
         message: `Your grievance regarding "${subject}" has been registered. Our Grievance Redressal Officer will acknowledge within 48 business hours.`,
         type: "GRIEVANCE",
-        link: `/dashboard/grievances/`,
+        link: `/dashboard/?tab=grievances`,
         emailNotification: {
           to: email.trim().toLowerCase(),
           subject: `Formal Grievance Ticket Acknowledgment — ${refId}`,

@@ -1,13 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, Eye, EyeOff, CheckCircle2, HelpCircle } from "lucide-react";
+import { apiClient, ApiClientError, getApiBaseUrl } from "@/lib/api/client";
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const urlResetToken = searchParams.get("resetToken")?.trim() || "";
+  const passwordUpdatedFlag = searchParams.get("passwordUpdated") === "1";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -18,11 +23,22 @@ export default function LoginPage() {
   const [emailTouched, setEmailTouched] = useState(false);
   const [emailError, setEmailError] = useState("");
 
-  // Password Reset Preview Modal State
+  // Password Reset Request Modal State
   const [isResetOpen, setIsResetOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetSubmitted, setResetSubmitted] = useState(false);
+  const [resetFeedback, setResetFeedback] = useState("");
+  const [resetError, setResetError] = useState("");
   const [resetLoading, setResetLoading] = useState(false);
+
+  // Reset Password Token Completion State (?resetToken=...)
+  const [newResetPassword, setNewResetPassword] = useState("");
+  const [confirmResetPassword, setConfirmResetPassword] = useState("");
+  const [completedResetToken, setCompletedResetToken] = useState<string | null>(null);
+  const [tokenResetError, setTokenResetError] = useState("");
+  const [tokenResetLoading, setTokenResetLoading] = useState(false);
+
+  const tokenResetDone = Boolean(urlResetToken) && completedResetToken === urlResetToken;
 
   const validateEmail = (val: string) => {
     if (!val.trim()) {
@@ -65,19 +81,7 @@ export default function LoginPage() {
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMessage(data.error || "Authentication failed. Please verify your credentials.");
-        setIsLoading(false);
-        return;
-      }
+      const data = await apiClient.auth.login({ email, password });
 
       // Route according to user role
       if (data.user.role === "ADMIN" || data.user.role === "STAFF") {
@@ -85,25 +89,90 @@ export default function LoginPage() {
       } else {
         router.push("/dashboard/");
       }
-    } catch {
-      setErrorMessage("Network error connecting to institutional gateway. Please try again.");
+    } catch (err) {
+      if (err instanceof ApiClientError) {
+        setErrorMessage(err.message || "Authentication failed. Please verify your credentials.");
+      } else {
+        setErrorMessage("Network error connecting to institutional gateway. Please try again.");
+      }
       setIsLoading(false);
     }
   };
 
-  const handleResetSubmit = (e: React.FormEvent) => {
+  const handleResetSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!resetEmail.trim()) return;
+    const validationErr = validateEmail(resetEmail);
+    if (validationErr) {
+      setResetError(validationErr);
+      return;
+    }
+
+    if (!getApiBaseUrl()) {
+      setResetError(
+        "Automated password recovery requires the external NestJS API gateway (NEXT_PUBLIC_API_BASE_URL). Please contact advisory compliance support for credential reset."
+      );
+      return;
+    }
+
     setResetLoading(true);
-    setTimeout(() => {
-      setResetLoading(false);
+    setResetError("");
+    try {
+      const response = await apiClient.auth.forgotPassword({ email: resetEmail.trim() });
+      setResetFeedback(
+        response.message ||
+          "If an active account exists for this email address, password recovery instructions have been dispatched."
+      );
       setResetSubmitted(true);
-    }, 600);
+    } catch (err) {
+      setResetError(
+        err instanceof ApiClientError
+          ? err.message
+          : "Unable to dispatch recovery request right now. Please try again later."
+      );
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
+  const handleCompleteResetWithToken = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!urlResetToken) return;
+    if (newResetPassword.length < 8) {
+      setTokenResetError("New password must be at least 8 characters long.");
+      return;
+    }
+    if (newResetPassword !== confirmResetPassword) {
+      setTokenResetError("Passwords do not match.");
+      return;
+    }
+    if (!getApiBaseUrl()) {
+      setTokenResetError("Password reset completion requires the NestJS API gateway.");
+      return;
+    }
+
+    setTokenResetLoading(true);
+    setTokenResetError("");
+    try {
+      await apiClient.auth.resetPassword({ token: urlResetToken, newPassword: newResetPassword });
+      setCompletedResetToken(urlResetToken);
+      setNewResetPassword("");
+      setConfirmResetPassword("");
+    } catch (err) {
+      setTokenResetError(
+        err instanceof ApiClientError
+          ? err.message
+          : "Recovery token verification failed or token has expired."
+      );
+    } finally {
+      setTokenResetLoading(false);
+    }
   };
 
   const closeResetModal = () => {
     setIsResetOpen(false);
     setResetSubmitted(false);
+    setResetFeedback("");
+    setResetError("");
     setResetEmail("");
   };
 
@@ -158,6 +227,86 @@ export default function LoginPage() {
               </p>
             </div>
 
+            {passwordUpdatedFlag && !errorMessage && (
+              <div
+                role="status"
+                className="mb-6 p-3 rounded bg-emerald-50 border border-emerald-200 flex items-start gap-2.5 text-xs text-emerald-800"
+              >
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 mt-0.5" />
+                <span>Password updated and prior sessions revoked. Sign in with your new password.</span>
+              </div>
+            )}
+
+            {urlResetToken ? (
+              <div className="space-y-4">
+                {tokenResetDone ? (
+                  <div className="p-4 rounded bg-emerald-50 border border-emerald-200 space-y-3 text-xs text-emerald-900">
+                    <div className="flex items-center gap-2 font-semibold">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                      <span>Password Reset Completed</span>
+                    </div>
+                    <p>Your credentials have been rotated and all previous sessions revoked.</p>
+                    <button
+                      type="button"
+                      onClick={() => router.replace("/login/")}
+                      className="w-full py-2.5 px-4 rounded bg-[#1A1A1A] text-white text-xs font-semibold hover:bg-[#2D2D2D] min-h-[44px]"
+                    >
+                      Proceed to Portal Login
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleCompleteResetWithToken} className="space-y-4">
+                    <div className="p-3 rounded bg-[rgba(154,123,44,0.06)] border border-[rgba(154,123,44,0.2)] text-xs text-[#5C5C5C]">
+                      Complete single-use password recovery for your Niventra portal account.
+                    </div>
+                    {tokenResetError && (
+                      <div role="alert" className="p-3 rounded bg-red-50 border border-red-200 text-xs text-red-800 flex items-start gap-2">
+                        <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
+                        <span>{tokenResetError}</span>
+                      </div>
+                    )}
+                    <div>
+                      <label className="block text-xs font-semibold text-[#1A1A1A] mb-1.5" htmlFor="new-reset-password">
+                        New Password (min 8 chars) *
+                      </label>
+                      <input
+                        id="new-reset-password"
+                        type="password"
+                        required
+                        minLength={8}
+                        autoComplete="new-password"
+                        value={newResetPassword}
+                        onChange={(e) => setNewResetPassword(e.target.value)}
+                        className="w-full px-3 py-2.5 text-xs rounded border border-[rgba(26,26,26,0.15)] bg-white text-[#1A1A1A] min-h-[44px]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-[#1A1A1A] mb-1.5" htmlFor="confirm-reset-password">
+                        Confirm New Password *
+                      </label>
+                      <input
+                        id="confirm-reset-password"
+                        type="password"
+                        required
+                        minLength={8}
+                        autoComplete="new-password"
+                        value={confirmResetPassword}
+                        onChange={(e) => setConfirmResetPassword(e.target.value)}
+                        className="w-full px-3 py-2.5 text-xs rounded border border-[rgba(26,26,26,0.15)] bg-white text-[#1A1A1A] min-h-[44px]"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={tokenResetLoading}
+                      className="w-full py-2.5 px-4 rounded bg-[#1A1A1A] text-white hover:bg-[#2D2D2D] text-xs font-semibold min-h-[44px] disabled:opacity-50"
+                    >
+                      {tokenResetLoading ? "Updating Password..." : "Complete Password Reset"}
+                    </button>
+                  </form>
+                )}
+              </div>
+            ) : (
+              <>
             {errorMessage && (
               <div
                 role="alert"
@@ -261,6 +410,8 @@ export default function LoginPage() {
                 Register Onboarding Request
               </Link>
             </div>
+              </>
+            )}
           </div>
 
           {/* Institutional Compliance Notice */}
@@ -273,7 +424,7 @@ export default function LoginPage() {
         </div>
       </main>
 
-      {/* Password Reset Modal (Compliance Preview Mode) */}
+      {/* Password Reset Modal */}
       {isResetOpen && (
         <div
           role="dialog"
@@ -285,7 +436,7 @@ export default function LoginPage() {
             <div className="flex items-start justify-between">
               <div>
                 <span className="text-[0.625rem] font-bold uppercase tracking-[0.14em] text-[#9A7B2C] block">
-                  Security Workflow · Preview Mode
+                  Institutional Credential Security
                 </span>
                 <h2 id="reset-modal-title" className="font-heading text-xl font-semibold text-[#1A1A1A] mt-0.5">
                   Password Recovery
@@ -301,14 +452,13 @@ export default function LoginPage() {
               </button>
             </div>
 
-            {/* Preview Banner */}
             <div className="p-3.5 rounded bg-[rgba(154,123,44,0.06)] border border-[rgba(154,123,44,0.2)] text-[0.75rem] text-[#5C5C5C] space-y-1">
               <div className="flex items-center gap-1.5 font-semibold text-[#1A1A1A]">
                 <HelpCircle className="w-3.5 h-3.5 text-[#9A7B2C]" />
-                <span>Notice: Self-Service Reset in Compliance Preview</span>
+                <span>Single-Use Token Recovery</span>
               </div>
               <p className="leading-relaxed">
-                For institutional security and fiduciary asset protection, automated self-service credential reset is currently in compliance preview mode. Production password resets require operational authorization by the Niventra Security Desk.
+                Recovery tokens expire after 30 minutes and automatically revoke all previously active sessions upon completion.
               </p>
             </div>
 
@@ -319,10 +469,10 @@ export default function LoginPage() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="font-heading text-base font-semibold text-[#1A1A1A]">
-                    Recovery Request Recorded
+                    Recovery Request Processed
                   </h3>
                   <p className="text-xs text-[#5C5C5C] leading-relaxed">
-                    A mock recovery ticket has been registered for <span className="font-mono font-semibold text-[#1A1A1A]">{resetEmail}</span>. In production, password reset instructions are dispatched upon administrative verification.
+                    {resetFeedback}
                   </p>
                 </div>
                 <button
@@ -335,6 +485,12 @@ export default function LoginPage() {
               </div>
             ) : (
               <form onSubmit={handleResetSubmit} className="space-y-4 pt-1">
+                {resetError && (
+                  <div role="alert" className="p-3 rounded bg-red-50 border border-red-200 text-xs text-red-800 flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
+                    <span>{resetError}</span>
+                  </div>
+                )}
                 <div>
                   <label className="block text-xs font-semibold text-[#1A1A1A] mb-1.5" htmlFor="reset-email">
                     Registered Corporate Email Address
@@ -363,7 +519,7 @@ export default function LoginPage() {
                     disabled={resetLoading}
                     className="px-4 py-2 rounded bg-[#1A1A1A] text-white hover:bg-[#2D2D2D] text-xs font-semibold min-h-[44px] disabled:opacity-50"
                   >
-                    {resetLoading ? "Submitting Request..." : "Submit Recovery Request (Preview)"}
+                    {resetLoading ? "Submitting Request..." : "Send Recovery Instructions"}
                   </button>
                 </div>
               </form>
@@ -374,8 +530,22 @@ export default function LoginPage() {
 
       {/* Footer Minimal */}
       <footer className="border-t border-[rgba(26,26,26,0.08)] py-4 text-center text-[0.6875rem] text-[#8A8A8A]">
-        © 2026 Niventra Capital Advisory India. Confidential & Proprietary Systems.
+        © 2026 Niventra Capital Advisory India. Confidential &amp; Proprietary Systems.
       </footer>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#FAFAF7] flex items-center justify-center text-xs text-[#5C5C5C]">
+          Loading authentication portal...
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
   );
 }
