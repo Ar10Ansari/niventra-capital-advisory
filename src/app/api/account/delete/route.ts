@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/auth/session";
+import { getCurrentUser, SESSION_COOKIE_NAME } from "@/lib/auth/session";
 import { verifyPassword } from "@/lib/auth/password";
 import { logAuditEvent } from "@/lib/audit";
 import { sendNotification } from "@/lib/notifications";
@@ -22,13 +22,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // If authenticated, verify password for security
-    if (user && password) {
-      const userRow = db.prepare("SELECT password_hash, salt FROM users WHERE id = ?").get(user.id) as {
-        password_hash: string;
-        salt: string;
-      };
-      if (userRow && !verifyPassword(password, userRow.password_hash, userRow.salt)) {
+    if (user) {
+      if (typeof password !== "string" || !password.trim()) {
+        return NextResponse.json(
+          { error: "Current password verification is required for authenticated account deletion." },
+          { status: 400 }
+        );
+      }
+      const userRow = db.prepare("SELECT password_hash, salt FROM users WHERE id = ?").get(user.id) as
+        | { password_hash: string; salt: string }
+        | undefined;
+      if (!userRow || !verifyPassword(password, userRow.password_hash, userRow.salt)) {
         return NextResponse.json({ error: "Incorrect password verification." }, { status: 403 });
       }
     }
@@ -57,9 +61,10 @@ export async function POST(req: Request) {
       retentionNotes
     );
 
-    // If registered user, update status to PENDING_DELETION
+    // If registered user, mark account PENDING_DELETION and revoke active sessions
     if (user) {
       db.prepare("UPDATE users SET status = 'PENDING_DELETION' WHERE id = ?").run(user.id);
+      db.prepare("DELETE FROM sessions WHERE user_id = ?").run(user.id);
     }
 
     // Audit log
@@ -80,7 +85,7 @@ export async function POST(req: Request) {
         title: `Data Erasure Request Received: ${refId}`,
         message: `Your request for personal data erasure has been queued (SLA: 7–14 business days). You will receive final confirmation once verified.`,
         type: "SECURITY",
-        link: "/dashboard/security/",
+        link: "/dashboard/settings/",
         emailNotification: {
           to: requestEmail,
           subject: `Data Erasure Request Confirmation — ${refId}`,
@@ -88,12 +93,18 @@ export async function POST(req: Request) {
       });
     }
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: true,
       requestId: refId,
       slaDays: "7 to 14 Business Days",
       message: "Data erasure request successfully queued under DPDP Act 2023.",
     });
+
+    if (user) {
+      res.cookies.delete(SESSION_COOKIE_NAME);
+    }
+
+    return res;
   } catch (error) {
     console.error("Account deletion request error:", error);
     return NextResponse.json({ error: "Failed to queue erasure request." }, { status: 500 });

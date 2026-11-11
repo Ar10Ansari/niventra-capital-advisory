@@ -19,6 +19,9 @@ export function verifyPassword(password: string, storedHash: string, salt: strin
   try {
     const derivedKey = scryptSync(password, salt, 64);
     const storedBuffer = Buffer.from(storedHash, "hex");
+    if (derivedKey.length !== storedBuffer.length) {
+      return false;
+    }
     return timingSafeEqual(derivedKey, storedBuffer);
   } catch {
     return false;

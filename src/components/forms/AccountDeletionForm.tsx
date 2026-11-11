@@ -1,17 +1,39 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Trash2, AlertCircle, CheckCircle2 } from "lucide-react";
+import { apiClient, ApiClientError } from "@/lib/api/client";
 
 export const AccountDeletionForm: React.FC = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [reason, setReason] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [confirmUnderstood, setConfirmUnderstood] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [resultId, setResultId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let active = true;
+    apiClient.auth
+      .me()
+      .then((res) => {
+        if (!active || !res.authenticated || !res.user) return;
+        setIsAuthenticated(true);
+        setFullName((prev) => prev || res.user?.name || "");
+        setEmail((prev) => prev || res.user?.email || "");
+        setPhone((prev) => prev || res.user?.phone || "");
+      })
+      .catch(() => {
+        // Unauthenticated visitor
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,29 +41,30 @@ export const AccountDeletionForm: React.FC = () => {
       setErrorMessage("Please confirm you understand that data erasure is irreversible.");
       return;
     }
+    if (isAuthenticated && !password.trim()) {
+      setErrorMessage("Current password verification is required for signed-in account deletion.");
+      return;
+    }
 
     setIsLoading(true);
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/account/delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, phone, reason }),
+      const data = await apiClient.account.requestDeletion({
+        fullName,
+        email,
+        phone,
+        reason,
+        ...(isAuthenticated ? { password } : {}),
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMessage(data.error || "Failed to submit data erasure request.");
-        setIsLoading(false);
-        return;
-      }
-
       setResultId(data.requestId || "DEL-CONFIRMED");
       setIsLoading(false);
-    } catch {
-      setErrorMessage("Network error connecting to data protection gateway.");
+    } catch (err) {
+      if (err instanceof ApiClientError) {
+        setErrorMessage(err.message || "Failed to submit data erasure request.");
+      } else {
+        setErrorMessage("Network error connecting to data protection gateway.");
+      }
       setIsLoading(false);
     }
   };
@@ -144,6 +167,23 @@ export const AccountDeletionForm: React.FC = () => {
           className="w-full px-3 py-2 text-xs rounded border border-[rgba(26,26,26,0.15)] focus:outline-none focus:ring-1 focus:ring-[#9A7B2C] resize-none"
         />
       </div>
+
+      {isAuthenticated && (
+        <div>
+          <label className="block text-xs font-semibold text-[#1A1A1A] mb-1.5" htmlFor="del-password">
+            Current Password Verification *
+          </label>
+          <input
+            id="del-password"
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your current account password"
+            className="w-full px-3 py-2 text-xs rounded border border-[rgba(26,26,26,0.15)] focus:outline-none focus:ring-1 focus:ring-[#9A7B2C]"
+          />
+        </div>
+      )}
 
       <div className="pt-2">
         <label className="flex items-start gap-2.5 cursor-pointer">

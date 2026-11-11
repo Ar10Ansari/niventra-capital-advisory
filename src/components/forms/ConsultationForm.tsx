@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { CheckCircle2, AlertCircle, ArrowRight, ShieldCheck, Lock } from "lucide-react";
 import { Button } from "../ui/Button";
+import { apiClient, ApiClientError } from "@/lib/api/client";
 
 interface FormData {
   fullName: string;
@@ -65,33 +66,26 @@ export const ConsultationForm: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("/api/enquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phoneNumber: formData.phoneNumber,
-          category: formData.category,
-          capitalRange: formData.capitalRange,
-          message: formData.message,
-          consent: formData.consent,
-          website_hp: honeypot,
-        }),
+      const data = await apiClient.enquiries.submit({
+        fullName: formData.fullName,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        category: formData.category,
+        capitalRange: formData.capitalRange,
+        message: formData.message,
+        consent: formData.consent,
+        website_hp: honeypot,
       });
-
-      const data = await res.json();
-      if (!res.ok) {
-        setSubmitError(data.error || "Failed to submit enquiry. Please verify details.");
-        setIsSubmitting(false);
-        return;
-      }
 
       setReferenceId(data.referenceId || "ENQ-2026-CONFIRMED");
       setIsSubmitting(false);
       setIsSubmitted(true);
-    } catch {
-      setSubmitError("Network connectivity issue. Please try again.");
+    } catch (err) {
+      if (err instanceof ApiClientError) {
+        setSubmitError(err.message || "Failed to submit enquiry. Please verify details.");
+      } else {
+        setSubmitError("Network connectivity issue. Please try again.");
+      }
       setIsSubmitting(false);
     }
   };

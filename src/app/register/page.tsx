@@ -19,6 +19,7 @@ import {
   Info,
   Briefcase,
 } from "lucide-react";
+import { apiClient, ApiClientError } from "@/lib/api/client";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -97,29 +98,22 @@ export default function RegisterPage() {
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: fullName,
-          email,
-          phone,
-          password,
-        }),
+      await apiClient.auth.register({
+        name: fullName,
+        email,
+        phone,
+        password,
+        investorCategory: investorCategory || undefined,
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMessage(data.error || "Registration could not be completed.");
-        setIsLoading(false);
-        return;
-      }
 
       // Automatically authenticated by session cookie
       router.push("/dashboard/");
-    } catch {
-      setErrorMessage("Network error during registration. Please try again.");
+    } catch (err) {
+      if (err instanceof ApiClientError) {
+        setErrorMessage(err.message || "Registration could not be completed.");
+      } else {
+        setErrorMessage("Network error during registration. Please try again.");
+      }
       setIsLoading(false);
     }
   };

@@ -54,6 +54,7 @@ export function getDb(): DatabaseSync {
 
     try {
       dbInstance.exec("PRAGMA journal_mode = WAL;");
+      dbInstance.exec("PRAGMA busy_timeout = 5000;");
     } catch {
       // WAL journal mode may not be supported on in-memory or some tmpfs, continue gracefully
     }
@@ -80,6 +81,10 @@ function initSchema(db: DatabaseSync) {
       salt TEXT NOT NULL,
       role TEXT NOT NULL CHECK(role IN ('PUBLIC', 'INVESTOR', 'STAFF', 'ADMIN')),
       phone TEXT,
+      investor_category TEXT,
+      notify_consultations INTEGER NOT NULL DEFAULT 1,
+      notify_disclosures INTEGER NOT NULL DEFAULT 1,
+      notify_grievances INTEGER NOT NULL DEFAULT 1,
       status TEXT NOT NULL DEFAULT 'ACTIVE' CHECK(status IN ('ACTIVE', 'SUSPENDED', 'PENDING_DELETION')),
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -303,6 +308,33 @@ function initSchema(db: DatabaseSync) {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
+
+  ensureUserPreferencesColumns(db);
+}
+
+/**
+ * Safely adds optional profile and notification preference columns to existing SQLite databases.
+ */
+function ensureUserPreferencesColumns(db: DatabaseSync) {
+  try {
+    const rows = db.prepare("PRAGMA table_info(users)").all() as Array<{ name: string }>;
+    const columns = rows.map((col) => col.name);
+
+    if (!columns.includes("investor_category")) {
+      db.exec("ALTER TABLE users ADD COLUMN investor_category TEXT;");
+    }
+    if (!columns.includes("notify_consultations")) {
+      db.exec("ALTER TABLE users ADD COLUMN notify_consultations INTEGER NOT NULL DEFAULT 1;");
+    }
+    if (!columns.includes("notify_disclosures")) {
+      db.exec("ALTER TABLE users ADD COLUMN notify_disclosures INTEGER NOT NULL DEFAULT 1;");
+    }
+    if (!columns.includes("notify_grievances")) {
+      db.exec("ALTER TABLE users ADD COLUMN notify_grievances INTEGER NOT NULL DEFAULT 1;");
+    }
+  } catch (err) {
+    console.warn("User preference column migration warning:", err);
+  }
 }
 
 function seedDefaultsIfEmpty(db: DatabaseSync) {

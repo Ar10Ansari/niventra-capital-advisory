@@ -1,8 +1,10 @@
-# Niventra Capital Advisory — Production Readiness & Release Matrix
+# Niventra Capital Advisory — Production Readiness & Release Matrix (Historical Baseline)
+> **Historical Document Notice:** This matrix reflects the **October 2026** initial SQLite-only Next.js release baseline. For the verified current dual-stack status (Next.js + NestJS + PostgreSQL hardening), see [`docs/PROJECT_STATUS.md`](PROJECT_STATUS.md) and [`docs/GITHUB_RELEASE_READINESS_REPORT.md`](GITHUB_RELEASE_READINESS_REPORT.md).
+
 **Document Owner:** Chief Technology Officer  
 **Classification:** Executive Production Release Sign-off Protocol  
 **Repository Path:** `docs/PRODUCTION_READINESS.md`  
-**Last Updated:** October 2026
+**Last Updated:** October 2026 (Annotated November 2026)
 
 ---
 
@@ -45,4 +47,4 @@ When transitioning from local development SQLite to production serverless Postgr
    - `investments` & `investment_transactions` (decimal amounts, date indices)
    - `kyc_records` (masked PII)
    - `audit_logs` (immutable append-only)
-3. **Data Preservation:** Run export script `scripts/export-sqlite-to-pg.mjs` to transfer existing registered accounts and audit logs before switching `DATABASE_URL`.
+3. **Data Preservation:** Run export script [`scripts/migrate-sqlite-to-pg.mjs`](../scripts/migrate-sqlite-to-pg.mjs) to export existing registered accounts, holdings, and audit logs before switching `DATABASE_URL`.

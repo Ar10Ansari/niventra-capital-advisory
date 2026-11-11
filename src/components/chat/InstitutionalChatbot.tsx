@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { X, Send, Bot, ShieldCheck, ExternalLink, ArrowRight } from "lucide-react";
+import { apiClient, ApiClientError } from "@/lib/api/client";
 
 interface ChatMessage {
   id: string;
@@ -61,15 +62,9 @@ export const InstitutionalChatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: textToSend }),
-      });
+      const data = await apiClient.chat.query(textToSend);
 
-      const data = await res.json();
-
-      if (res.ok && data.success) {
+      if (data.success) {
         const botMessage: ChatMessage = {
           id: getNextId("bot"),
           sender: "bot",
@@ -87,11 +82,14 @@ export const InstitutionalChatbot: React.FC = () => {
         };
         setMessages((prev) => [...prev, errorMessage]);
       }
-    } catch {
+    } catch (err) {
       const errorMessage: ChatMessage = {
         id: getNextId("bot_net_err"),
         sender: "bot",
-        text: "Network error communicating with the advisory grounding service. Please try again or reach our team via the contact form.",
+        text:
+          err instanceof ApiClientError
+            ? "Our automated advisory assistant is currently unable to retrieve verified documentation for that inquiry. Please contact our corporate desk directly at 1800 890 0818."
+            : "Network error communicating with the advisory grounding service. Please try again or reach our team via the contact form.",
         timestamp: "Today",
       };
       setMessages((prev) => [...prev, errorMessage]);

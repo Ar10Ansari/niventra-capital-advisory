@@ -3,19 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Filter } from "lucide-react";
-
-interface RawDbProduct {
-  id: string;
-  slug: string;
-  title: string;
-  category: string;
-  indicative_yield: string;
-  tenor: string;
-  min_investment: string;
-  security_type: string;
-  summary: string;
-  status: "DRAFT" | "PUBLISHED" | "ARCHIVED";
-}
+import { apiClient, ProductItem as ApiProductItem } from "@/lib/api/client";
 
 export interface ProductItem {
   id: string;
@@ -27,7 +15,7 @@ export interface ProductItem {
   minInvestment: string;
   securityType: string;
   summary: string;
-  status?: "DRAFT" | "PUBLISHED" | "ARCHIVED";
+  status?: "DRAFT" | "PUBLISHED" | "ARCHIVED" | string;
   isIllustrative?: boolean;
 }
 
@@ -80,29 +68,26 @@ export const ProductCatalogView: React.FC = () => {
   useEffect(() => {
     async function loadProducts() {
       try {
-        const res = await fetch("/api/products");
-        if (res.ok) {
-          const data = await res.json();
-          if (data.products && data.products.length > 0) {
-            // Map published products
-            const mapped: ProductItem[] = data.products.map((p: RawDbProduct) => ({
-              id: p.id,
-              slug: p.slug,
-              title: p.title,
-              category: p.category,
-              indicativeYield: p.indicative_yield,
-              tenor: p.tenor,
-              minInvestment: p.min_investment,
-              securityType: p.security_type,
-              summary: p.summary,
-              status: p.status,
-              isIllustrative: false,
-            }));
-            setProducts(mapped);
-            setHasPublishedProducts(true);
-            setIsLoading(false);
-            return;
-          }
+        const data = await apiClient.products.list();
+        if (data.products && data.products.length > 0) {
+          // Map published products
+          const mapped: ProductItem[] = data.products.map((p: ApiProductItem) => ({
+            id: p.id,
+            slug: p.slug,
+            title: p.title,
+            category: p.category,
+            indicativeYield: p.indicative_yield,
+            tenor: p.tenor,
+            minInvestment: p.min_investment,
+            securityType: p.security_type,
+            summary: p.summary || "",
+            status: p.status,
+            isIllustrative: false,
+          }));
+          setProducts(mapped);
+          setHasPublishedProducts(true);
+          setIsLoading(false);
+          return;
         }
       } catch (err) {
         console.warn("Could not fetch live products, displaying illustrative catalog fixtures:", err);

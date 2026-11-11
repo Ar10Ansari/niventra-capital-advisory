@@ -63,7 +63,7 @@ export async function PATCH(
         title: `Grievance Status Update: ${id}`,
         message: `Your grievance ticket status has transitioned to "${status}".`,
         type: "GRIEVANCE",
-        link: "/dashboard/grievances/",
+        link: "/dashboard/?tab=grievances",
       });
     }
 
